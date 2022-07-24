@@ -43,7 +43,7 @@ module DiasporaFederation
         properties = dsl.class_props
         expect(properties).to have(3).items
         expect(properties.keys).to include(:test, :asdf, :zzzz)
-        properties.each_value {|type| expect(type).to eq(:string) }
+        properties.each_value { |type| expect(type).to eq(:string) }
       end
     end
 

@@ -9,7 +9,7 @@ module DiasporaFederation
     # Factories for federation entities
     module Factories
       Fabricate.sequence(:guid) { UUID.generate(:compact) }
-      Fabricate.sequence(:diaspora_id) {|n| "person-#{n}-#{SecureRandom.hex(3)}@localhost:3000" }
+      Fabricate.sequence(:diaspora_id) { |n| "person-#{n}-#{SecureRandom.hex(3)}@localhost:3000" }
       Fabricate.sequence(:public_key) { OpenSSL::PKey::RSA.generate(1024).public_key.export }
 
       Fabricator(:webfinger, class_name: DiasporaFederation::Discovery::WebFinger) do
@@ -43,7 +43,7 @@ module DiasporaFederation
 
       Fabricator(:account_migration_entity, class_name: DiasporaFederation::Entities::AccountMigration) do
         author { Fabricate.sequence(:diaspora_id) }
-        profile {|attrs| Fabricate(:profile_entity, author: attrs[:author]) }
+        profile { |attrs| Fabricate(:profile_entity, author: attrs[:author]) }
         old_identity { Fabricate.sequence(:diaspora_id) }
         remote_photo_path "https://diaspora.example.tld/uploads/images/"
       end
@@ -53,7 +53,7 @@ module DiasporaFederation
         author { Fabricate.sequence(:diaspora_id) }
         url "http://localhost:3000/"
         exported_key { Fabricate.sequence(:public_key) }
-        profile {|attrs| Fabricate(:profile_entity, author: attrs[:author]) }
+        profile { |attrs| Fabricate(:profile_entity, author: attrs[:author]) }
       end
 
       Fabricator(:profile_entity, class_name: DiasporaFederation::Entities::Profile) do
@@ -169,7 +169,7 @@ module DiasporaFederation
         author { Fabricate.sequence(:diaspora_id) }
         target_guid { Fabricate.sequence(:guid) }
         target_type "Post"
-        target {|attrs| Fabricate(:related_entity, author: attrs[:author]) }
+        target { |attrs| Fabricate(:related_entity, author: attrs[:author]) }
       end
 
       Fabricator(:poll_answer_entity, class_name: DiasporaFederation::Entities::PollAnswer) do

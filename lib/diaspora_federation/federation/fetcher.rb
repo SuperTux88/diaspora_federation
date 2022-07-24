@@ -40,7 +40,7 @@ module DiasporaFederation
 
       # currently fetching entities in the same thread
       private_class_method def self.fetching
-        Thread.current[:fetching_entities] ||= Hash.new {|h, k| h[k] = [] }
+        Thread.current[:fetching_entities] ||= Hash.new { |h, k| h[k] = [] }
       end
 
       # Raised, if the entity is not fetchable

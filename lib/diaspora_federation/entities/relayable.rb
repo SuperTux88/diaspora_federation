@@ -84,9 +84,9 @@ module DiasporaFederation
       end
 
       def to_json(*_args)
-        super.merge!(property_order: signature_order).tap {|json_hash|
+        super.merge!(property_order: signature_order).tap { |json_hash|
           missing_properties = json_hash[:property_order] - json_hash[:entity_data].keys
-          missing_properties.each {|property|
+          missing_properties.each { |property|
             json_hash[:entity_data][property] = nil
           }
         }
@@ -95,7 +95,7 @@ module DiasporaFederation
       # The order for signing
       # @return [Array]
       def signature_order
-        @signature_order || (self.class.class_props.keys.reject {|key|
+        @signature_order || (self.class.class_props.keys.reject { |key|
           self.class.optional_props.include?(key) && public_send(key).nil?
         } - %i[author_signature parent])
       end
@@ -131,23 +131,23 @@ module DiasporaFederation
         data = super
         order = signature_order
         order += %i[author_signature] unless author == parent.root.author
-        order.to_h {|element| [element, data[element].to_s] }
+        order.to_h { |element| [element, data[element].to_s] }
       end
 
       def signature_order=(order)
         prop_names = self.class.class_props.keys.map(&:to_s)
         @signature_order = order.grep_v(/signature/)
-                                .map {|name| prop_names.include?(name) ? name.to_sym : name }
+                                .map { |name| prop_names.include?(name) ? name.to_sym : name }
       end
 
       def additional_data=(additional_data)
-        @additional_data = additional_data.reject {|name, _| name =~ /signature/ }
+        @additional_data = additional_data.reject { |name, _| name =~ /signature/ }
       end
 
       # @return [String] signature data string
       def signature_data
         data = normalized_properties.merge(additional_data)
-        signature_order.map {|name| data[name] }.join(";")
+        signature_order.map { |name| data[name] }.join(";")
       end
 
       # Override class methods from {Entity} to parse serialized data
@@ -164,7 +164,7 @@ module DiasporaFederation
           # Use all known properties to build the Entity (entity_data). All additional elements
           # are respected and attached to a hash as string (additional_data). This is needed
           # to support receiving objects from the future versions of diaspora*, where new elements may have been added.
-          additional_data = properties_hash.reject {|key, _| class_props.has_key?(key) }
+          additional_data = properties_hash.reject { |key, _| class_props.has_key?(key) }
 
           fetch_parent(properties_hash)
           new(properties_hash, property_order, additional_data).tap(&:verify_signature)

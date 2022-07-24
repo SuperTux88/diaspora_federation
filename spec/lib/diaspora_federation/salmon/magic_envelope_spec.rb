@@ -13,7 +13,7 @@ module DiasporaFederation
       enc = env.at_xpath("me:env/me:encoding").content
       alg = env.at_xpath("me:env/me:alg").content
 
-      [data, type, enc, alg].map {|i| Base64.urlsafe_encode64(i) }.join(".")
+      [data, type, enc, alg].map { |i| Base64.urlsafe_encode64(i) }.join(".")
     end
 
     def encrypt_magic_env(magic_env)
@@ -62,7 +62,7 @@ module DiasporaFederation
         control = %w[data encoding alg sig]
         env_xml.children.each do |node|
           expect(control).to include(node.name)
-          control.reject! {|i| i == node.name }
+          control.reject! { |i| i == node.name }
         end
 
         expect(control).to be_empty

@@ -117,7 +117,7 @@ module DiasporaFederation
       it "returns a hash of the internal data" do
         entity = Entities::TestDefaultEntity.new(data)
         expect(entity.to_h).to eq(
-          data.to_h {|key, value|
+          data.to_h { |key, value|
             [key, entity.class.class_props[key] == :string ? value.to_s : value]
           }
         )

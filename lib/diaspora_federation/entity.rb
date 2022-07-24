@@ -77,7 +77,7 @@ module DiasporaFederation
     # Nested entities are also converted to a Hash.
     # @return [Hash] entity data (mostly equal to the hash used for initialization).
     def to_h
-      enriched_properties.to_h {|key, value|
+      enriched_properties.to_h { |key, value|
         type = self.class.class_props[key]
 
         if type.instance_of?(Symbol) || value.nil?
@@ -228,7 +228,7 @@ module DiasporaFederation
 
     def setable_multi?(type, val)
       type.instance_of?(Array) && val.instance_of?(Array) &&
-        (val.all? {|v| v.instance_of?(type.first) } || val.all? {|v| v.instance_of?(Hash) })
+        (val.all? { |v| v.instance_of?(type.first) } || val.all? { |v| v.instance_of?(Hash) })
     end
 
     def nilify(value)
@@ -241,7 +241,7 @@ module DiasporaFederation
       if value.instance_of?(Array)
         return value unless value.first.instance_of?(Hash)
 
-        value.map {|hash| self.class.class_props[name].first.new(hash) }
+        value.map { |hash| self.class.class_props[name].first.new(hash) }
       elsif value.instance_of?(Hash)
         self.class.class_props[name].new(value)
       else
@@ -273,7 +273,7 @@ module DiasporaFederation
     end
 
     def normalized_properties
-      properties.to_h {|name, value| [name, normalize_property(name, value)] }
+      properties.to_h { |name, value| [name, normalize_property(name, value)] }
     end
 
     def normalize_property(name, value)
@@ -300,7 +300,7 @@ module DiasporaFederation
     end
 
     def add_property_to_xml(doc, root_element, name, value)
-      if [String, TrueClass, FalseClass, Integer].any? {|c| value.is_a? c }
+      if [String, TrueClass, FalseClass, Integer].any? { |c| value.is_a? c }
         root_element << simple_node(doc, name, value.to_s)
       else
         # call #to_xml for each item and append to root
@@ -322,7 +322,7 @@ module DiasporaFederation
     # field of a JSON serialized object.
     # @return [Hash] object properties in JSON format
     def json_data # rubocop:disable Metrics/PerceivedComplexity
-      enriched_properties.map {|key, value|
+      enriched_properties.map { |key, value|
         type = self.class.class_props[key]
         next if optional_nil_value?(key, value)
 

@@ -123,7 +123,7 @@ module DiasporaFederation
 
       it "allows to fetch the same entity in two different threads" do
         stub_request(:get, "https://example.org/fetch/post/#{post.guid}")
-          .to_return(status: 200, body: lambda {|_|
+          .to_return(status: 200, body: lambda { |_|
             sleep 0.1
             post_magic_env
           })

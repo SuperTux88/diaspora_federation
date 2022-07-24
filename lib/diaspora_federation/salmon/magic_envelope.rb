@@ -68,7 +68,7 @@ module DiasporaFederation
       def envelop(privkey)
         raise ArgumentError unless privkey.instance_of?(OpenSSL::PKey::RSA)
 
-        build_xml {|xml|
+        build_xml { |xml|
           xml["me"].env("xmlns:me" => XMLNS) {
             xml["me"].data(Base64.urlsafe_encode64(payload_data), type: DATA_TYPE)
             xml["me"].encoding(ENCODING)
@@ -200,7 +200,7 @@ module DiasporaFederation
       # @param [Array<String>] data_arr
       # @return [String] signature subject
       private_class_method def self.sig_subject(data_arr)
-        data_arr.map {|i| Base64.urlsafe_encode64(i) }.join(".")
+        data_arr.map { |i| Base64.urlsafe_encode64(i) }.join(".")
       end
 
       # @param [Nokogiri::XML::Element] magic_env magic envelope XML

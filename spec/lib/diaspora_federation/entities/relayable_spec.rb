@@ -525,7 +525,7 @@ module DiasporaFederation
 
         let(:entity) { Entities::SomeRelayable.new(hash) }
         let(:data) {
-          entity.to_h.tap {|hash|
+          entity.to_h.tap { |hash|
             hash.delete(:parent)
           }
         }

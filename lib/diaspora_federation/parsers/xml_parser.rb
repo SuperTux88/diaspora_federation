@@ -14,7 +14,7 @@ module DiasporaFederation
       def parse(root_node)
         from_xml_sanity_validation(root_node)
 
-        hash = root_node.element_children.uniq(&:name).to_h {|child|
+        hash = root_node.element_children.uniq(&:name).to_h { |child|
           property, type = find_property_for(child.name)
           if property
             value = parse_element_from_node(child.name, type, root_node)
@@ -30,7 +30,7 @@ module DiasporaFederation
       private
 
       def find_property_for(xml_name)
-        class_properties.find {|name, type|
+        class_properties.find { |name, type|
           if type.instance_of?(Symbol)
             name.to_s == xml_name
           elsif type.instance_of?(Array)
@@ -83,7 +83,7 @@ module DiasporaFederation
       # @return [Array<Entity>] array with parsed child entities
       def parse_array_from_node(type, root_node)
         node = root_node.xpath(type.entity_name)
-        node.select {|child| child.children.any? }.map {|child| type.from_xml(child) } unless node.empty?
+        node.select { |child| child.children.any? }.map { |child| type.from_xml(child) } unless node.empty?
       end
 
       def from_xml_sanity_validation(root_node)

@@ -192,7 +192,7 @@ module DiasporaFederation
       end
 
       private_class_method def self.find_link(links, rel)
-        links.find {|l| l[:rel] == rel }
+        links.find { |l| l[:rel] == rel }
       end
 
       private_class_method def self.parse_link(links, rel)

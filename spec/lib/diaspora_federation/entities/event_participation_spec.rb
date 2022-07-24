@@ -10,7 +10,7 @@ module DiasporaFederation
         author: alice.diaspora_id,
         parent_guid: parent.guid,
         parent: parent_entity
-      ).tap {|hash| add_signatures(hash) }
+      ).tap { |hash| add_signatures(hash) }
     }
 
     let(:xml) { <<~XML }

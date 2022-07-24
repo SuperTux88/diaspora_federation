@@ -17,8 +17,8 @@ module DiasporaFederation
       private
 
       def parse_entity_data(entity_data)
-        hash = entity_data.to_h {|key, value|
-          property = entity_type.class_props.keys.find {|name| name.to_s == key }
+        hash = entity_data.to_h { |key, value|
+          property = entity_type.class_props.keys.find { |name| name.to_s == key }
           if property
             type = entity_type.class_props[property]
             [property, parse_element_from_value(type, entity_data[key])]
@@ -40,7 +40,7 @@ module DiasporaFederation
         elsif type.instance_of?(Array)
           raise DeserializationError, "Expected array for #{type}" unless value.respond_to?(:map)
 
-          value.map {|element|
+          value.map { |element|
             type.first.from_json(element)
           }
         elsif type.ancestors.include?(Entity)
@@ -49,7 +49,7 @@ module DiasporaFederation
       end
 
       def from_json_sanity_validation(json_hash)
-        missing = %w[entity_type entity_data].select {|prop| json_hash[prop].nil? }.join(", ")
+        missing = %w[entity_type entity_data].select { |prop| json_hash[prop].nil? }.join(", ")
         raise DeserializationError, "Required properties are missing in JSON object: #{missing}" unless missing.empty?
 
         assert_parsability_of(json_hash["entity_type"])

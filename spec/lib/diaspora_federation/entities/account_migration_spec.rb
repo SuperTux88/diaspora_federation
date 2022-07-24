@@ -8,10 +8,10 @@ module DiasporaFederation
     let(:new_diaspora_id) { new_user.diaspora_id }
 
     let(:data) {
-      hash.dup.tap {|data|
+      hash.dup.tap { |data|
         properties = described_class.new(hash).send(:enriched_properties)
         data[:signature] = properties[:signature]
-        data[:profile] = Entities::Profile.new(hash[:profile].to_h.tap {|profile| profile[:edited_at] = nil })
+        data[:profile] = Entities::Profile.new(hash[:profile].to_h.tap { |profile| profile[:edited_at] = nil })
         data[:remote_photo_path] = "http://localhost:3000/uploads/images/"
       }
     }

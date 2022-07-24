@@ -10,7 +10,7 @@ module DiasporaFederation
         author: bob.diaspora_id,
         parent_guid: parent.guid,
         parent: parent_entity
-      ).tap {|hash| add_signatures(hash, Entities::Message) }
+      ).tap { |hash| add_signatures(hash, Entities::Message) }
     }
     let(:signed_msg2) {
       Fabricate.attributes_for(
@@ -18,7 +18,7 @@ module DiasporaFederation
         author: bob.diaspora_id,
         parent_guid: parent.guid,
         parent: parent_entity
-      ).tap {|hash| add_signatures(hash, Entities::Message) }
+      ).tap { |hash| add_signatures(hash, Entities::Message) }
     }
     let(:data) {
       Fabricate.attributes_for(:conversation_entity).merge!(
@@ -36,7 +36,7 @@ module DiasporaFederation
         <subject>#{data[:subject]}</subject>
         <created_at>#{data[:created_at].utc.iso8601}</created_at>
         <participants>#{data[:participants]}</participants>
-      #{data[:messages].map {|a| indent(a.to_xml.to_s, 2) }.join("\n")}
+      #{data[:messages].map { |a| indent(a.to_xml.to_s, 2) }.join("\n")}
       </conversation>
     XML
 

@@ -16,7 +16,7 @@ module DiasporaFederation
           return if !entity.respond_to?(:public) || entity.public
 
           if entity.is_a?(Entities::Profile) &&
-            %i[bio birthday gender location].all? {|prop| entity.public_send(prop).nil? }
+            %i[bio birthday gender location].all? { |prop| entity.public_send(prop).nil? }
             return
           end
 

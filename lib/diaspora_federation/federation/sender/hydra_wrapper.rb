@@ -109,7 +109,7 @@ module DiasporaFederation
           same_host = url.host == effective_url.host
 
           (response.success? && same_host).tap do |success|
-            pod_url = (success ? effective_url : url).tap {|uri| uri.path = "/" }.to_s
+            pod_url = (success ? effective_url : url).tap { |uri| uri.path = "/" }.to_s
             status = same_host ? status_from_response(response) : :redirected_to_other_hostname
             DiasporaFederation.callbacks.trigger(:update_pod, pod_url, status)
           end

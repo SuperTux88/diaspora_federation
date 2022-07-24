@@ -24,7 +24,7 @@ if defined?(::Rails)
 else
   require "rspec/core/rake_task"
   RSpec::Core::RakeTask.new(:spec)
-  FileList["lib/tasks/**/*.rake"].each {|task| load(task) }
+  FileList["lib/tasks/**/*.rake"].each { |task| load(task) }
 end
 
 Bundler::GemHelper.install_tasks name: "diaspora_federation"
