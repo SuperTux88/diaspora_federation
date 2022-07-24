@@ -6,16 +6,16 @@ module DiasporaFederation
 
     let(:webfinger_data) {
       {
-        acct_uri:      "acct:#{alice.diaspora_id}",
-        alias_url:     alice.alias_url,
-        hcard_url:     alice.hcard_url,
-        seed_url:      alice.url,
-        profile_url:   alice.profile_url,
-        atom_url:      alice.atom_url,
-        salmon_url:    alice.salmon_url,
+        acct_uri: "acct:#{alice.diaspora_id}",
+        alias_url: alice.alias_url,
+        hcard_url: alice.hcard_url,
+        seed_url: alice.url,
+        profile_url: alice.profile_url,
+        atom_url: alice.atom_url,
+        salmon_url: alice.salmon_url,
         subscribe_url: alice.subscribe_url,
-        guid:          alice.guid,
-        public_key:    alice.serialized_public_key
+        guid: alice.guid,
+        public_key: alice.serialized_public_key
       }
     }
     let(:webfinger_jrd) {
@@ -23,17 +23,17 @@ module DiasporaFederation
     }
     let(:hcard_html) {
       DiasporaFederation::Discovery::HCard.new(
-        guid:             alice.guid,
-        nickname:         alice.nickname,
-        full_name:        alice.full_name,
-        url:              alice.url,
-        photo_large_url:  alice.photo_default_url,
+        guid: alice.guid,
+        nickname: alice.nickname,
+        full_name: alice.full_name,
+        url: alice.url,
+        photo_large_url: alice.photo_default_url,
         photo_medium_url: alice.photo_default_url,
-        photo_small_url:  alice.photo_default_url,
-        public_key:       alice.serialized_public_key,
-        searchable:       alice.searchable,
-        first_name:       alice.first_name,
-        last_name:        alice.last_name
+        photo_small_url: alice.photo_default_url,
+        public_key: alice.serialized_public_key,
+        searchable: alice.searchable,
+        first_name: alice.first_name,
+        last_name: alice.last_name
       ).to_html
     }
     let(:account) { alice.diaspora_id }

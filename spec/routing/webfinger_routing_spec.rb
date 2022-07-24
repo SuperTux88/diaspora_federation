@@ -7,7 +7,7 @@ module DiasporaFederation
     it "routes GET webfinger" do
       expect(get: "/.well-known/webfinger").to route_to(
         controller: "diaspora_federation/webfinger",
-        action:     "webfinger"
+        action: "webfinger"
       )
     end
   end

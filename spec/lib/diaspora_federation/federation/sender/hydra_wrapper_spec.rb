@@ -61,20 +61,20 @@ module DiasporaFederation
     describe "#send" do
       let(:response) {
         Typhoeus::Response.new(
-          code:          202,
-          body:          "",
-          time:          0.2,
+          code: 202,
+          body: "",
+          time: 0.2,
           effective_url: url.sub("http://", "https://"),
-          return_code:   :ok
+          return_code: :ok
         )
       }
       let(:error_response) {
         Typhoeus::Response.new(
-          code:          0,
-          body:          "",
-          time:          0.2,
+          code: 0,
+          body: "",
+          time: 0.2,
           effective_url: url2,
-          return_code:   :couldnt_resolve_host
+          return_code: :couldnt_resolve_host
         )
       }
 
@@ -108,11 +108,11 @@ module DiasporaFederation
         allow(DiasporaFederation.callbacks).to receive(:trigger)
 
         not_found = Typhoeus::Response.new(
-          code:          404,
-          body:          "",
-          time:          0.2,
+          code: 404,
+          body: "",
+          time: 0.2,
           effective_url: "http://example.net/",
-          return_code:   :ok
+          return_code: :ok
         )
         Typhoeus.stub("http://example.net/receive/not_found").and_return(not_found)
         hydra_wrapper.insert_magic_env_request("http://example.net/receive/not_found", xml)

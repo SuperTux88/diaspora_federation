@@ -378,7 +378,7 @@ module DiasporaFederation
                                       .to_json.to_json
 
         expect(json).to include_json(
-          entity_data:    {new_property: new_property},
+          entity_data: {new_property: new_property},
           property_order: {4 => "new_property"}
         )
       end
@@ -388,7 +388,7 @@ module DiasporaFederation
         json = Entities::SomeRelayable.new(hash_with_fake_signatures, property_order).to_json.to_json
 
         expect(json).to include_json(
-          entity_data:    {new_property: nil},
+          entity_data: {new_property: nil},
           property_order: {4 => "new_property"}
         )
       end
@@ -433,11 +433,11 @@ module DiasporaFederation
           let(:author_signature) { sign_with_key(author_pkey, new_signature_data) }
           let(:entity_data) {
             {
-              :guid             => guid,
-              :author           => author,
-              :property         => property,
-              :parent_guid      => parent_guid,
-              "new_property"    => new_property,
+              :guid => guid,
+              :author => author,
+              :property => property,
+              :parent_guid => parent_guid,
+              "new_property" => new_property,
               :author_signature => author_signature
             }
           }
@@ -466,12 +466,12 @@ module DiasporaFederation
           it "calls a constructor of the entity of the appropriate type" do
             expect(Entities::SomeRelayable).to receive(:new).with(
               {
-                author:           author,
-                guid:             guid,
-                parent_guid:      parent_guid,
-                property:         property,
+                author: author,
+                guid: guid,
+                parent_guid: parent_guid,
+                property: property,
                 author_signature: author_signature,
-                parent:           remote_parent
+                parent: remote_parent
               }.merge("new_property" => new_property),
               %w[author guid parent_guid new_property property],
               "new_property" => new_property
@@ -484,10 +484,10 @@ module DiasporaFederation
           property_order = %w[author guid parent_guid property]
 
           entity_data = {
-            guid:             guid,
-            author:           author,
-            property:         property,
-            parent_guid:      parent_guid,
+            guid: guid,
+            author: author,
+            property: property,
+            parent_guid: parent_guid,
             author_signature: sign_with_key(author_pkey, signature_data)
           }
 
@@ -502,10 +502,10 @@ module DiasporaFederation
         it "calls signatures verification on relayable unpack" do
           property_order = %w[guid author property parent_guid]
           entity_data = {
-            guid:             guid,
-            author:           author,
-            property:         property,
-            parent_guid:      parent_guid,
+            guid: guid,
+            author: author,
+            property: property,
+            parent_guid: parent_guid,
             author_signature: "aa"
           }
 

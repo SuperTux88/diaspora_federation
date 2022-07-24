@@ -16,26 +16,26 @@ module DiasporaFederation
         def self.hydra_opts
           @hydra_opts ||= {
             followlocation: true,
-            maxredirs:      DiasporaFederation.http_redirect_limit,
-            timeout:        DiasporaFederation.http_timeout,
-            method:         :post,
-            verbose:        DiasporaFederation.http_verbose,
-            cainfo:         DiasporaFederation.certificate_authorities,
-            forbid_reuse:   true
+            maxredirs: DiasporaFederation.http_redirect_limit,
+            timeout: DiasporaFederation.http_timeout,
+            method: :post,
+            verbose: DiasporaFederation.http_verbose,
+            cainfo: DiasporaFederation.certificate_authorities,
+            forbid_reuse: true
           }
         end
 
         def self.xml_headers
           @xml_headers ||= {
             "Content-Type" => "application/magic-envelope+xml",
-            "User-Agent"   => DiasporaFederation.http_user_agent
+            "User-Agent" => DiasporaFederation.http_user_agent
           }
         end
 
         def self.json_headers
           @json_headers ||= {
             "Content-Type" => "application/json",
-            "User-Agent"   => DiasporaFederation.http_user_agent
+            "User-Agent" => DiasporaFederation.http_user_agent
           }
         end
 

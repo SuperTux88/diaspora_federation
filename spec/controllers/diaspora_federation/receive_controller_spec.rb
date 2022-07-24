@@ -32,7 +32,7 @@ module DiasporaFederation
           ).and_return(false)
 
           post :private,
-               body:   +"{\"aes_key\": \"key\", \"encrypted_magic_envelope\": \"env\"}",
+               body: +"{\"aes_key\": \"key\", \"encrypted_magic_envelope\": \"env\"}",
                params: {guid: "any-guid"}
           expect(response.code).to eq("404")
         end
@@ -43,7 +43,7 @@ module DiasporaFederation
           ).and_return(true)
 
           post :private,
-               body:   +"{\"aes_key\": \"key\", \"encrypted_magic_envelope\": \"env\"}",
+               body: +"{\"aes_key\": \"key\", \"encrypted_magic_envelope\": \"env\"}",
                params: {guid: "any-guid"}
           expect(response.code).to eq("202")
         end

@@ -49,28 +49,28 @@ module DiasporaFederation
 
     let(:data) {
       {
-        subject:    "http://blog.example.com/article/id/314",
-        expires:    DateTime.parse("2010-01-30T09:30:00Z"),
-        aliases:    %w[
+        subject: "http://blog.example.com/article/id/314",
+        expires: DateTime.parse("2010-01-30T09:30:00Z"),
+        aliases: %w[
           http://blog.example.com/cool_new_thing
           http://blog.example.com/steve/article/7
         ],
         properties: {
           "http://blgx.example.net/ns/version" => "1.3",
-          "http://blgx.example.net/ns/ext"     => nil
+          "http://blgx.example.net/ns/ext" => nil
         },
-        links:      [
+        links: [
           {
-            rel:  "author",
+            rel: "author",
             type: "text/html",
             href: "http://blog.example.com/author/steve"
           },
           {
-            rel:  "author",
+            rel: "author",
             href: "http://example.com/author/john"
           },
           {
-            rel:      "copyright",
+            rel: "copyright",
             template: "http://example.com/copyright?id={uri}"
           }
         ]

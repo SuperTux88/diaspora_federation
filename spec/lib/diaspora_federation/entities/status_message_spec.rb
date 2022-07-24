@@ -7,12 +7,12 @@ module DiasporaFederation
     let(:location) { Fabricate(:location_entity) }
     let(:data) {
       Fabricate.attributes_for(:status_message_entity).merge(
-        author:                alice.diaspora_id,
-        photos:                [photo1, photo2],
-        location:              location,
-        poll:                  nil,
-        event:                 nil,
-        embed:                 nil,
+        author: alice.diaspora_id,
+        photos: [photo1, photo2],
+        location: location,
+        poll: nil,
+        event: nil,
+        embed: nil,
         provider_display_name: "something"
       )
     }

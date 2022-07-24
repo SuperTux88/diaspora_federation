@@ -6,7 +6,7 @@ module DiasporaFederation
     let(:data) {
       Fabricate.attributes_for(
         :participation_entity,
-        author:      alice.diaspora_id,
+        author: alice.diaspora_id,
         parent_guid: parent.guid,
         parent_type: parent.entity_type
       )

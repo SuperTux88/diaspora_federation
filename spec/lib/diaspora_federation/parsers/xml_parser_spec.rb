@@ -109,8 +109,8 @@ module DiasporaFederation
         let(:child_entity1) { Entities::TestEntity.new(test: "bla") }
         let(:child_entity2) { Entities::OtherEntity.new(asdf: "blabla") }
         let(:nested_entity) {
-          Entities::TestNestedEntity.new(asdf:  "QWERT",
-                                         test:  child_entity1,
+          Entities::TestNestedEntity.new(asdf: "QWERT",
+                                         test: child_entity1,
                                          multi: [child_entity2, child_entity2])
         }
         let(:nested_payload) { nested_entity.to_xml }

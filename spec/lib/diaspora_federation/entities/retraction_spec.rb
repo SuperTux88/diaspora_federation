@@ -9,7 +9,7 @@ module DiasporaFederation
         :retraction_entity,
         target_guid: target.guid,
         target_type: target.entity_type,
-        target:      target_entity
+        target: target_entity
       )
     }
 

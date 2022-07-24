@@ -103,17 +103,17 @@ module DiasporaFederation
 
       # CSS selectors for finding all the hCard fields
       SELECTORS = {
-        uid:          ".uid",
-        nickname:     ".nickname",
-        fn:           ".fn",
-        given_name:   ".given_name",
-        family_name:  ".family_name",
-        url:          "#pod_location[href]",
-        photo:        ".entity_photo .photo[src]",
+        uid: ".uid",
+        nickname: ".nickname",
+        fn: ".fn",
+        given_name: ".given_name",
+        family_name: ".family_name",
+        url: "#pod_location[href]",
+        photo: ".entity_photo .photo[src]",
         photo_medium: ".entity_photo_medium .photo[src]",
-        photo_small:  ".entity_photo_small .photo[src]",
-        key:          ".key",
-        searchable:   ".searchable"
+        photo_small: ".entity_photo_small .photo[src]",
+        key: ".key",
+        searchable: ".searchable"
       }.freeze
 
       # Create the HTML string from the current HCard instance
@@ -150,18 +150,18 @@ module DiasporaFederation
         doc = parse_html_and_validate(html_string)
 
         new(
-          guid:             content_from_doc(doc, :uid),
-          nickname:         content_from_doc(doc, :nickname),
-          full_name:        content_from_doc(doc, :fn),
-          photo_large_url:  photo_from_doc(doc, :photo),
+          guid: content_from_doc(doc, :uid),
+          nickname: content_from_doc(doc, :nickname),
+          full_name: content_from_doc(doc, :fn),
+          photo_large_url: photo_from_doc(doc, :photo),
           photo_medium_url: photo_from_doc(doc, :photo_medium),
-          photo_small_url:  photo_from_doc(doc, :photo_small),
-          searchable:       (content_from_doc(doc, :searchable) == "true"),
-          public_key:       content_from_doc(doc, :key),
+          photo_small_url: photo_from_doc(doc, :photo_small),
+          searchable: (content_from_doc(doc, :searchable) == "true"),
+          public_key: content_from_doc(doc, :key),
 
           # TODO: remove first_name and last_name!
-          first_name:       content_from_doc(doc, :given_name),
-          last_name:        content_from_doc(doc, :family_name)
+          first_name: content_from_doc(doc, :given_name),
+          last_name: content_from_doc(doc, :family_name)
         )
       end
 

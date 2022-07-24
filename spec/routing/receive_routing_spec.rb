@@ -7,15 +7,15 @@ module DiasporaFederation
     it "routes POST public" do
       expect(post: "/receive/public").to route_to(
         controller: "diaspora_federation/receive",
-        action:     "public"
+        action: "public"
       )
     end
 
     it "routes POST private" do
       expect(post: "/receive/users/1234").to route_to(
         controller: "diaspora_federation/receive",
-        action:     "private",
-        guid:       "1234"
+        action: "private",
+        guid: "1234"
       )
     end
   end

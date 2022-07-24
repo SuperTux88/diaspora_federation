@@ -7,9 +7,9 @@ module DiasporaFederation
     let(:data) {
       Fabricate.attributes_for(
         :poll_participation_entity,
-        author:      alice.diaspora_id,
+        author: alice.diaspora_id,
         parent_guid: parent.guid,
-        parent:      parent_entity
+        parent: parent_entity
       ).tap {|hash| add_signatures(hash) }
     }
 

@@ -397,8 +397,8 @@ module DiasporaFederation
         entity2 = Entities::OtherEntity.new(asdf: "01")
         entity3 = Entities::OtherEntity.new(asdf: "02")
         entity_data = {
-          asdf:  "value",
-          test:  entity1,
+          asdf: "value",
+          test: entity1,
           multi: [entity2, entity3]
         }
         entity = Entities::TestNestedEntity.from_hash(entity_data)
@@ -463,15 +463,15 @@ module DiasporaFederation
     context "nested entities" do
       let(:nested_data) {
         {
-          asdf:  "FDSA",
-          test:  Entities::TestEntity.new(test: "test"),
+          asdf: "FDSA",
+          test: Entities::TestEntity.new(test: "test"),
           multi: [Entities::OtherEntity.new(asdf: "asdf"), Entities::OtherEntity.new(asdf: "asdf")]
         }
       }
       let(:nested_hash) {
         {
-          asdf:  nested_data[:asdf],
-          test:  nested_data[:test].to_h,
+          asdf: nested_data[:asdf],
+          test: nested_data[:test].to_h,
           multi: nested_data[:multi].map(&:to_h)
         }
       }

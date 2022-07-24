@@ -7,10 +7,10 @@ module DiasporaFederation
     let(:data) {
       Fabricate.attributes_for(
         :like_entity,
-        author:      alice.diaspora_id,
+        author: alice.diaspora_id,
         parent_guid: parent.guid,
         parent_type: parent.entity_type,
-        parent:      parent_entity
+        parent: parent_entity
       ).tap {|hash| add_signatures(hash) }
     }
 

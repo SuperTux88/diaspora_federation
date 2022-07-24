@@ -80,23 +80,23 @@ module DiasporaFederation
 
       def person
         @person ||= Entities::Person.new(
-          guid:         hcard.guid,
-          diaspora_id:  diaspora_id,
-          url:          webfinger.seed_url,
+          guid: hcard.guid,
+          diaspora_id: diaspora_id,
+          url: webfinger.seed_url,
           exported_key: hcard.public_key,
-          profile:      profile
+          profile: profile
         )
       end
 
       def profile
         Entities::Profile.new(
-          diaspora_id:      diaspora_id,
-          first_name:       hcard.first_name,
-          last_name:        hcard.last_name,
-          image_url:        hcard.photo_large_url,
+          diaspora_id: diaspora_id,
+          first_name: hcard.first_name,
+          last_name: hcard.last_name,
+          image_url: hcard.photo_large_url,
           image_url_medium: hcard.photo_medium_url,
-          image_url_small:  hcard.photo_small_url,
-          searchable:       hcard.searchable
+          image_url_small: hcard.photo_small_url,
+          searchable: hcard.searchable
         )
       end
     end

@@ -80,11 +80,11 @@ module DiasporaFederation
 
       def to_json(*_args)
         {
-          subject:    subject,
-          expires:    (expires.strftime(DATETIME_FORMAT) if expires.instance_of?(DateTime)),
-          aliases:    (aliases if aliases.any?),
+          subject: subject,
+          expires: (expires.strftime(DATETIME_FORMAT) if expires.instance_of?(DateTime)),
+          aliases: (aliases if aliases.any?),
           properties: (properties if properties.any?),
-          links:      (links if links.any?)
+          links: (links if links.any?)
         }.compact
       end
 
@@ -123,11 +123,11 @@ module DiasporaFederation
         json_hash = JSON.parse(jrd_doc)
 
         {
-          subject:    json_hash["subject"],
-          expires:    (DateTime.strptime(json_hash["expires"], DATETIME_FORMAT) if json_hash.key?("expires")),
-          aliases:    json_hash["aliases"],
+          subject: json_hash["subject"],
+          expires: (DateTime.strptime(json_hash["expires"], DATETIME_FORMAT) if json_hash.key?("expires")),
+          aliases: json_hash["aliases"],
           properties: json_hash["properties"],
-          links:      symbolize_keys_for_links(json_hash["links"])
+          links: symbolize_keys_for_links(json_hash["links"])
         }.compact
       rescue JSON::JSONError => e
         raise InvalidDocument,

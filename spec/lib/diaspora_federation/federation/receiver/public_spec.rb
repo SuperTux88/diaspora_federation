@@ -77,7 +77,7 @@ module DiasporaFederation
             Fabricate(
               :retraction_entity,
               target_type: "Comment",
-              target:      Fabricate(:related_entity, parent: Fabricate(:related_entity))
+              target: Fabricate(:related_entity, parent: Fabricate(:related_entity))
             )
           }
 

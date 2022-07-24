@@ -9,16 +9,16 @@ module DiasporaFederation
 
     let(:data) {
       {
-        guid:             person.guid,
-        nickname:         person.nickname,
-        full_name:        person.full_name,
-        photo_large_url:  photo_large_url,
+        guid: person.guid,
+        nickname: person.nickname,
+        full_name: person.full_name,
+        photo_large_url: photo_large_url,
         photo_medium_url: photo_medium_url,
-        photo_small_url:  photo_small_url,
-        public_key:       person.serialized_public_key,
-        searchable:       person.searchable,
-        first_name:       person.first_name,
-        last_name:        person.last_name
+        photo_small_url: photo_small_url,
+        public_key: person.serialized_public_key,
+        searchable: person.searchable,
+        first_name: person.first_name,
+        last_name: person.last_name
       }
     }
 

@@ -7,24 +7,24 @@ module DiasporaFederation
     let(:signed_msg1) {
       Fabricate.attributes_for(
         :message_entity,
-        author:      bob.diaspora_id,
+        author: bob.diaspora_id,
         parent_guid: parent.guid,
-        parent:      parent_entity
+        parent: parent_entity
       ).tap {|hash| add_signatures(hash, Entities::Message) }
     }
     let(:signed_msg2) {
       Fabricate.attributes_for(
         :message_entity,
-        author:      bob.diaspora_id,
+        author: bob.diaspora_id,
         parent_guid: parent.guid,
-        parent:      parent_entity
+        parent: parent_entity
       ).tap {|hash| add_signatures(hash, Entities::Message) }
     }
     let(:data) {
       Fabricate.attributes_for(:conversation_entity).merge!(
-        messages:     [Entities::Message.new(signed_msg1), Entities::Message.new(signed_msg2)],
-        author:       bob.diaspora_id,
-        guid:         parent.guid,
+        messages: [Entities::Message.new(signed_msg1), Entities::Message.new(signed_msg2)],
+        author: bob.diaspora_id,
+        guid: parent.guid,
         participants: "#{bob.diaspora_id};#{Fabricate.sequence(:diaspora_id)}"
       )
     }

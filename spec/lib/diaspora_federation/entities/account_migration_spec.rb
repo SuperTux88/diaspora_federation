@@ -102,8 +102,8 @@ module DiasporaFederation
 
       let(:hash) {
         {
-          author:       old_diaspora_id,
-          profile:      Fabricate(:profile_entity, author: new_diaspora_id),
+          author: old_diaspora_id,
+          profile: Fabricate(:profile_entity, author: new_diaspora_id),
           old_identity: old_diaspora_id
         }
       }
@@ -142,8 +142,8 @@ module DiasporaFederation
 
       let(:hash) {
         {
-          author:       new_diaspora_id,
-          profile:      Fabricate(:profile_entity, author: new_diaspora_id),
+          author: new_diaspora_id,
+          profile: Fabricate(:profile_entity, author: new_diaspora_id),
           old_identity: old_diaspora_id
         }
       }
@@ -182,7 +182,7 @@ module DiasporaFederation
 
       let(:hash) {
         {
-          author:  new_diaspora_id,
+          author: new_diaspora_id,
           profile: Fabricate(:profile_entity, author: new_diaspora_id)
         }
       }
@@ -227,7 +227,7 @@ module DiasporaFederation
     context "optional values" do
       let(:hash) {
         {
-          author:  old_diaspora_id,
+          author: old_diaspora_id,
           profile: Entities::Profile.new(author: new_diaspora_id)
         }
       }

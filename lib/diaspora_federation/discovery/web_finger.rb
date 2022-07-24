@@ -133,13 +133,13 @@ module DiasporaFederation
         links = data[:links]
 
         new(
-          acct_uri:      data[:subject],
+          acct_uri: data[:subject],
 
-          hcard_url:     parse_link(links, REL_HCARD),
-          seed_url:      parse_link(links, REL_SEED),
-          profile_url:   parse_link(links, REL_PROFILE),
-          atom_url:      parse_link(links, REL_ATOM),
-          salmon_url:    parse_link(links, REL_SALMON),
+          hcard_url: parse_link(links, REL_HCARD),
+          seed_url: parse_link(links, REL_SEED),
+          profile_url: parse_link(links, REL_PROFILE),
+          atom_url: parse_link(links, REL_ATOM),
+          salmon_url: parse_link(links, REL_SALMON),
 
           subscribe_url: parse_link_template(links, REL_SUBSCRIBE)
         )

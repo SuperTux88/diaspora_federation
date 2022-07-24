@@ -8,12 +8,12 @@ module DiasporaFederation
 
     let(:data) {
       {
-        acct_uri:      acct,
-        hcard_url:     person.hcard_url,
-        seed_url:      person.url,
-        profile_url:   person.profile_url,
-        atom_url:      person.atom_url,
-        salmon_url:    person.salmon_url,
+        acct_uri: acct,
+        hcard_url: person.hcard_url,
+        seed_url: person.url,
+        profile_url: person.profile_url,
+        atom_url: person.atom_url,
+        salmon_url: person.salmon_url,
         subscribe_url: person.subscribe_url
       }
     }
@@ -83,12 +83,12 @@ module DiasporaFederation
       let(:minimal_data) { {acct_uri: acct, hcard_url: person.hcard_url, seed_url: person.url} }
       let(:additional_data) {
         {
-          aliases:    [person.alias_url, person.profile_url],
+          aliases: [person.alias_url, person.profile_url],
           properties: {"http://webfinger.example/ns/name" => "Bob Smith"},
-          links:      [
+          links: [
             {rel: "http://portablecontacts.net/spec/1.0", href: "https://pod.example.tld/poco/trouble"},
             {
-              rel:  "http://webfinger.net/rel/avatar",
+              rel: "http://webfinger.net/rel/avatar",
               type: "image/jpeg",
               href: "http://localhost:3000/assets/user/default.png"
             },
