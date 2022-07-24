@@ -7,15 +7,13 @@ module DiasporaFederation
       let(:json_parser) { Parsers::JsonParser.new(entity_class) }
 
       it "raises error when the entity class doesn't match the entity_type property" do
-        expect {
-          json_parser.parse(JSON.parse(<<~JSON
-            {
-              "entity_type": "unknown_entity",
-              "entity_data": {}
-            }
-          JSON
-                                      ))
-        }.to raise_error(
+        json = <<~JSON
+          {
+            "entity_type": "unknown_entity",
+            "entity_data": {}
+          }
+        JSON
+        expect { json_parser.parse(JSON.parse(json)) }.to raise_error(
           DiasporaFederation::Parsers::BaseParser::InvalidRootNode,
           "'unknown_entity' can't be parsed by #{entity_class}"
         )

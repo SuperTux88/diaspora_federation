@@ -49,9 +49,10 @@ module DiasporaFederation
       end
 
       private_class_method def self.fetch_target(target_type, target_guid)
-        DiasporaFederation.callbacks.trigger(:fetch_related_entity, target_type, target_guid).tap do |target|
-          raise TargetNotFound, "not found: #{target_type}:#{target_guid}" unless target
-        end
+        target = DiasporaFederation.callbacks.trigger(:fetch_related_entity, target_type, target_guid)
+        raise TargetNotFound, "not found: #{target_type}:#{target_guid}" unless target
+
+        target
       end
 
       # Raised, if the target of the {Retraction} was not found.

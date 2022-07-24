@@ -34,10 +34,7 @@ module Validation
         return false if params.include?(:maximum) && ids.count > params[:maximum]
         return false if params.include?(:minimum) && ids.count < params[:minimum]
 
-        ids.each do |id|
-          return false if DiasporaId::DIASPORA_ID.match(id).nil?
-        end
-        true
+        ids.all? { |id| DiasporaId::DIASPORA_ID =~ id }
       end
     end
   end

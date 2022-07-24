@@ -46,7 +46,10 @@ DiasporaFederation.configure do |config|
       person = Person.find_local_by_diaspora_id(diaspora_id)
       if person
         DiasporaFederation::Discovery::WebFinger.new(
-          # ... copy person attributes to WebFinger object
+          {
+            acct_uri: "acct:diaspora-id@example.com"
+            # ... copy person attributes to WebFinger object
+          }
         )
       end
     end
