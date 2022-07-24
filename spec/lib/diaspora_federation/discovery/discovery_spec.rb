@@ -185,10 +185,10 @@ module DiasporaFederation
         it "raises a DiscoveryError when an unhandled error occurs" do
           allow(discovery).to receive(:validate_diaspora_id).and_raise("OMG! EVERYTHING IS BROKEN!")
 
-          expect {
-            discovery.fetch_and_save
-          }.to raise_error Discovery::DiscoveryError,
-                           "Failed discovery for #{account}: RuntimeError: OMG! EVERYTHING IS BROKEN!"
+          expect { discovery.fetch_and_save }.to raise_error(
+            Discovery::DiscoveryError,
+            "Failed discovery for #{account}: RuntimeError: OMG! EVERYTHING IS BROKEN!"
+          )
         end
       end
     end

@@ -31,10 +31,10 @@ module DiasporaFederation
       it "raises when no target is found" do
         unknown_guid = Fabricate.sequence(:guid)
         retraction = Entities::Retraction.new(data.merge(target_guid: unknown_guid))
-        expect {
-          described_class.from_xml(retraction.to_xml)
-        }.to raise_error DiasporaFederation::Entities::Retraction::TargetNotFound,
-                         "not found: #{data[:target_type]}:#{unknown_guid}"
+        expect { described_class.from_xml(retraction.to_xml) }.to raise_error(
+          DiasporaFederation::Entities::Retraction::TargetNotFound,
+          "not found: #{data[:target_type]}:#{unknown_guid}"
+        )
       end
     end
 

@@ -20,18 +20,20 @@ describe Validation::Rule::DiasporaIdList do
   it "requires a integer as :maximum" do
     validator = Validation::Validator.new({})
     [nil, "", 5.5].each do |val|
-      expect {
-        validator.rule(:ids, diaspora_id_list: { maximum: val })
-      }.to raise_error ArgumentError, "The :maximum needs to be an Integer"
+      expect { validator.rule(:ids, diaspora_id_list: { maximum: val }) }.to raise_error(
+        ArgumentError,
+        "The :maximum needs to be an Integer"
+      )
     end
   end
 
   it "requires a integer as :minimum" do
     validator = Validation::Validator.new({})
     [nil, "", 5.5].each do |val|
-      expect {
-        validator.rule(:ids, diaspora_id_list: { minimum: val })
-      }.to raise_error ArgumentError, "The :minimum needs to be an Integer"
+      expect { validator.rule(:ids, diaspora_id_list: { minimum: val }) }.to raise_error(
+        ArgumentError,
+        "The :minimum needs to be an Integer"
+      )
     end
   end
 

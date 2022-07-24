@@ -15,8 +15,10 @@ module DiasporaFederation
             }
           JSON
                                       ))
-        }.to raise_error DiasporaFederation::Parsers::BaseParser::InvalidRootNode,
-                         "'unknown_entity' can't be parsed by #{entity_class}"
+        }.to raise_error(
+          DiasporaFederation::Parsers::BaseParser::InvalidRootNode,
+          "'unknown_entity' can't be parsed by #{entity_class}"
+        )
       end
 
       include_examples ".parse parse error",

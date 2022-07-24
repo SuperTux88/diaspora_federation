@@ -19,17 +19,18 @@ module DiasporaFederation
           </unknown_entity>
         XML
 
-        expect {
-          xml_parser.parse(Nokogiri::XML(xml).root)
-        }.to raise_error Parsers::BaseParser::InvalidRootNode,
-                         "'unknown_entity' can't be parsed by DiasporaFederation::Entities::TestComplexEntity"
+        expect { xml_parser.parse(Nokogiri::XML(xml).root) }.to raise_error(
+          Parsers::BaseParser::InvalidRootNode,
+          "'unknown_entity' can't be parsed by DiasporaFederation::Entities::TestComplexEntity"
+        )
       end
 
       it "raises an error when the param is not an Nokogiri::XML::Element" do
         ["asdf", 1234, true, :test].each do |val|
-          expect {
-            xml_parser.parse(val)
-          }.to raise_error ArgumentError, "only Nokogiri::XML::Element allowed"
+          expect { xml_parser.parse(val) }.to raise_error(
+            ArgumentError,
+            "only Nokogiri::XML::Element allowed"
+          )
         end
       end
 

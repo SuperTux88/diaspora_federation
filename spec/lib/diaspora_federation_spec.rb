@@ -11,8 +11,10 @@ module DiasporaFederation
       it "should fail if the server_uri is missing" do
         temp = DiasporaFederation.server_uri
         DiasporaFederation.server_uri = nil
-        expect { DiasporaFederation.validate_config }.to raise_error ConfigurationError,
-                                                                     "server_uri: Missing or invalid"
+        expect { DiasporaFederation.validate_config }.to raise_error(
+          ConfigurationError,
+          "server_uri: Missing or invalid"
+        )
         DiasporaFederation.server_uri = temp
       end
 
@@ -30,15 +32,19 @@ module DiasporaFederation
         it "should fail in production if the certificate_authorities is missing" do
           ::Rails.env = "production"
           DiasporaFederation.certificate_authorities = nil
-          expect { DiasporaFederation.validate_config }.to raise_error ConfigurationError,
-                                                                       "certificate_authorities: Not configured"
+          expect { DiasporaFederation.validate_config }.to raise_error(
+            ConfigurationError,
+            "certificate_authorities: Not configured"
+          )
         end
 
         it "should fail in production if the certificate_authorities file is missing" do
           ::Rails.env = "production"
           DiasporaFederation.certificate_authorities = "/unknown"
-          expect { DiasporaFederation.validate_config }
-            .to raise_error ConfigurationError, "certificate_authorities: File not found: /unknown"
+          expect { DiasporaFederation.validate_config }.to raise_error(
+            ConfigurationError,
+            "certificate_authorities: File not found: /unknown"
+          )
         end
 
         after do
@@ -50,22 +56,28 @@ module DiasporaFederation
       context "http configs" do
         it "should fail if the http_concurrency is not a number" do
           DiasporaFederation.http_concurrency = nil
-          expect { DiasporaFederation.validate_config }.to raise_error ConfigurationError,
-                                                                       "http_concurrency: please configure a number"
+          expect { DiasporaFederation.validate_config }.to raise_error(
+            ConfigurationError,
+            "http_concurrency: please configure a number"
+          )
           DiasporaFederation.http_concurrency = 20
         end
 
         it "should fail if the http_timeout is not a number" do
           DiasporaFederation.http_timeout = nil
-          expect { DiasporaFederation.validate_config }.to raise_error ConfigurationError,
-                                                                       "http_timeout: please configure a number"
+          expect { DiasporaFederation.validate_config }.to raise_error(
+            ConfigurationError,
+            "http_timeout: please configure a number"
+          )
           DiasporaFederation.http_timeout = 30
         end
 
         it "should fail if the http_verbose is not a boolean" do
           DiasporaFederation.http_verbose = nil
-          expect { DiasporaFederation.validate_config }.to raise_error ConfigurationError,
-                                                                       "http_verbose: please configure a boolean"
+          expect { DiasporaFederation.validate_config }.to raise_error(
+            ConfigurationError,
+            "http_verbose: please configure a boolean"
+          )
           DiasporaFederation.http_verbose = false
         end
       end

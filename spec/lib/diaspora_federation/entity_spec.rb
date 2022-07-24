@@ -17,23 +17,24 @@ module DiasporaFederation
 
       context "required properties" do
         it "checks for required properties" do
-          expect {
-            Entities::TestDefaultEntity.new({})
-          }.to raise_error Entity::ValidationError, "TestDefaultEntity: Missing required properties: test1, test2"
+          expect { Entities::TestDefaultEntity.new({}) }.to raise_error(
+            Entity::ValidationError,
+            "TestDefaultEntity: Missing required properties: test1, test2"
+          )
         end
 
         it "adds the guid to the error message if available" do
-          expect {
-            Entities::TestDefaultEntity.new(guid: guid)
-          }.to raise_error Entity::ValidationError,
-                           "TestDefaultEntity:#{guid}: Missing required properties: test1, test2"
+          expect { Entities::TestDefaultEntity.new(guid: guid) }.to raise_error(
+            Entity::ValidationError,
+            "TestDefaultEntity:#{guid}: Missing required properties: test1, test2"
+          )
         end
 
         it "adds the author to the error message if available" do
-          expect {
-            Entities::TestDefaultEntity.new(author: alice.diaspora_id)
-          }.to raise_error Entity::ValidationError,
-                           "TestDefaultEntity from #{alice.diaspora_id}: Missing required properties: test1, test2"
+          expect { Entities::TestDefaultEntity.new(author: alice.diaspora_id) }.to raise_error(
+            Entity::ValidationError,
+            "TestDefaultEntity from #{alice.diaspora_id}: Missing required properties: test1, test2"
+          )
         end
       end
 
@@ -65,50 +66,58 @@ module DiasporaFederation
         let(:invalid_data) { { test1: "as;df", test2: nil, test3: "no boolean" } }
 
         it "validates the entity and raise an error with failed properties if not valid" do
-          expect {
-            Entities::TestDefaultEntity.new(invalid_data)
-          }.to raise_error Entity::ValidationError,
-                           /Failed validation for TestDefaultEntity for properties:.*test1.*\|.*test2.*\|.*test3/
+          expect { Entities::TestDefaultEntity.new(invalid_data) }.to raise_error(
+            Entity::ValidationError,
+            /Failed validation for TestDefaultEntity for properties:.*test1.*\|.*test2.*\|.*test3/
+          )
         end
 
         it "contains the failed rule" do
-          expect {
-            Entities::TestDefaultEntity.new(invalid_data)
-          }.to raise_error Entity::ValidationError, /property: test2, value: nil, rule: not_nil, with params: \{\}/
+          expect { Entities::TestDefaultEntity.new(invalid_data) }.to raise_error(
+            Entity::ValidationError,
+            /property: test2, value: nil, rule: not_nil, with params: \{\}/
+          )
         end
 
         it "contains the params of the failed rule" do
-          expect {
-            Entities::TestDefaultEntity.new(invalid_data)
-          }.to raise_error Entity::ValidationError, /rule: regular_expression, with params: \{:regex=>.*\}/
+          expect { Entities::TestDefaultEntity.new(invalid_data) }.to raise_error(
+            Entity::ValidationError,
+            /rule: regular_expression, with params: \{:regex=>.*\}/
+          )
         end
 
         it "adds the guid to the error message if available" do
           expect {
             Entities::TestEntityWithAuthorAndGuid.new(test: "invalid", guid: guid, author: alice.diaspora_id)
-          }.to raise_error Entity::ValidationError,
-                           /Failed validation for TestEntityWithAuthorAndGuid:#{guid} from .* for properties:.*/
+          }.to raise_error(
+            Entity::ValidationError,
+            /Failed validation for TestEntityWithAuthorAndGuid:#{guid} from .* for properties:.*/
+          )
         end
 
         it "handles missing guid" do
           expect {
             Entities::TestEntityWithAuthorAndGuid.new(test: "invalid", guid: nil, author: alice.diaspora_id)
-          }.to raise_error Entity::ValidationError,
-                           /Failed validation for TestEntityWithAuthorAndGuid: from .* for properties:.*/
+          }.to raise_error(
+            Entity::ValidationError,
+            /Failed validation for TestEntityWithAuthorAndGuid: from .* for properties:.*/
+          )
         end
 
         it "adds the author to the error message if available" do
           expect {
             Entities::TestEntityWithAuthorAndGuid.new(test: "invalid", guid: guid, author: alice.diaspora_id)
-          }.to raise_error Entity::ValidationError,
-                           /Failed validation for .* from #{alice.diaspora_id} for properties:.*/
+          }.to raise_error(
+            Entity::ValidationError,
+            /Failed validation for .* from #{alice.diaspora_id} for properties:.*/
+          )
         end
 
         it "handles missing author" do
-          expect {
-            Entities::TestEntityWithAuthorAndGuid.new(test: "invalid", guid: guid, author: nil)
-          }.to raise_error Entity::ValidationError,
-                           /Failed validation for .* from  for properties:.*/
+          expect { Entities::TestEntityWithAuthorAndGuid.new(test: "invalid", guid: guid, author: nil) }.to raise_error(
+            Entity::ValidationError,
+            /Failed validation for .* from  for properties:.*/
+          )
         end
       end
     end
@@ -434,27 +443,31 @@ module DiasporaFederation
       end
 
       it "raises an error when the entity name contains special characters" do
-        expect {
-          Entity.entity_class("te.st-enti/ty")
-        }.to raise_error Entity::InvalidEntityName, "'te.st-enti/ty' is invalid"
+        expect { Entity.entity_class("te.st-enti/ty") }.to raise_error(
+          Entity::InvalidEntityName,
+          "'te.st-enti/ty' is invalid"
+        )
       end
 
       it "raises an error when the entity name contains upper case letters" do
-        expect {
-          Entity.entity_class("TestEntity")
-        }.to raise_error Entity::InvalidEntityName, "'TestEntity' is invalid"
+        expect { Entity.entity_class("TestEntity") }.to raise_error(
+          Entity::InvalidEntityName,
+          "'TestEntity' is invalid"
+        )
       end
 
       it "raises an error when the entity name contains numbers" do
-        expect {
-          Entity.entity_class("te5t_ent1ty_w1th_number5")
-        }.to raise_error Entity::InvalidEntityName, "'te5t_ent1ty_w1th_number5' is invalid"
+        expect { Entity.entity_class("te5t_ent1ty_w1th_number5") }.to raise_error(
+          Entity::InvalidEntityName,
+          "'te5t_ent1ty_w1th_number5' is invalid"
+        )
       end
 
       it "raises an error when the entity is unknown" do
-        expect {
-          Entity.entity_class("unknown_entity")
-        }.to raise_error Entity::UnknownEntity, "'UnknownEntity' not found"
+        expect { Entity.entity_class("unknown_entity") }.to raise_error(
+          Entity::UnknownEntity,
+          "'UnknownEntity' not found"
+        )
       end
     end
 

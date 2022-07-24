@@ -17,9 +17,10 @@ module DiasporaFederation
         sender = Fabricate.sequence(:diaspora_id)
         bad_env = Salmon::MagicEnvelope.new(post, sender)
 
-        expect {
-          described_class.new(bad_env, recipient).receive
-        }.to raise_error Federation::Receiver::InvalidSender, "invalid sender: #{sender}"
+        expect { described_class.new(bad_env, recipient).receive }.to raise_error(
+          Federation::Receiver::InvalidSender,
+          "invalid sender: #{sender}"
+        )
       end
 
       it "validates the recipient" do
@@ -51,9 +52,10 @@ module DiasporaFederation
           sender = Fabricate.sequence(:diaspora_id)
           bad_env = Salmon::MagicEnvelope.new(comment, sender)
 
-          expect {
-            described_class.new(bad_env, recipient).receive
-          }.to raise_error Federation::Receiver::InvalidSender, "invalid sender: #{sender}"
+          expect { described_class.new(bad_env, recipient).receive }.to raise_error(
+            Federation::Receiver::InvalidSender,
+            "invalid sender: #{sender}"
+          )
         end
       end
 

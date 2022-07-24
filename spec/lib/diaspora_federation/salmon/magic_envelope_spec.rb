@@ -122,9 +122,10 @@ module DiasporaFederation
 
         it "raises if missing signature" do
           envelope_root.at_xpath("me:sig").remove
-          expect {
-            Salmon::MagicEnvelope.unenvelop(envelope_root, sender)
-          }.to raise_error Salmon::InvalidEnvelope, "missing me:sig"
+          expect { Salmon::MagicEnvelope.unenvelop(envelope_root, sender) }.to raise_error(
+            Salmon::InvalidEnvelope,
+            "missing me:sig"
+          )
         end
 
         it "verifies the signature" do
@@ -140,51 +141,58 @@ module DiasporaFederation
 
         it "raises if missing data" do
           envelope_root.at_xpath("me:data").remove
-          expect {
-            Salmon::MagicEnvelope.unenvelop(envelope_root, sender)
-          }.to raise_error Salmon::InvalidEnvelope, "missing me:data"
+          expect { Salmon::MagicEnvelope.unenvelop(envelope_root, sender) }.to raise_error(
+            Salmon::InvalidEnvelope,
+            "missing me:data"
+          )
         end
 
         it "raises if missing encoding" do
           envelope_root.at_xpath("me:encoding").remove
-          expect {
-            Salmon::MagicEnvelope.unenvelop(envelope_root, sender)
-          }.to raise_error Salmon::InvalidEncoding, "missing encoding"
+          expect { Salmon::MagicEnvelope.unenvelop(envelope_root, sender) }.to raise_error(
+            Salmon::InvalidEncoding,
+            "missing encoding"
+          )
         end
 
         it "verifies the encoding" do
           envelope_root.at_xpath("me:encoding").content = "invalid_enc"
-          expect {
-            Salmon::MagicEnvelope.unenvelop(envelope_root, sender)
-          }.to raise_error Salmon::InvalidEncoding, "invalid encoding: invalid_enc"
+          expect { Salmon::MagicEnvelope.unenvelop(envelope_root, sender) }.to raise_error(
+            Salmon::InvalidEncoding,
+            "invalid encoding: invalid_enc"
+          )
         end
 
         it "raises if missing algorithm" do
           envelope_root.at_xpath("me:alg").remove
-          expect {
-            Salmon::MagicEnvelope.unenvelop(envelope_root, sender)
-          }.to raise_error Salmon::InvalidAlgorithm, "missing algorithm"
+          expect { Salmon::MagicEnvelope.unenvelop(envelope_root, sender) }.to raise_error(
+            Salmon::InvalidAlgorithm,
+            "missing algorithm"
+          )
         end
 
         it "verifies the algorithm" do
           envelope_root.at_xpath("me:alg").content = "invalid_alg"
-          expect {
-            Salmon::MagicEnvelope.unenvelop(envelope_root, sender)
-          }.to raise_error Salmon::InvalidAlgorithm, "invalid algorithm: invalid_alg"
+          expect { Salmon::MagicEnvelope.unenvelop(envelope_root, sender) }.to raise_error(
+            Salmon::InvalidAlgorithm,
+            "invalid algorithm: invalid_alg"
+          )
         end
 
         it "raises if missing data type" do
           envelope_root.at_xpath("me:data").attributes["type"].remove
-          expect {
-            Salmon::MagicEnvelope.unenvelop(envelope_root, sender)
-          }.to raise_error Salmon::InvalidDataType, "missing data type"
+          expect { Salmon::MagicEnvelope.unenvelop(envelope_root, sender) }.to raise_error(
+            Salmon::InvalidDataType,
+            "missing data type"
+          )
         end
 
         it "verifies the data type" do
           envelope_root.at_xpath("me:data")["type"] = "invalid_type"
-          expect {
-            Salmon::MagicEnvelope.unenvelop(envelope_root, sender)
-          }.to raise_error Salmon::InvalidDataType, "invalid data type: invalid_type"
+          expect { Salmon::MagicEnvelope.unenvelop(envelope_root, sender) }.to raise_error(
+            Salmon::InvalidDataType,
+            "invalid data type: invalid_type"
+          )
         end
       end
 

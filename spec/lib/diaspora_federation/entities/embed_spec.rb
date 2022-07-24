@@ -43,15 +43,17 @@ module DiasporaFederation
       end
 
       it "doesn't allow 'url' to be set if 'nothing' is true" do
-        expect {
-          Entities::Embed.new(data.merge(nothing: true))
-        }.to raise_error Entity::ValidationError, "Either 'url' must be set or 'nothing' must be 'true'"
+        expect { Entities::Embed.new(data.merge(nothing: true)) }.to raise_error(
+          Entity::ValidationError,
+          "Either 'url' must be set or 'nothing' must be 'true'"
+        )
       end
 
       it "doesn't allow 'url' to be missing if 'nothing' is not true" do
-        expect {
-          Entities::Embed.new({})
-        }.to raise_error Entity::ValidationError, "Either 'url' must be set or 'nothing' must be 'true'"
+        expect { Entities::Embed.new({}) }.to raise_error(
+          Entity::ValidationError,
+          "Either 'url' must be set or 'nothing' must be 'true'"
+        )
       end
     end
   end

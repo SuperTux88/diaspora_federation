@@ -53,9 +53,10 @@ module DiasporaFederation
         magic_env = Salmon::MagicEnvelope.new(post, post.author).envelop(sender_key)
         data = Salmon::EncryptedMagicEnvelope.encrypt(magic_env, recipient_key.public_key)
 
-        expect {
-          described_class.receive_private(data, nil, 1234)
-        }.to raise_error ArgumentError, "no recipient key provided"
+        expect { described_class.receive_private(data, nil, 1234) }.to raise_error(
+          ArgumentError,
+          "no recipient key provided"
+        )
       end
 
       it "redirects exceptions from the receiver" do

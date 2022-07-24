@@ -133,9 +133,10 @@ module DiasporaFederation
 
       it "raises when alias and original property are present" do
         dsl.property :test, :string, alias: :test_alias
-        expect {
-          dsl.resolv_aliases(test_alias: "foo", test: "bar")
-        }.to raise_error PropertiesDSL::InvalidData, "only use 'test_alias' OR 'test'"
+        expect { dsl.resolv_aliases(test_alias: "foo", test: "bar") }.to raise_error(
+          PropertiesDSL::InvalidData,
+          "only use 'test_alias' OR 'test'"
+        )
       end
 
       it "returns original data if no alias is defined" do
