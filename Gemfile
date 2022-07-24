@@ -19,6 +19,7 @@ end
 
 group :development do
   # code style
+  gem "prettier",       "3.2.0",   require: false
   gem "pronto",         "0.11.0",  require: false
   gem "pronto-rubocop", "0.11.2",  require: false
   gem "rubocop",        "1.32.0",  require: false

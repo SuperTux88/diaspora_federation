@@ -1,0 +1,7 @@
+# Framework files that should be left untouched for smaller upgrade-diffs
+bin/
+test/dummy/bin/
+test/dummy/config/application.rb
+test/dummy/config/boot.rb
+test/dummy/config/environment.rb
+test/dummy/config/environments/
