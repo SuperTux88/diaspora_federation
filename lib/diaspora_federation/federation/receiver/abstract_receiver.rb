@@ -10,7 +10,7 @@ module DiasporaFederation
         # Creates a new receiver
         # @param [MagicEnvelope] magic_envelope the received magic envelope
         # @param [Object] recipient_id the identifier of the recipient of a private message
-        def initialize(magic_envelope, recipient_id=nil)
+        def initialize(magic_envelope, recipient_id = nil)
           @entity = magic_envelope.payload
           @sender = magic_envelope.sender
           @recipient_id = recipient_id

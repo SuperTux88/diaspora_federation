@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-def entity_stub(entity, data={})
+def entity_stub(entity, data = {})
   entity_class = Fabricate.schematic(entity).options[:class_name]
   allow_any_instance_of(entity_class).to receive(:freeze)
   allow_any_instance_of(entity_class).to receive(:validate)

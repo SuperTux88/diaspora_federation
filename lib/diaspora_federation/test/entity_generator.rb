@@ -12,7 +12,7 @@ module DiasporaFederation
         self._instance = resolved_class.new(_attributes)
       end
 
-      def to_hash(attributes=[], _callbacks=[])
+      def to_hash(attributes = [], _callbacks = [])
         process_attributes(attributes)
         _attributes.transform_keys(&:to_sym)
       end

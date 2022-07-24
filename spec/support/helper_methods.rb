@@ -15,7 +15,7 @@ def expect_callback(*opts)
 end
 
 # signature methods
-def add_signatures(hash, klass=described_class)
+def add_signatures(hash, klass = described_class)
   properties = klass.new(hash).send(:xml_elements)
   hash[:author_signature] = properties[:author_signature]
 end
@@ -29,7 +29,7 @@ def verify_signature(pubkey, signature, signed_string)
 end
 
 # time helper
-def change_time(time, options={})
+def change_time(time, options = {})
   new_hour  = options.fetch(:hour, time.hour)
   new_min   = options.fetch(:min, options[:hour] ? 0 : time.min)
   new_sec   = options.fetch(:sec, options[:hour] || options[:min] ? 0 : time.sec)

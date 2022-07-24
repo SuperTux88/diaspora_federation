@@ -53,7 +53,7 @@ module DiasporaFederation
       # @param [Entity] payload Entity instance
       # @param [String] sender diaspora-ID of the sender
       # @raise [ArgumentError] if either argument is not of the right type
-      def initialize(payload, sender=nil)
+      def initialize(payload, sender = nil)
         raise ArgumentError unless payload.is_a?(Entity)
 
         @payload = payload
@@ -99,7 +99,7 @@ module DiasporaFederation
       # @raise [InvalidDataType] if the data is missing or unsupported
       # @raise [InvalidEncoding] if the data is wrongly encoded or encoding is missing
       # @raise [InvalidAlgorithm] if the algorithm is missing or doesn't match
-      def self.unenvelop(magic_env, sender=nil, cipher_params=nil)
+      def self.unenvelop(magic_env, sender = nil, cipher_params = nil)
         raise ArgumentError unless magic_env.instance_of?(Nokogiri::XML::Element)
 
         validate_envelope(magic_env)

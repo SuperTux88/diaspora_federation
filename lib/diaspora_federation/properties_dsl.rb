@@ -23,7 +23,7 @@ module DiasporaFederation
     # @param [Hash] opts further options
     # @option opts [Object, #call] :default a default value, making the
     #   property optional
-    def property(name, type, opts={})
+    def property(name, type, opts = {})
       raise InvalidType unless property_type_valid?(type)
 
       define_property name, type, opts
@@ -37,7 +37,7 @@ module DiasporaFederation
     # @param [Hash] opts further options
     # @option opts [Object, #call] :default a default value, making the
     #   property optional
-    def entity(name, type, opts={})
+    def entity(name, type, opts = {})
       raise InvalidType unless entity_type_valid?(type)
 
       define_property name, type, opts
@@ -79,7 +79,7 @@ module DiasporaFederation
 
     private
 
-    def define_property(name, type, opts={})
+    def define_property(name, type, opts = {})
       raise InvalidName unless name_valid?(name)
 
       class_props[name] = type

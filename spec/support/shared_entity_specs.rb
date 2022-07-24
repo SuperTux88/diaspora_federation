@@ -56,7 +56,7 @@ shared_examples "an Entity subclass" do
   end
 end
 
-shared_examples "an XML Entity" do |ignored_props=[]|
+shared_examples "an XML Entity" do |ignored_props = []|
   let(:instance) { described_class.new(data) }
 
   describe "#to_xml" do

@@ -58,7 +58,7 @@ module DiasporaFederation
       # @param [Array] signature_order order for the signature
       # @param [Hash] additional_data additional xml elements
       # @see DiasporaFederation::Entity#initialize
-      def initialize(data, signature_order=nil, additional_data={})
+      def initialize(data, signature_order = nil, additional_data = {})
         self.signature_order = signature_order if signature_order
         self.additional_data = additional_data
 

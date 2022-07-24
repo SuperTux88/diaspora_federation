@@ -96,7 +96,7 @@ module DiasporaFederation
       # @option additional_data [Hash] :properties properties
       # @option additional_data [Array<Hash>] :links additional link elements
       # @see DiasporaFederation::Entity#initialize
-      def initialize(data, additional_data={})
+      def initialize(data, additional_data = {})
         @additional_data = additional_data
         super(data)
       end

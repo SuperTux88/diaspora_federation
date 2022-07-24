@@ -13,7 +13,7 @@ module Validation
       # @param [Hash] params
       # @option params [Integer] :minimum minimum allowed id count
       # @option params [Integer] :maximum maximum allowed id count
-      def initialize(params={})
+      def initialize(params = {})
         %i[minimum maximum].each do |param|
           if params.include?(param) && !params[param].is_a?(Integer)
             raise ArgumentError, "The :#{param} needs to be an Integer"
