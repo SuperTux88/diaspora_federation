@@ -23,9 +23,9 @@ module DiasporaFederation
     describe "#validate" do
       it "allows 'following' and 'sharing' to be true" do
         combinations = [
-          {following: true, sharing: true, blocking: false},
-          {following: true, sharing: false, blocking: false},
-          {following: false, sharing: true, blocking: false}
+          { following: true, sharing: true, blocking: false },
+          { following: true, sharing: false, blocking: false },
+          { following: false, sharing: true, blocking: false }
         ]
         combinations.each do |combination|
           expect { Entities::Contact.new(data.merge(combination)) }.not_to raise_error
@@ -40,9 +40,9 @@ module DiasporaFederation
 
       it "doesn't allow 'following'/'sharing' and 'blocking' to be true" do
         combinations = [
-          {following: true, sharing: true, blocking: true},
-          {following: true, sharing: false, blocking: true},
-          {following: false, sharing: true, blocking: true}
+          { following: true, sharing: true, blocking: true },
+          { following: true, sharing: false, blocking: true },
+          { following: false, sharing: true, blocking: true }
         ]
         combinations.each do |combination|
           expect { Entities::Contact.new(data.merge(combination)) }.to raise_error Entity::ValidationError

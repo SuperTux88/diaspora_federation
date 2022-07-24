@@ -18,7 +18,7 @@ module DiasporaFederation
 
       rule :status_message_guid, :guid
 
-      rule :text, length: {maximum: 65_535}
+      rule :text, length: { maximum: 65_535 }
 
       rule :height, :numeric
 

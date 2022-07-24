@@ -11,7 +11,7 @@ module DiasporaFederation
     let(:new_property) { "some text" }
     let(:local_parent) { Fabricate(:related_entity, author: bob.diaspora_id) }
     let(:remote_parent) { Fabricate(:related_entity, author: bob.diaspora_id, local: false) }
-    let(:hash) { {guid: guid, author: author, parent_guid: parent_guid, parent: local_parent, property: property} }
+    let(:hash) { { guid: guid, author: author, parent_guid: parent_guid, parent: local_parent, property: property } }
     let(:hash_with_fake_signatures) { hash.merge!(author_signature: "aa") }
 
     let(:signature_order) { %i[author guid parent_guid property] }
@@ -28,7 +28,7 @@ module DiasporaFederation
 
       it "filters signatures from additional_data" do
         signature_order = [:author, :guid, :parent_guid, :property, "new_property"]
-        additional_data = {"new_property" => "foobar", "parent_author_signature" => "bb"}
+        additional_data = { "new_property" => "foobar", "parent_author_signature" => "bb" }
 
         expect(Entities::SomeRelayable.new(hash, signature_order, additional_data).additional_data)
           .to eq("new_property" => "foobar")
@@ -378,8 +378,8 @@ module DiasporaFederation
                                       .to_json.to_json
 
         expect(json).to include_json(
-          entity_data: {new_property: new_property},
-          property_order: {4 => "new_property"}
+          entity_data: { new_property: new_property },
+          property_order: { 4 => "new_property" }
         )
       end
 
@@ -388,8 +388,8 @@ module DiasporaFederation
         json = Entities::SomeRelayable.new(hash_with_fake_signatures, property_order).to_json.to_json
 
         expect(json).to include_json(
-          entity_data: {new_property: nil},
-          property_order: {4 => "new_property"}
+          entity_data: { new_property: nil },
+          property_order: { 4 => "new_property" }
         )
       end
 
@@ -407,7 +407,7 @@ module DiasporaFederation
 
       it "doesn't change author_signature if it is already set" do
         json = Entities::SomeRelayable.new(hash_with_fake_signatures).to_json.to_json
-        expect(json).to include_json(entity_data: {author_signature: "aa"})
+        expect(json).to include_json(entity_data: { author_signature: "aa" })
       end
 
       it "raises when author_signature not set and key isn't supplied" do

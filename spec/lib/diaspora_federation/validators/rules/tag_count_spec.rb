@@ -12,7 +12,7 @@ describe Validation::Rule::TagCount do
     validator = Validation::Validator.new({})
     [nil, "", 5.5].each do |val|
       expect {
-        validator.rule(:tags, tag_count: {maximum: val})
+        validator.rule(:tags, tag_count: { maximum: val })
       }.to raise_error ArgumentError, "A number has to be specified for :maximum"
     end
   end
@@ -30,7 +30,7 @@ describe Validation::Rule::TagCount do
 
     it "validates less tags" do
       validator = Validation::Validator.new(TagsHolder.new(tag_str))
-      validator.rule(:tags, tag_count: {maximum: 5})
+      validator.rule(:tags, tag_count: { maximum: 5 })
 
       expect(validator).to be_valid
       expect(validator.errors).to be_empty
@@ -38,7 +38,7 @@ describe Validation::Rule::TagCount do
 
     it "validates exactly as many tags" do
       validator = Validation::Validator.new(TagsHolder.new(tag_str))
-      validator.rule(:tags, tag_count: {maximum: 3})
+      validator.rule(:tags, tag_count: { maximum: 3 })
 
       expect(validator).to be_valid
       expect(validator.errors).to be_empty
@@ -46,7 +46,7 @@ describe Validation::Rule::TagCount do
 
     it "fails for too many tags" do
       validator = Validation::Validator.new(TagsHolder.new(tag_str))
-      validator.rule(:tags, tag_count: {maximum: 1})
+      validator.rule(:tags, tag_count: { maximum: 1 })
 
       expect(validator).not_to be_valid
       expect(validator.errors).to include(:tags)
@@ -55,7 +55,7 @@ describe Validation::Rule::TagCount do
     it "allows nil and empty" do
       [nil, ""].each do |val|
         validator = Validation::Validator.new(TagsHolder.new(val))
-        validator.rule(:tags, tag_count: {maximum: 5})
+        validator.rule(:tags, tag_count: { maximum: 5 })
 
         expect(validator).to be_valid
         expect(validator.errors).to be_empty

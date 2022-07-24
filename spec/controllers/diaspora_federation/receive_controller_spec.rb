@@ -33,7 +33,7 @@ module DiasporaFederation
 
           post :private,
                body: +"{\"aes_key\": \"key\", \"encrypted_magic_envelope\": \"env\"}",
-               params: {guid: "any-guid"}
+               params: { guid: "any-guid" }
           expect(response.code).to eq("404")
         end
 
@@ -44,7 +44,7 @@ module DiasporaFederation
 
           post :private,
                body: +"{\"aes_key\": \"key\", \"encrypted_magic_envelope\": \"env\"}",
-               params: {guid: "any-guid"}
+               params: { guid: "any-guid" }
           expect(response.code).to eq("202")
         end
       end

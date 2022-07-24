@@ -2,7 +2,7 @@
 
 module DiasporaFederation
   describe Entity do
-    let(:data) { {test1: "asdf", test2: 1234, test3: false, test4: false} }
+    let(:data) { { test1: "asdf", test2: 1234, test3: false, test4: false } }
     let(:guid) { Fabricate.sequence(:guid) }
 
     it "should extend Entity" do
@@ -62,7 +62,7 @@ module DiasporaFederation
       end
 
       context "when validating" do
-        let(:invalid_data) { {test1: "as;df", test2: nil, test3: "no boolean"} }
+        let(:invalid_data) { { test1: "as;df", test2: nil, test3: "no boolean" } }
 
         it "validates the entity and raise an error with failed properties if not valid" do
           expect {
@@ -214,7 +214,7 @@ module DiasporaFederation
       end
 
       it "forms .from_hash arguments basing on parse return array" do
-        arguments = [{arg1: "value"}]
+        arguments = [{ arg1: "value" }]
         expect_any_instance_of(DiasporaFederation::Parsers::XmlParser).to receive(:parse).and_return(arguments)
         expect(Entities::TestDefaultEntity).to receive(:from_hash).with(*arguments)
         Entities::TestDefaultEntity.from_xml(Nokogiri::XML("<dummy/>").root)
@@ -223,7 +223,7 @@ module DiasporaFederation
       it "passes input parameter directly to .parse method of the parser" do
         root = Nokogiri::XML("<dummy/>").root
         expect_any_instance_of(DiasporaFederation::Parsers::XmlParser)
-          .to receive(:parse).with(root).and_return([{test1: "2", test2: "1"}])
+          .to receive(:parse).with(root).and_return([{ test1: "2", test2: "1" }])
         Entities::TestDefaultEntity.from_xml(root)
       end
     end
@@ -245,8 +245,8 @@ module DiasporaFederation
             test: "000"
           },
           multi: [
-            {asdf: "01"},
-            {asdf: "02"}
+            { asdf: "01" },
+            { asdf: "02" }
           ]
         )
       }
@@ -369,8 +369,8 @@ module DiasporaFederation
             test: "nested"
           },
           multi: [
-            {asdf: "01"},
-            {asdf: "02"}
+            { asdf: "01" },
+            { asdf: "02" }
           ]
         }
 
@@ -387,7 +387,7 @@ module DiasporaFederation
       end
 
       it "calls a constructor of the entity of the appropriate type" do
-        entity_data = {test1: "abc", test2: "123"}
+        entity_data = { test1: "abc", test2: "123" }
         expect(Entities::TestDefaultEntity).to receive(:new).with(test1: "abc", test2: "123")
         Entities::TestDefaultEntity.from_hash(entity_data)
       end

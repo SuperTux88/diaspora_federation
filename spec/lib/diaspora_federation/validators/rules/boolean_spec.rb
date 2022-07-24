@@ -4,7 +4,7 @@ describe Validation::Rule::Boolean do
   it "will not accept parameters" do
     validator = Validation::Validator.new({})
     expect {
-      validator.rule(:boolean, boolean: {param: true})
+      validator.rule(:boolean, boolean: { param: true })
     }.to raise_error ArgumentError
   end
 

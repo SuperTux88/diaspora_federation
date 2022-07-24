@@ -12,7 +12,7 @@ module DiasporaFederation
         expect_callback(:fetch_public_entity, "StatusMessage", guid).and_return(post)
         expect_callback(:fetch_private_key, alice.diaspora_id).and_return(alice.private_key)
 
-        get :fetch, params: {type: "status_message", guid: guid}
+        get :fetch, params: { type: "status_message", guid: guid }
 
         expect_callback(:fetch_public_key, alice.diaspora_id).and_return(alice.public_key)
 
@@ -31,7 +31,7 @@ module DiasporaFederation
         expect_callback(:fetch_public_entity, "Post", guid).and_return(post)
         expect_callback(:fetch_private_key, alice.diaspora_id).and_return(alice.private_key)
 
-        get :fetch, params: {type: "post", guid: guid}
+        get :fetch, params: { type: "post", guid: guid }
 
         expect_callback(:fetch_public_key, alice.diaspora_id).and_return(alice.public_key)
 
@@ -52,7 +52,7 @@ module DiasporaFederation
         expect_callback(:fetch_person_url_to, alice.diaspora_id, "/fetch/post/#{guid}")
           .and_return("http://example.org/fetch/post/#{guid}")
 
-        get :fetch, params: {type: "post", guid: guid}
+        get :fetch, params: { type: "post", guid: guid }
 
         expect(response).to be_redirect
         expect(response).to redirect_to "http://example.org/fetch/post/#{guid}"
@@ -61,7 +61,7 @@ module DiasporaFederation
       it "404s when the post does not exist" do
         expect_callback(:fetch_public_entity, "Post", guid).and_return(nil)
 
-        get :fetch, params: {type: "post", guid: guid}
+        get :fetch, params: { type: "post", guid: guid }
 
         expect(response.status).to eq(404)
       end

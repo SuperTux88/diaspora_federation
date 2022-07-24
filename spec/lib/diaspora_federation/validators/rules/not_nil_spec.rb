@@ -4,7 +4,7 @@ describe Validation::Rule::NotNil do
   it "will not accept parameters" do
     validator = Validation::Validator.new({})
     expect {
-      validator.rule(:not_nil, not_nil: {param: true})
+      validator.rule(:not_nil, not_nil: { param: true })
     }.to raise_error ArgumentError
   end
 

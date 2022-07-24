@@ -54,7 +54,7 @@ module DiasporaFederation
 
       it "follows redirects" do
         stub_request(:get, "https://example.org/fetch/post/#{post.guid}")
-          .to_return(status: 302, headers: {"Location" => "https://example.com/fetch/post/#{post.guid}"})
+          .to_return(status: 302, headers: { "Location" => "https://example.com/fetch/post/#{post.guid}" })
         stub_request(:get, "https://example.com/fetch/post/#{post.guid}")
           .to_return(status: 200, body: post_magic_env)
 

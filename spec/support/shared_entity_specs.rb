@@ -149,7 +149,7 @@ shared_examples "a JSON Entity" do
               entity_data: element
             }
           }
-          expect(to_json_output).to include_json(entity_data: {key => data})
+          expect(to_json_output).to include_json(entity_data: { key => data })
         else
           expect(to_json_output).to include_json(
             entity_data: {

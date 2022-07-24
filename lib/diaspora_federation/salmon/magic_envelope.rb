@@ -129,7 +129,7 @@ module DiasporaFederation
       end
 
       def key_id
-        sender ? {key_id: Base64.urlsafe_encode64(sender)} : {}
+        sender ? { key_id: Base64.urlsafe_encode64(sender) } : {}
       end
 
       # Builds the xml root node of the magic envelope.

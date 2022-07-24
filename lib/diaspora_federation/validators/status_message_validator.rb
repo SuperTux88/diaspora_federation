@@ -10,7 +10,7 @@ module DiasporaFederation
 
       rule :guid, :guid
 
-      rule :text, length: {maximum: 65_535}
+      rule :text, length: { maximum: 65_535 }
 
       rule :photos, :not_nil
 

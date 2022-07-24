@@ -27,8 +27,8 @@ module DiasporaFederation
 
     private_class_method def self.create_default_connection
       options = {
-        request: {timeout: DiasporaFederation.http_timeout},
-        ssl: {ca_file: DiasporaFederation.certificate_authorities}
+        request: { timeout: DiasporaFederation.http_timeout },
+        ssl: { ca_file: DiasporaFederation.certificate_authorities }
       }
 
       @connection = Faraday::Connection.new(options) do |builder|

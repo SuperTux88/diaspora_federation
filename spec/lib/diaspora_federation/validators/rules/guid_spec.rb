@@ -4,7 +4,7 @@ describe Validation::Rule::Guid do
   it "will not accept parameters" do
     validator = Validation::Validator.new({})
     expect {
-      validator.rule(:guid, guid: {param: true})
+      validator.rule(:guid, guid: { param: true })
     }.to raise_error ArgumentError
   end
 

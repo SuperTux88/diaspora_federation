@@ -8,7 +8,7 @@ module DiasporaFederation
 
       include RelayableValidator
 
-      rule :parent_type, [:not_empty, regular_expression: {regex: /\A(Post|Comment)\z/}]
+      rule :parent_type, [:not_empty, regular_expression: { regex: /\A(Post|Comment)\z/ }]
     end
   end
 end

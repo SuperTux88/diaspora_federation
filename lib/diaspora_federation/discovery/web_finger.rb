@@ -175,8 +175,8 @@ module DiasporaFederation
       end
 
       def add_links_to(doc)
-        doc.links << {rel: REL_HCARD, type: "text/html", href: hcard_url}
-        doc.links << {rel: REL_SEED, type: "text/html", href: seed_url}
+        doc.links << { rel: REL_HCARD, type: "text/html", href: hcard_url }
+        doc.links << { rel: REL_SEED, type: "text/html", href: seed_url }
 
         add_optional_links_to(doc)
 
@@ -184,11 +184,11 @@ module DiasporaFederation
       end
 
       def add_optional_links_to(doc)
-        doc.links << {rel: REL_PROFILE, type: "text/html", href: profile_url} if profile_url
-        doc.links << {rel: REL_ATOM, type: "application/atom+xml", href: atom_url} if atom_url
-        doc.links << {rel: REL_SALMON, href: salmon_url} if salmon_url
+        doc.links << { rel: REL_PROFILE, type: "text/html", href: profile_url } if profile_url
+        doc.links << { rel: REL_ATOM, type: "application/atom+xml", href: atom_url } if atom_url
+        doc.links << { rel: REL_SALMON, href: salmon_url } if salmon_url
 
-        doc.links << {rel: REL_SUBSCRIBE, template: subscribe_url} if subscribe_url
+        doc.links << { rel: REL_SUBSCRIBE, template: subscribe_url } if subscribe_url
       end
 
       private_class_method def self.find_link(links, rel)

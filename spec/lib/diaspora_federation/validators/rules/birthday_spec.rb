@@ -4,7 +4,7 @@ describe Validation::Rule::Birthday do
   it "will not accept parameters" do
     validator = Validation::Validator.new({})
     expect {
-      validator.rule(:birthday, birthday: {param: true})
+      validator.rule(:birthday, birthday: { param: true })
     }.to raise_error ArgumentError
   end
 

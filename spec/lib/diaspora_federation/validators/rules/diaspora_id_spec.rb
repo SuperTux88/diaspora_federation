@@ -4,7 +4,7 @@ describe Validation::Rule::DiasporaId do
   it "will not accept parameters" do
     validator = Validation::Validator.new({})
     expect {
-      validator.rule(:diaspora_id, diaspora_id: {param: true})
+      validator.rule(:diaspora_id, diaspora_id: { param: true })
     }.to raise_error ArgumentError
   end
 

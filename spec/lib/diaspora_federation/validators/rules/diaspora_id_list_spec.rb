@@ -13,7 +13,7 @@ describe Validation::Rule::DiasporaIdList do
   it "allows a :maximum parameter" do
     validator = Validation::Validator.new({})
     expect {
-      validator.rule(:ids, diaspora_id_list: {maximum: 20})
+      validator.rule(:ids, diaspora_id_list: { maximum: 20 })
     }.not_to raise_error
   end
 
@@ -21,7 +21,7 @@ describe Validation::Rule::DiasporaIdList do
     validator = Validation::Validator.new({})
     [nil, "", 5.5].each do |val|
       expect {
-        validator.rule(:ids, diaspora_id_list: {maximum: val})
+        validator.rule(:ids, diaspora_id_list: { maximum: val })
       }.to raise_error ArgumentError, "The :maximum needs to be an Integer"
     end
   end
@@ -30,7 +30,7 @@ describe Validation::Rule::DiasporaIdList do
     validator = Validation::Validator.new({})
     [nil, "", 5.5].each do |val|
       expect {
-        validator.rule(:ids, diaspora_id_list: {minimum: val})
+        validator.rule(:ids, diaspora_id_list: { minimum: val })
       }.to raise_error ArgumentError, "The :minimum needs to be an Integer"
     end
   end
@@ -46,7 +46,7 @@ describe Validation::Rule::DiasporaIdList do
 
     it "validates less ids" do
       validator = Validation::Validator.new(DiasporaIdsHolder.new(id_str))
-      validator.rule(:ids, diaspora_id_list: {maximum: 5})
+      validator.rule(:ids, diaspora_id_list: { maximum: 5 })
 
       expect(validator).to be_valid
       expect(validator.errors).to be_empty
@@ -55,7 +55,7 @@ describe Validation::Rule::DiasporaIdList do
     it "fails for less but non ids" do
       bad_str = "user@example.com;i am a weird diaspora* ID @@@ ### 12345;shouldnt be reached by a rule"
       validator = Validation::Validator.new(DiasporaIdsHolder.new(bad_str))
-      validator.rule(:ids, diaspora_id_list: {maximum: 5})
+      validator.rule(:ids, diaspora_id_list: { maximum: 5 })
 
       expect(validator).not_to be_valid
       expect(validator.errors).to include(:ids)
@@ -63,7 +63,7 @@ describe Validation::Rule::DiasporaIdList do
 
     it "validates exactly as many ids" do
       validator = Validation::Validator.new(DiasporaIdsHolder.new(id_str))
-      validator.rule(:ids, diaspora_id_list: {minimum: 3, maximum: 3})
+      validator.rule(:ids, diaspora_id_list: { minimum: 3, maximum: 3 })
 
       expect(validator).to be_valid
       expect(validator.errors).to be_empty
@@ -79,7 +79,7 @@ describe Validation::Rule::DiasporaIdList do
 
     it "fails for too many ids" do
       validator = Validation::Validator.new(DiasporaIdsHolder.new(id_str))
-      validator.rule(:ids, diaspora_id_list: {maximum: 2})
+      validator.rule(:ids, diaspora_id_list: { maximum: 2 })
 
       expect(validator).not_to be_valid
       expect(validator.errors).to include(:ids)
@@ -87,7 +87,7 @@ describe Validation::Rule::DiasporaIdList do
 
     it "fails for too less ids" do
       validator = Validation::Validator.new(DiasporaIdsHolder.new(id_str))
-      validator.rule(:ids, diaspora_id_list: {minimum: 4})
+      validator.rule(:ids, diaspora_id_list: { minimum: 4 })
 
       expect(validator).not_to be_valid
       expect(validator.errors).to include(:ids)

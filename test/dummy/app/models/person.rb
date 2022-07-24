@@ -41,7 +41,7 @@ class Person
     end
 
     def database
-      @database ||= @init_database || {diaspora_id: {}, guid: {}}
+      @database ||= @init_database || { diaspora_id: {}, guid: {} }
     end
 
     def reset_database

@@ -138,7 +138,7 @@ module DiasporaFederation
 
       attr_reader :expires, :subject
 
-      NS = {xrd: XMLNS}.freeze
+      NS = { xrd: XMLNS }.freeze
 
       def add_aliases_to(xml)
         aliases.each do |a|

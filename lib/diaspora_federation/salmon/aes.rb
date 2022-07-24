@@ -11,7 +11,7 @@ module DiasporaFederation
       # @return [Hash] { key: "...", iv: "..." }
       def self.generate_key_and_iv
         cipher = OpenSSL::Cipher.new(CIPHER)
-        {key: cipher.random_key, iv: cipher.random_iv}
+        { key: cipher.random_key, iv: cipher.random_iv }
       end
 
       # Encrypts the given data with an AES cipher defined by the given key

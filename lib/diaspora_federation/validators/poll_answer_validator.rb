@@ -7,7 +7,7 @@ module DiasporaFederation
       include Validation
 
       rule :guid, :guid
-      rule :answer, [:not_empty, length: {maximum: 255}]
+      rule :answer, [:not_empty, length: { maximum: 255 }]
     end
   end
 end

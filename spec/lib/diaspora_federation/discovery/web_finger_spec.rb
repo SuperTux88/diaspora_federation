@@ -80,19 +80,19 @@ module DiasporaFederation
     it_behaves_like "an Entity subclass"
 
     context "when generating" do
-      let(:minimal_data) { {acct_uri: acct, hcard_url: person.hcard_url, seed_url: person.url} }
+      let(:minimal_data) { { acct_uri: acct, hcard_url: person.hcard_url, seed_url: person.url } }
       let(:additional_data) {
         {
           aliases: [person.alias_url, person.profile_url],
-          properties: {"http://webfinger.example/ns/name" => "Bob Smith"},
+          properties: { "http://webfinger.example/ns/name" => "Bob Smith" },
           links: [
-            {rel: "http://portablecontacts.net/spec/1.0", href: "https://pod.example.tld/poco/trouble"},
+            { rel: "http://portablecontacts.net/spec/1.0", href: "https://pod.example.tld/poco/trouble" },
             {
               rel: "http://webfinger.net/rel/avatar",
               type: "image/jpeg",
               href: "http://localhost:3000/assets/user/default.png"
             },
-            {rel: "http://openid.net/specs/connect/1.0/issuer", href: "https://pod.example.tld/"}
+            { rel: "http://openid.net/specs/connect/1.0/issuer", href: "https://pod.example.tld/" }
           ]
         }
       }

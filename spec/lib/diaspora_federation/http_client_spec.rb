@@ -13,7 +13,7 @@ module DiasporaFederation
 
       it "follows redirects" do
         stub_request(:get, "http://www.example.com")
-          .to_return(status: 302, headers: {"Location" => "http://www.example.com/redirected"})
+          .to_return(status: 302, headers: { "Location" => "http://www.example.com/redirected" })
         stub_request(:get, "http://www.example.com/redirected")
           .to_return(body: "foobar", status: 200)
 
@@ -23,7 +23,7 @@ module DiasporaFederation
 
       it "follows redirects 4 times" do
         stub_request(:get, "http://www.example.com")
-          .to_return(status: 302, headers: {"Location" => "http://www.example.com"}).times(4)
+          .to_return(status: 302, headers: { "Location" => "http://www.example.com" }).times(4)
           .to_return(status: 200)
 
         HttpClient.get("http://www.example.com")
@@ -31,7 +31,7 @@ module DiasporaFederation
 
       it "follows redirects not more than 4 times" do
         stub_request(:get, "http://www.example.com")
-          .to_return(status: 302, headers: {"Location" => "http://www.example.com"})
+          .to_return(status: 302, headers: { "Location" => "http://www.example.com" })
 
         expect { HttpClient.get("http://www.example.com") }
           .to raise_error Faraday::FollowRedirects::RedirectLimitReached
@@ -39,7 +39,7 @@ module DiasporaFederation
 
       it "uses the gem name as User-Agent" do
         stub_request(:get, "http://www.example.com")
-          .with(headers: {"User-Agent" => "DiasporaFederation/#{DiasporaFederation::VERSION}"})
+          .with(headers: { "User-Agent" => "DiasporaFederation/#{DiasporaFederation::VERSION}" })
 
         HttpClient.get("http://www.example.com")
       end
