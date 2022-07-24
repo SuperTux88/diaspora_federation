@@ -73,13 +73,13 @@ module DiasporaFederation
         end
 
         context "for a comment" do
-          let(:retraction) {
+          let(:retraction) do
             Fabricate(
               :retraction_entity,
               target_type: "Comment",
               target: Fabricate(:related_entity, parent: Fabricate(:related_entity))
             )
-          }
+          end
 
           it "retracts a comment from the author" do
             magic_env = Salmon::MagicEnvelope.new(retraction, retraction.target.author)

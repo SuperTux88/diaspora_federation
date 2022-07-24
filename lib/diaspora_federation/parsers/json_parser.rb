@@ -17,7 +17,7 @@ module DiasporaFederation
       private
 
       def parse_entity_data(entity_data)
-        hash = entity_data.to_h { |key, value|
+        hash = entity_data.to_h do |key, value|
           property = entity_type.class_props.keys.find { |name| name.to_s == key }
           if property
             type = entity_type.class_props[property]
@@ -25,7 +25,7 @@ module DiasporaFederation
           else
             [key, value]
           end
-        }
+        end
 
         [hash]
       end
@@ -40,9 +40,9 @@ module DiasporaFederation
         elsif type.instance_of?(Array)
           raise DeserializationError, "Expected array for #{type}" unless value.respond_to?(:map)
 
-          value.map { |element|
+          value.map do |element|
             type.first.from_json(element)
-          }
+          end
         elsif type.ancestors.include?(Entity)
           type.from_json(value)
         end

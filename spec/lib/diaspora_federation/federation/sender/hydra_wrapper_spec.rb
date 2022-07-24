@@ -59,7 +59,7 @@ module DiasporaFederation
     end
 
     describe "#send" do
-      let(:response) {
+      let(:response) do
         Typhoeus::Response.new(
           code: 202,
           body: "",
@@ -67,8 +67,8 @@ module DiasporaFederation
           effective_url: url.sub("http://", "https://"),
           return_code: :ok
         )
-      }
-      let(:error_response) {
+      end
+      let(:error_response) do
         Typhoeus::Response.new(
           code: 0,
           body: "",
@@ -76,7 +76,7 @@ module DiasporaFederation
           effective_url: url2,
           return_code: :couldnt_resolve_host
         )
-      }
+      end
 
       before do
         Typhoeus.stub(url).and_return(response)

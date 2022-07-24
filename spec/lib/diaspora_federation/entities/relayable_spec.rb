@@ -431,7 +431,7 @@ module DiasporaFederation
         context "when properties are sorted and there is an unknown property" do
           let(:new_signature_data) { "#{author};#{guid};#{parent_guid};#{new_property};#{property}" }
           let(:author_signature) { sign_with_key(author_pkey, new_signature_data) }
-          let(:entity_data) {
+          let(:entity_data) do
             {
               :guid => guid,
               :author => author,
@@ -440,7 +440,7 @@ module DiasporaFederation
               "new_property" => new_property,
               :author_signature => author_signature
             }
-          }
+          end
           let(:property_order) { %w[author guid parent_guid new_property property] }
 
           it "parses entity properties from the input data" do
@@ -524,11 +524,11 @@ module DiasporaFederation
         end
 
         let(:entity) { Entities::SomeRelayable.new(hash) }
-        let(:data) {
-          entity.to_h.tap { |hash|
+        let(:data) do
+          entity.to_h.tap do |hash|
             hash.delete(:parent)
-          }
-        }
+          end
+        end
 
         it "fetches the parent from the backend" do
           expect_callback(:fetch_related_entity, "Parent", parent_guid).and_return(remote_parent)

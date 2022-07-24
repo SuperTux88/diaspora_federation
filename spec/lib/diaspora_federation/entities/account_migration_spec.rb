@@ -7,14 +7,14 @@ module DiasporaFederation
     let(:old_diaspora_id) { old_user.diaspora_id }
     let(:new_diaspora_id) { new_user.diaspora_id }
 
-    let(:data) {
-      hash.dup.tap { |data|
+    let(:data) do
+      hash.dup.tap do |data|
         properties = described_class.new(hash).send(:enriched_properties)
         data[:signature] = properties[:signature]
         data[:profile] = Entities::Profile.new(hash[:profile].to_h.tap { |profile| profile[:edited_at] = nil })
         data[:remote_photo_path] = "http://localhost:3000/uploads/images/"
-      }
-    }
+      end
+    end
     let(:signature_data) { "AccountMigration:#{old_diaspora_id}:#{new_diaspora_id}" }
     let(:string) { signature_data }
 
@@ -100,13 +100,13 @@ module DiasporaFederation
       let(:signer_id) { new_diaspora_id }
       let(:signer_pkey) { new_user.private_key }
 
-      let(:hash) {
+      let(:hash) do
         {
           author: old_diaspora_id,
           profile: Fabricate(:profile_entity, author: new_diaspora_id),
           old_identity: old_diaspora_id
         }
-      }
+      end
 
       let(:xml) { <<~XML }
         <account_migration>
@@ -140,13 +140,13 @@ module DiasporaFederation
       let(:signer_id) { old_diaspora_id }
       let(:signer_pkey) { old_user.private_key }
 
-      let(:hash) {
+      let(:hash) do
         {
           author: new_diaspora_id,
           profile: Fabricate(:profile_entity, author: new_diaspora_id),
           old_identity: old_diaspora_id
         }
-      }
+      end
 
       let(:xml) { <<~XML }
         <account_migration>
@@ -180,12 +180,12 @@ module DiasporaFederation
       let(:signer_id) { old_diaspora_id }
       let(:signer_pkey) { old_user.private_key }
 
-      let(:hash) {
+      let(:hash) do
         {
           author: new_diaspora_id,
           profile: Fabricate(:profile_entity, author: new_diaspora_id)
         }
-      }
+      end
 
       let(:xml) { <<~XML }
         <account_migration>
@@ -225,12 +225,12 @@ module DiasporaFederation
     end
 
     context "optional values" do
-      let(:hash) {
+      let(:hash) do
         {
           author: old_diaspora_id,
           profile: Entities::Profile.new(author: new_diaspora_id)
         }
-      }
+      end
 
       it "uses default values when parsing" do
         minimal_xml = <<~XML

@@ -3,7 +3,7 @@
 require "json-schema"
 
 def entity_hash_from(hash)
-  hash.transform_values { |value|
+  hash.transform_values do |value|
     if [String, TrueClass, FalseClass, Integer, NilClass].any? { |c| value.is_a? c }
       value
     elsif value.is_a? Time
@@ -13,7 +13,7 @@ def entity_hash_from(hash)
     else
       value.to_h
     end
-  }
+  end
 end
 
 shared_examples "an Entity subclass" do
@@ -140,15 +140,15 @@ shared_examples "a JSON Entity" do
 
       expect(to_json_output).to include_json(entity_data: simple_props.to_h.compact)
 
-      nested_elements.each { |key, value|
+      nested_elements.each do |key, value|
         type = described_class.class_props[key]
         if value.is_a?(Array)
-          data = value.map { |element|
+          data = value.map do |element|
             {
               entity_type: type.first.entity_name,
               entity_data: element
             }
-          }
+          end
           expect(to_json_output).to include_json(entity_data: { key => data })
         else
           expect(to_json_output).to include_json(
@@ -160,7 +160,7 @@ shared_examples "a JSON Entity" do
             }
           )
         end
-      }
+      end
     end
 
     it "produces correct JSON" do

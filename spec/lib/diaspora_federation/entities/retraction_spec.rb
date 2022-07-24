@@ -4,14 +4,14 @@ module DiasporaFederation
   describe Entities::Retraction do
     let(:target) { Fabricate(:post, author: bob) }
     let(:target_entity) { Fabricate(:related_entity, author: bob.diaspora_id) }
-    let(:data) {
+    let(:data) do
       Fabricate.attributes_for(
         :retraction_entity,
         target_guid: target.guid,
         target_type: target.entity_type,
         target: target_entity
       )
-    }
+    end
 
     let(:xml) { <<~XML }
       <retraction>
@@ -56,13 +56,13 @@ module DiasporaFederation
 
       %w[Comment Like PollParticipation].each do |target_type|
         context "#{target_type} target" do
-          let(:relayable_target) {
+          let(:relayable_target) do
             Fabricate(
               :related_entity,
               author: bob.diaspora_id,
               parent: Fabricate(:related_entity, author: alice.diaspora_id)
             )
-          }
+          end
           let(:relayable_data) { data.merge(target_type: target_type, target: relayable_target) }
           let(:entity) { Entities::Retraction.new(relayable_data) }
 
@@ -83,13 +83,13 @@ module DiasporaFederation
       end
 
       context "Like of a Comment" do
-        let(:comment) {
+        let(:comment) do
           Fabricate(
             :related_entity,
             author: Fabricate.sequence(:diaspora_id),
             parent: Fabricate(:related_entity, author: alice.diaspora_id)
           )
-        }
+        end
         let(:relayable_target) { Fabricate(:related_entity, author: bob.diaspora_id, parent: comment) }
         let(:relayable_data) { data.merge(target_type: "Like", target: relayable_target) }
         let(:entity) { Entities::Retraction.new(relayable_data) }

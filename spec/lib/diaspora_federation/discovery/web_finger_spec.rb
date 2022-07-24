@@ -6,7 +6,7 @@ module DiasporaFederation
     let(:acct) { "acct:#{person.diaspora_id}" }
     let(:public_key_base64) { Base64.strict_encode64(person.serialized_public_key) }
 
-    let(:data) {
+    let(:data) do
       {
         acct_uri: acct,
         hcard_url: person.hcard_url,
@@ -16,7 +16,7 @@ module DiasporaFederation
         salmon_url: person.salmon_url,
         subscribe_url: person.subscribe_url
       }
-    }
+    end
 
     let(:json) { <<~JSON }
       {
@@ -81,7 +81,7 @@ module DiasporaFederation
 
     context "when generating" do
       let(:minimal_data) { { acct_uri: acct, hcard_url: person.hcard_url, seed_url: person.url } }
-      let(:additional_data) {
+      let(:additional_data) do
         {
           aliases: [person.alias_url, person.profile_url],
           properties: { "http://webfinger.example/ns/name" => "Bob Smith" },
@@ -95,7 +95,7 @@ module DiasporaFederation
             { rel: "http://openid.net/specs/connect/1.0/issuer", href: "https://pod.example.tld/" }
           ]
         }
-      }
+      end
 
       it "creates a nice JSON document" do
         wf = Discovery::WebFinger.new(data, aliases: [person.alias_url])

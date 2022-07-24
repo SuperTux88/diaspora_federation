@@ -77,7 +77,7 @@ module DiasporaFederation
     # Nested entities are also converted to a Hash.
     # @return [Hash] entity data (mostly equal to the hash used for initialization).
     def to_h
-      enriched_properties.to_h { |key, value|
+      enriched_properties.to_h do |key, value|
         type = self.class.class_props[key]
 
         if type.instance_of?(Symbol) || value.nil?
@@ -87,7 +87,7 @@ module DiasporaFederation
         elsif type.instance_of?(Array)
           [key, value.map(&:to_h)]
         end
-      }
+      end
     end
 
     # Returns the XML representation for this entity constructed out of
@@ -322,7 +322,7 @@ module DiasporaFederation
     # field of a JSON serialized object.
     # @return [Hash] object properties in JSON format
     def json_data # rubocop:disable Metrics/PerceivedComplexity
-      enriched_properties.map { |key, value|
+      data = enriched_properties.map do |key, value|
         type = self.class.class_props[key]
         next if optional_nil_value?(key, value)
 
@@ -335,7 +335,8 @@ module DiasporaFederation
         else
           [key, value]
         end
-      }.compact.to_h
+      end
+      data.compact.to_h
     end
 
     def optional_nil_value?(name, value)

@@ -3,14 +3,14 @@
 module DiasporaFederation
   describe Entities::Participation do
     let(:parent) { Fabricate(:post, author: bob) }
-    let(:data) {
+    let(:data) do
       Fabricate.attributes_for(
         :participation_entity,
         author: alice.diaspora_id,
         parent_guid: parent.guid,
         parent_type: parent.entity_type
       )
-    }
+    end
 
     let(:xml) { <<~XML }
       <participation>
@@ -43,10 +43,10 @@ module DiasporaFederation
 
     context "parse xml" do
       describe "#validate_parent" do
-        let(:participation) {
+        let(:participation) do
           allow(DiasporaFederation.callbacks).to receive(:trigger).and_call_original
           Entities::Participation.new(data)
-        }
+        end
 
         it "succeeds when the parent is local" do
           local_parent = Fabricate(:related_entity, local: true)

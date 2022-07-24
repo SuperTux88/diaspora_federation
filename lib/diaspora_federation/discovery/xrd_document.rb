@@ -65,8 +65,8 @@ module DiasporaFederation
       # Generates an XML document from the current instance and returns it as string
       # @return [String] XML document
       def to_xml
-        Nokogiri::XML::Builder.new(encoding: "UTF-8") { |xml|
-          xml.XRD("xmlns" => XMLNS) {
+        builder = Nokogiri::XML::Builder.new(encoding: "UTF-8") do |xml|
+          xml.XRD("xmlns" => XMLNS) do
             xml.Expires(expires.strftime(DATETIME_FORMAT)) if expires.instance_of?(DateTime)
 
             xml.Subject(subject) if !subject.nil? && !subject.empty?
@@ -74,8 +74,9 @@ module DiasporaFederation
             add_aliases_to(xml)
             add_properties_to(xml)
             add_links_to(xml)
-          }
-        }.to_xml
+          end
+        end
+        builder.to_xml
       end
 
       def to_json(*_args)

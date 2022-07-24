@@ -108,11 +108,11 @@ module DiasporaFederation
       context "nested entities" do
         let(:child_entity1) { Entities::TestEntity.new(test: "bla") }
         let(:child_entity2) { Entities::OtherEntity.new(asdf: "blabla") }
-        let(:nested_entity) {
+        let(:nested_entity) do
           Entities::TestNestedEntity.new(asdf: "QWERT",
                                          test: child_entity1,
                                          multi: [child_entity2, child_entity2])
-        }
+        end
         let(:nested_payload) { nested_entity.to_xml }
 
         it "parses the xml with all the nested data" do

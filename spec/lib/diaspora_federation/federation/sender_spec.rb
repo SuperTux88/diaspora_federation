@@ -34,12 +34,12 @@ module DiasporaFederation
     end
 
     describe ".private" do
-      let(:targets) {
+      let(:targets) do
         {
           "https://example.org/receive/user/guid" => "{\"aes_key\": \"key1\", \"encrypted_magic_envelope\": \"...\"}",
           "https://example.com/receive/user/guid" => "{\"aes_key\": \"key2\", \"encrypted_magic_envelope\": \"...\"}"
         }
-      }
+      end
 
       before do
         targets.each do |url, json|

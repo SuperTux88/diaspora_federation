@@ -4,7 +4,7 @@ module DiasporaFederation
   describe Entities::Like do
     let(:parent) { Fabricate(:post, author: bob) }
     let(:parent_entity) { Fabricate(:related_entity, author: bob.diaspora_id) }
-    let(:data) {
+    let(:data) do
       Fabricate.attributes_for(
         :like_entity,
         author: alice.diaspora_id,
@@ -12,7 +12,7 @@ module DiasporaFederation
         parent_type: parent.entity_type,
         parent: parent_entity
       ).tap { |hash| add_signatures(hash) }
-    }
+    end
 
     let(:xml) { <<~XML }
       <like>

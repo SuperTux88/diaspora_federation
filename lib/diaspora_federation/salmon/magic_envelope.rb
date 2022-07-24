@@ -68,14 +68,14 @@ module DiasporaFederation
       def envelop(privkey)
         raise ArgumentError unless privkey.instance_of?(OpenSSL::PKey::RSA)
 
-        build_xml { |xml|
-          xml["me"].env("xmlns:me" => XMLNS) {
+        build_xml do |xml|
+          xml["me"].env("xmlns:me" => XMLNS) do
             xml["me"].data(Base64.urlsafe_encode64(payload_data), type: DATA_TYPE)
             xml["me"].encoding(ENCODING)
             xml["me"].alg(ALGORITHM)
             xml["me"].sig(Base64.urlsafe_encode64(sign(privkey)), key_id)
-          }
-        }
+          end
+        end
       end
 
       # Extracts the entity encoded in the magic envelope data, if the signature

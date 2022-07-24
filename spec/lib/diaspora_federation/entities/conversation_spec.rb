@@ -4,30 +4,30 @@ module DiasporaFederation
   describe Entities::Conversation do
     let(:parent) { Fabricate(:conversation, author: bob) }
     let(:parent_entity) { Fabricate(:related_entity, author: bob.diaspora_id) }
-    let(:signed_msg1) {
+    let(:signed_msg1) do
       Fabricate.attributes_for(
         :message_entity,
         author: bob.diaspora_id,
         parent_guid: parent.guid,
         parent: parent_entity
       ).tap { |hash| add_signatures(hash, Entities::Message) }
-    }
-    let(:signed_msg2) {
+    end
+    let(:signed_msg2) do
       Fabricate.attributes_for(
         :message_entity,
         author: bob.diaspora_id,
         parent_guid: parent.guid,
         parent: parent_entity
       ).tap { |hash| add_signatures(hash, Entities::Message) }
-    }
-    let(:data) {
+    end
+    let(:data) do
       Fabricate.attributes_for(:conversation_entity).merge!(
         messages: [Entities::Message.new(signed_msg1), Entities::Message.new(signed_msg2)],
         author: bob.diaspora_id,
         guid: parent.guid,
         participants: "#{bob.diaspora_id};#{Fabricate.sequence(:diaspora_id)}"
       )
-    }
+    end
 
     let(:xml) { <<~XML }
       <conversation>

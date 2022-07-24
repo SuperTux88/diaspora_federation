@@ -84,20 +84,25 @@ module DiasporaFederation
       end
 
       def to_json(*_args)
-        super.merge!(property_order: signature_order).tap { |json_hash|
+        super.merge!(property_order: signature_order).tap do |json_hash|
           missing_properties = json_hash[:property_order] - json_hash[:entity_data].keys
-          missing_properties.each { |property|
+          missing_properties.each do |property|
             json_hash[:entity_data][property] = nil
-          }
-        }
+          end
+        end
       end
 
       # The order for signing
       # @return [Array]
       def signature_order
-        @signature_order || (self.class.class_props.keys.reject { |key|
-          self.class.optional_props.include?(key) && public_send(key).nil?
-        } - %i[author_signature parent])
+        @signature_order ||
+          (
+            keys_without_empty_optionals =
+              self.class.class_props.keys.reject do |key|
+                self.class.optional_props.include?(key) && public_send(key).nil?
+              end
+            keys_without_empty_optionals - %i[author_signature parent]
+          )
       end
 
       private
@@ -173,14 +178,14 @@ module DiasporaFederation
         private
 
         def fetch_parent(data)
-          type = data.fetch(:parent_type) {
+          type = data.fetch(:parent_type) do
             break self::PARENT_TYPE if const_defined?(:PARENT_TYPE)
 
             raise DiasporaFederation::Entity::ValidationError, error_message_missing_property(data, "parent_type")
-          }
-          guid = data.fetch(:parent_guid) {
+          end
+          guid = data.fetch(:parent_guid) do
             raise DiasporaFederation::Entity::ValidationError, error_message_missing_property(data, "parent_guid")
-          }
+          end
 
           data[:parent] = RelatedEntity.fetch(data[:author], type, guid)
         end

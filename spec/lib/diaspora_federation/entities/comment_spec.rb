@@ -4,7 +4,7 @@ module DiasporaFederation
   describe Entities::Comment do
     let(:parent) { Fabricate(:post, author: bob) }
     let(:parent_entity) { Fabricate(:related_entity, author: bob.diaspora_id) }
-    let(:data) {
+    let(:data) do
       Fabricate
         .attributes_for(
           :comment_entity,
@@ -12,7 +12,7 @@ module DiasporaFederation
           parent_guid: parent.guid,
           parent: parent_entity
         ).tap { |hash| add_signatures(hash) }
-    }
+    end
 
     let(:xml) { <<~XML }
       <comment>

@@ -91,10 +91,9 @@ Style/SignalException:
 Lint/SuppressedException:
   Enabled: false
 
-# { ... } for multi-line blocks is okay, follow Weirichs rule instead:
-# https://web.archive.org/web/20140221124509/http://onestepback.org/index.cgi/Tech/Ruby/BraceVsDoEnd.rdoc
+# allow { ... } for rspec `expect` blocks
 Style/BlockDelimiters:
-  Enabled: false
+  EnforcedStyle: braces_for_chaining
 
 # do / end blocks should be used for side effects,
 # methods that run a block for side effects and have

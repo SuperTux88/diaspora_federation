@@ -34,12 +34,12 @@ module DiasporaFederation
       it_behaves_like "a property with a value validation/restriction" do
         let(:property) { :participants }
         let(:wrong_values) { ["", "foo;bar", Fabricate.sequence(:diaspora_id)] }
-        let(:correct_values) {
+        let(:correct_values) do
           [
             Array.new(2) { Fabricate.sequence(:diaspora_id) }.join(";"),
             Array.new(21) { Fabricate.sequence(:diaspora_id) }.join(";")
           ]
-        }
+        end
       end
     end
   end

@@ -5,7 +5,7 @@ module DiasporaFederation
     let(:photo1) { Fabricate(:photo_entity, author: alice.diaspora_id) }
     let(:photo2) { Fabricate(:photo_entity, author: alice.diaspora_id) }
     let(:location) { Fabricate(:location_entity) }
-    let(:data) {
+    let(:data) do
       Fabricate.attributes_for(:status_message_entity).merge(
         author: alice.diaspora_id,
         photos: [photo1, photo2],
@@ -15,7 +15,7 @@ module DiasporaFederation
         embed: nil,
         provider_display_name: "something"
       )
-    }
+    end
 
     let(:xml) { <<~XML }
       <status_message>

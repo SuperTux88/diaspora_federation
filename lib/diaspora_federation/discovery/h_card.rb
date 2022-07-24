@@ -171,21 +171,21 @@ module DiasporaFederation
       # @return [Nokogiri::HTML::Builder] HTML Builder instance
       def create_builder
         Nokogiri::HTML::Builder.new do |html|
-          html.html {
-            html.head {
+          html.html do
+            html.head do
               html.meta(charset: "UTF-8")
               html.title(@full_name)
-            }
+            end
 
-            html.body {
-              html.div(id: "content") {
+            html.body do
+              html.div(id: "content") do
                 html.h1(@full_name)
-                html.div(id: "content_inner", class: "entity_profile vcard author") {
+                html.div(id: "content_inner", class: "entity_profile vcard author") do
                   html.h2("User profile")
-                }
-              }
-            }
-          }
+                end
+              end
+            end
+          end
         end
       end
 
@@ -199,12 +199,12 @@ module DiasporaFederation
       # @yield [Nokogiri::HTML::Builder] html builder
       def add_property(container, name)
         Nokogiri::HTML::Builder.with(container) do |html|
-          html.dl(class: "entity_#{name}") {
+          html.dl(class: "entity_#{name}") do
             html.dt(name.to_s.capitalize)
-            html.dd {
+            html.dd do
               yield html
-            }
-          }
+            end
+          end
         end
       end
 

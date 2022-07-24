@@ -4,7 +4,7 @@ module DiasporaFederation
   describe Discovery::Discovery do
     subject(:discovery) { Discovery::Discovery.new(account) }
 
-    let(:webfinger_data) {
+    let(:webfinger_data) do
       {
         acct_uri: "acct:#{alice.diaspora_id}",
         alias_url: alice.alias_url,
@@ -17,11 +17,11 @@ module DiasporaFederation
         guid: alice.guid,
         public_key: alice.serialized_public_key
       }
-    }
-    let(:webfinger_jrd) {
+    end
+    let(:webfinger_jrd) do
       JSON.pretty_generate(DiasporaFederation::Discovery::WebFinger.new(webfinger_data).to_json)
-    }
-    let(:hcard_html) {
+    end
+    let(:hcard_html) do
       DiasporaFederation::Discovery::HCard.new(
         guid: alice.guid,
         nickname: alice.nickname,
@@ -35,7 +35,7 @@ module DiasporaFederation
         first_name: alice.first_name,
         last_name: alice.last_name
       ).to_html
-    }
+    end
     let(:account) { alice.diaspora_id }
     let(:default_image) { "http://localhost:3000/assets/user/default.png" }
 

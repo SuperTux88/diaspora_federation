@@ -34,11 +34,11 @@ module DiasporaFederation
     let(:text) { "this is a very informative comment" }
 
     let(:parent) { Fabricate(:related_entity, author: bob.diaspora_id) }
-    let(:comment) {
+    let(:comment) do
       Entities::Comment.new(
         author: author, guid: guid, parent_guid: parent_guid, text: text, parent: parent, new_data: new_data
       )
-    }
+    end
 
     let(:comment_xml_alice) { <<~XML }
       <comment>

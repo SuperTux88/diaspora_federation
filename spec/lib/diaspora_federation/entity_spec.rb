@@ -117,9 +117,7 @@ module DiasporaFederation
       it "returns a hash of the internal data" do
         entity = Entities::TestDefaultEntity.new(data)
         expect(entity.to_h).to eq(
-          data.to_h { |key, value|
-            [key, entity.class.class_props[key] == :string ? value.to_s : value]
-          }
+          data.to_h { |key, value| [key, entity.class.class_props[key] == :string ? value.to_s : value] }
         )
       end
     end
@@ -229,7 +227,7 @@ module DiasporaFederation
     end
 
     describe "#to_json" do
-      let(:basic_props) {
+      let(:basic_props) do
         {
           test1: "123",
           test2: false,
@@ -237,9 +235,9 @@ module DiasporaFederation
           test4: 789,
           test5: Time.now.utc
         }
-      }
+      end
 
-      let(:hash) {
+      let(:hash) do
         basic_props.merge(
           test6: {
             test: "000"
@@ -249,7 +247,7 @@ module DiasporaFederation
             { asdf: "02" }
           ]
         )
-      }
+      end
       let(:entity_class) { Entities::TestComplexEntity }
 
       it "generates expected JSON data" do
@@ -461,20 +459,20 @@ module DiasporaFederation
     end
 
     context "nested entities" do
-      let(:nested_data) {
+      let(:nested_data) do
         {
           asdf: "FDSA",
           test: Entities::TestEntity.new(test: "test"),
           multi: [Entities::OtherEntity.new(asdf: "asdf"), Entities::OtherEntity.new(asdf: "asdf")]
         }
-      }
-      let(:nested_hash) {
+      end
+      let(:nested_hash) do
         {
           asdf: nested_data[:asdf],
           test: nested_data[:test].to_h,
           multi: nested_data[:multi].map(&:to_h)
         }
-      }
+      end
 
       it "gets returned as Hash by #to_h" do
         entity = Entities::TestNestedEntity.new(nested_data)

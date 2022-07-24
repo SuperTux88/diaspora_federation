@@ -4,14 +4,14 @@ module DiasporaFederation
   describe Entities::PollParticipation do
     let(:parent) { Fabricate(:poll, author: bob) }
     let(:parent_entity) { Fabricate(:related_entity, author: bob.diaspora_id) }
-    let(:data) {
+    let(:data) do
       Fabricate.attributes_for(
         :poll_participation_entity,
         author: alice.diaspora_id,
         parent_guid: parent.guid,
         parent: parent_entity
       ).tap { |hash| add_signatures(hash) }
-    }
+    end
 
     let(:xml) { <<~XML }
       <poll_participation>

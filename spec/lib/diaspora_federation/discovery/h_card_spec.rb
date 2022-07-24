@@ -7,7 +7,7 @@ module DiasporaFederation
     let(:photo_medium_url) { "#{person.url}/upload/medium.png" }
     let(:photo_small_url) { "#{person.url}/upload/small.png" }
 
-    let(:data) {
+    let(:data) do
       {
         guid: person.guid,
         nickname: person.nickname,
@@ -20,7 +20,7 @@ module DiasporaFederation
         first_name: person.first_name,
         last_name: person.last_name
       }
-    }
+    end
 
     let(:html) { <<~HTML }
       <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">

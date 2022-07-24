@@ -57,15 +57,15 @@ module DiasporaFederation
     # resolved on each call
     # @return [Hash] default values
     def default_values
-      optional_props.to_h { |name| [name, nil] }.merge(default_props).transform_values { |prop|
+      optional_props.to_h { |name| [name, nil] }.merge(default_props).transform_values do |prop|
         prop.respond_to?(:call) ? prop.call : prop
-      }
+      end
     end
 
     # @param [Hash] data entity data
     # @return [Hash] hash with resolved aliases
     def resolv_aliases(data)
-      data.to_h { |name, value|
+      data.to_h do |name, value|
         if class_prop_aliases.has_key? name
           prop_name = class_prop_aliases[name]
           raise InvalidData, "only use '#{name}' OR '#{prop_name}'" if data.has_key? prop_name
@@ -74,7 +74,7 @@ module DiasporaFederation
         else
           [name, value]
         end
-      }
+      end
     end
 
     private
@@ -106,9 +106,9 @@ module DiasporaFederation
     # @param [Class] type the type to check
     # @return [Boolean]
     def entity_type_valid?(type)
-      [type].flatten.all? { |type|
+      [type].flatten.all? do |type|
         type.respond_to?(:ancestors) && type.ancestors.include?(Entity)
-      }
+      end
     end
 
     def default_props

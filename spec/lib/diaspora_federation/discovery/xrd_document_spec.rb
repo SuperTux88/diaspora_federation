@@ -47,7 +47,7 @@ module DiasporaFederation
       }
     JSON
 
-    let(:data) {
+    let(:data) do
       {
         subject: "http://blog.example.com/article/id/314",
         expires: DateTime.parse("2010-01-30T09:30:00Z"),
@@ -75,9 +75,9 @@ module DiasporaFederation
           }
         ]
       }
-    }
+    end
 
-    let(:doc) {
+    let(:doc) do
       Discovery::XrdDocument.new.tap do |doc|
         doc.expires = data[:expires]
         doc.subject = data[:subject]
@@ -94,7 +94,7 @@ module DiasporaFederation
           doc.links << h
         end
       end
-    }
+    end
 
     describe "#to_xml" do
       it "creates the xml document" do
