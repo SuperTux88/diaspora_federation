@@ -176,9 +176,6 @@ Lint/ConstantDefinitionInBlock:
 Naming/InclusiveLanguage:
   Enabled: false
 
-Style/SingleLineMethods:
-  Exclude:
-    - "test/dummy/app/models/*"
 Layout/EmptyLineBetweenDefs:
   Exclude:
     - "test/dummy/app/models/*"
