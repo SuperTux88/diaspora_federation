@@ -2,9 +2,9 @@
 
 shared_examples "a MagicEnvelope instance" do
   before do
-    allow(DiasporaFederation.callbacks).to receive(:trigger).with(
-      :fetch_public_key, sender
-    ).and_return(privkey.public_key)
+    allow(DiasporaFederation.callbacks).to receive(:trigger).with(:fetch_public_key, sender).and_return(
+      privkey.public_key
+    )
   end
 
   it "is an instance of MagicEnvelope" do

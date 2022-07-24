@@ -136,7 +136,7 @@ module DiasporaFederation
           </status_message>
         XML
 
-        parsed_xml = Nokogiri::XML(minimal_xml).root
+        parsed_xml = Nokogiri.XML(minimal_xml).root
         parsed_instance = Entity.entity_class(parsed_xml.name).from_xml(parsed_xml)
         expect(parsed_instance.photos).to eq([])
         expect(parsed_instance.location).to be_nil
@@ -151,9 +151,7 @@ module DiasporaFederation
     context "nested entities" do
       it "validates that nested photos have the same author" do
         invalid_data = data.merge(author: Fabricate.sequence(:diaspora_id))
-        expect {
-          Entities::StatusMessage.new(invalid_data)
-        }.to raise_error Entity::ValidationError
+        expect { Entities::StatusMessage.new(invalid_data) }.to raise_error Entity::ValidationError
       end
     end
   end

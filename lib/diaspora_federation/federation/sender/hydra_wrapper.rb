@@ -33,10 +33,7 @@ module DiasporaFederation
         end
 
         def self.json_headers
-          @json_headers ||= {
-            "Content-Type" => "application/json",
-            "User-Agent" => DiasporaFederation.http_user_agent
-          }
+          @json_headers ||= { "Content-Type" => "application/json", "User-Agent" => DiasporaFederation.http_user_agent }
         end
 
         # Create a new instance for a message
@@ -91,8 +88,9 @@ module DiasporaFederation
         def prepare_request(request)
           request.on_complete do |response|
             success = validate_response_and_update_pod(request, response)
-            log_line = "success=#{success} sender=#{@sender_id} obj=#{@obj_str} url=#{response.effective_url} " \
-                       "message=#{response.return_code} code=#{response.response_code} time=#{response.total_time}"
+            log_line =
+              "success=#{success} sender=#{@sender_id} obj=#{@obj_str} url=#{response.effective_url} " \
+                "message=#{response.return_code} code=#{response.response_code} time=#{response.total_time}"
             if success
               logger.info(log_line)
             else

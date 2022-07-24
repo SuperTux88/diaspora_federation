@@ -3,10 +3,7 @@
 unless ENV["NO_COVERAGE"] == "true"
   require "simplecov"
   require "simplecov-rcov"
-  SimpleCov.formatters = [
-    SimpleCov::Formatter::HTMLFormatter,
-    SimpleCov::Formatter::RcovFormatter
-  ]
+  SimpleCov.formatters = [SimpleCov::Formatter::HTMLFormatter, SimpleCov::Formatter::RcovFormatter]
   SimpleCov.start do
     add_filter "lib/diaspora_federation/logging.rb"
     add_filter "spec"
@@ -19,7 +16,7 @@ dummy_app_path = File.join(File.dirname(__FILE__), "..", "test", "dummy")
 begin
   require "rails" # try to load rails
 rescue LoadError
-  Dir["#{File.join(dummy_app_path, 'app', 'models')}/*.rb"].sort.each { |f| require f }
+  Dir["#{File.join(dummy_app_path, "app", "models")}/*.rb"].sort.each { |f| require f }
   require File.join(dummy_app_path, "config", "initializers", "diaspora_federation")
 else
   ENV["RAILS_ENV"] ||= "test"
@@ -51,18 +48,14 @@ RSpec.configure do |config|
   end
 
   if defined?(::Rails)
-    config.before(:each, type: :controller) do
-      ActionController::Base.allow_forgery_protection = true
-    end
+    config.before(:each, type: :controller) { ActionController::Base.allow_forgery_protection = true }
   else
     config.exclude_pattern = "**/controllers/**/*_spec.rb, **/routing/**/*_spec.rb"
     config.filter_run_excluding rails: true
   end
 
   # whitelist codeclimate.com so test coverage can be reported
-  config.after(:suite) do
-    WebMock.disable_net_connect!(allow: "codeclimate.com")
-  end
+  config.after(:suite) { WebMock.disable_net_connect!(allow: "codeclimate.com") }
 
   config.mock_with :rspec do |mocks|
     # Prevents you from mocking or stubbing a method that does not exist on

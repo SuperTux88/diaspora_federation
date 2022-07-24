@@ -24,9 +24,7 @@ module DiasporaFederation
       end
 
       it "redirects exceptions from the receiver" do
-        expect {
-          described_class.receive_public("<xml/>")
-        }.to raise_error DiasporaFederation::Salmon::InvalidEnvelope
+        expect { described_class.receive_public("<xml/>") }.to raise_error DiasporaFederation::Salmon::InvalidEnvelope
       end
     end
 
@@ -60,7 +58,7 @@ module DiasporaFederation
       end
 
       it "redirects exceptions from the receiver" do
-        invalid_magic_env = Nokogiri::XML("<xml/>").root
+        invalid_magic_env = Nokogiri.XML("<xml/>").root
         data = Salmon::EncryptedMagicEnvelope.encrypt(invalid_magic_env, recipient_key.public_key)
 
         expect {

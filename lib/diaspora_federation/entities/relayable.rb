@@ -84,12 +84,12 @@ module DiasporaFederation
       end
 
       def to_json(*_args)
-        super.merge!(property_order: signature_order).tap do |json_hash|
-          missing_properties = json_hash[:property_order] - json_hash[:entity_data].keys
-          missing_properties.each do |property|
-            json_hash[:entity_data][property] = nil
+        super
+          .merge!(property_order: signature_order)
+          .tap do |json_hash|
+            missing_properties = json_hash[:property_order] - json_hash[:entity_data].keys
+            missing_properties.each { |property| json_hash[:entity_data][property] = nil }
           end
-        end
       end
 
       # The order for signing
@@ -124,9 +124,11 @@ module DiasporaFederation
       #
       # @return [Hash] properties with updated signatures
       def enriched_properties
-        super.merge(additional_data).tap do |hash|
-          hash[:author_signature] = author_signature || sign_with_author unless author == parent.root.author
-        end
+        super
+          .merge(additional_data)
+          .tap do |hash|
+            hash[:author_signature] = author_signature || sign_with_author unless author == parent.root.author
+          end
       end
 
       # Sort all XML elements according to the order used for the signatures.
@@ -141,8 +143,7 @@ module DiasporaFederation
 
       def signature_order=(order)
         prop_names = self.class.class_props.keys.map(&:to_s)
-        @signature_order = order.grep_v(/signature/)
-                                .map { |name| prop_names.include?(name) ? name.to_sym : name }
+        @signature_order = order.grep_v(/signature/).map { |name| prop_names.include?(name) ? name.to_sym : name }
       end
 
       def additional_data=(additional_data)
@@ -178,21 +179,24 @@ module DiasporaFederation
         private
 
         def fetch_parent(data)
-          type = data.fetch(:parent_type) do
-            break self::PARENT_TYPE if const_defined?(:PARENT_TYPE)
+          type =
+            data.fetch(:parent_type) do
+              break self::PARENT_TYPE if const_defined?(:PARENT_TYPE)
 
-            raise DiasporaFederation::Entity::ValidationError, error_message_missing_property(data, "parent_type")
-          end
-          guid = data.fetch(:parent_guid) do
-            raise DiasporaFederation::Entity::ValidationError, error_message_missing_property(data, "parent_guid")
-          end
+              raise DiasporaFederation::Entity::ValidationError, error_message_missing_property(data, "parent_type")
+            end
+          guid =
+            data.fetch(:parent_guid) do
+              raise DiasporaFederation::Entity::ValidationError, error_message_missing_property(data, "parent_guid")
+            end
 
           data[:parent] = RelatedEntity.fetch(data[:author], type, guid)
         end
 
         def error_message_missing_property(data, missing_property)
-          obj_str = "#{class_name}#{":#{data[:guid]}" if data.has_key?(:guid)}" \
-                    "#{" from #{data[:author]}" if data.has_key?(:author)}"
+          obj_str =
+            "#{class_name}#{":#{data[:guid]}" if data.has_key?(:guid)}" \
+              "#{" from #{data[:author]}" if data.has_key?(:author)}"
           "Invalid #{obj_str}! Missing '#{missing_property}'."
         end
 

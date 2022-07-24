@@ -84,7 +84,9 @@ module DiasporaFederation
       let(:additional_data) do
         {
           aliases: [person.alias_url, person.profile_url],
-          properties: { "http://webfinger.example/ns/name" => "Bob Smith" },
+          properties: {
+            "http://webfinger.example/ns/name" => "Bob Smith"
+          },
           links: [
             { rel: "http://portablecontacts.net/spec/1.0", href: "https://pod.example.tld/poco/trouble" },
             {
@@ -151,8 +153,9 @@ module DiasporaFederation
       end
 
       it "does not support XML anymore" do
-        expect { Discovery::WebFinger.new(minimal_data).to_xml }
-          .to raise_error "Generating WebFinger to XML is not supported anymore, use 'to_json' instead."
+        expect {
+          Discovery::WebFinger.new(minimal_data).to_xml
+        }.to raise_error "Generating WebFinger to XML is not supported anymore, use 'to_json' instead."
       end
     end
 
@@ -331,7 +334,7 @@ module DiasporaFederation
               },
               {
                 "rel": "http://purl.org/zot/protocol",
-                "href": "#{person.url}.well-known/zot-info?address=#{person.nickname}@#{person.diaspora_id.split('@')[1]}"
+                "href": "#{person.url}.well-known/zot-info?address=#{person.nickname}@#{person.diaspora_id.split("@")[1]}"
               },
               {
                 "rel": "http://purl.org/openwebauth/v1",
@@ -387,8 +390,9 @@ module DiasporaFederation
       end
 
       it "does not support XML anymore" do
-        expect { Discovery::WebFinger.from_xml("") }
-          .to raise_error "Parsing WebFinger as XML is not supported anymore, use 'from_json' instead."
+        expect {
+          Discovery::WebFinger.from_xml("")
+        }.to raise_error "Parsing WebFinger as XML is not supported anymore, use 'from_json' instead."
       end
     end
   end

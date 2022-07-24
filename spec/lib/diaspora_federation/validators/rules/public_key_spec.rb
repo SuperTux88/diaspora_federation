@@ -3,9 +3,7 @@
 describe Validation::Rule::PublicKey do
   it "will not accept parameters" do
     validator = Validation::Validator.new({})
-    expect {
-      validator.rule(:key, public_key: { param: true })
-    }.to raise_error ArgumentError
+    expect { validator.rule(:key, public_key: { param: true }) }.to raise_error ArgumentError
   end
 
   it "has an error key" do
@@ -13,9 +11,7 @@ describe Validation::Rule::PublicKey do
   end
 
   context "when validating" do
-    before do
-      stub_const("PublicKeyHolder", Struct.new(:key))
-    end
+    before { stub_const("PublicKeyHolder", Struct.new(:key)) }
 
     ["PUBLIC KEY", "RSA PUBLIC KEY"].each do |key_type|
       context key_type do

@@ -9,7 +9,7 @@ module DiasporaFederation
       # Receive a public message
       # @param [String] data message to receive
       def self.receive_public(data)
-        magic_env_xml = Nokogiri::XML(data).root
+        magic_env_xml = Nokogiri.XML(data).root
         magic_env = Salmon::MagicEnvelope.unenvelop(magic_env_xml)
         Public.new(magic_env).receive
       rescue => e # rubocop:disable Style/RescueStandardError

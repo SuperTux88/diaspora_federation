@@ -8,9 +8,9 @@ diaspora\* uses [WebFinger][webfinger-rfc] to discover users from other pods.
 
 ### Request
 
-~~~
+```
 GET /.well-known/webfinger
-~~~
+```
 
 Let's assume we are searching for `alice@example.org`, then we need to make a request to `example.org`.
 
@@ -22,10 +22,10 @@ Let's assume we are searching for `alice@example.org`, then we need to make a re
 
 #### Example
 
-~~~
+```
 GET /.well-known/webfinger?resource=acct:alice@example.org
 Host: example.org
-~~~
+```
 
 ### Response
 
@@ -52,12 +52,13 @@ The WebFinger response may contain other optional link relations.
 
 #### Example
 
-~~~
+```
 Status: 200 OK
 Content-Type: application/jrd+json; charset=utf-8
 Access-Control-Allow-Origin: *
-~~~
-~~~json
+```
+
+```json
 {
   "subject": "acct:alice@example.org",
   "links": [
@@ -73,13 +74,14 @@ Access-Control-Allow-Origin: *
     }
   ]
 }
-~~~
+```
 
 ## Additional information and specifications
 
-* [RFC 7033: WebFinger][webfinger-rfc]
-* [JSON Resource Descriptor (JRD)][jrd]
+- [RFC 7033: WebFinger][webfinger-rfc]
+- [JSON Resource Descriptor (JRD)][jrd]
 
 [webfinger-rfc]: https://tools.ietf.org/html/rfc7033
 [jrd]: https://www.packetizer.com/json/jrd/
+
 [hcard]: {{ site.baseurl }}/discovery/hcard.html

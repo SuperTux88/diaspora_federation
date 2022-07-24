@@ -18,9 +18,7 @@ module DiasporaFederation
         public_key: alice.serialized_public_key
       }
     end
-    let(:webfinger_jrd) do
-      JSON.pretty_generate(DiasporaFederation::Discovery::WebFinger.new(webfinger_data).to_json)
-    end
+    let(:webfinger_jrd) { JSON.pretty_generate(DiasporaFederation::Discovery::WebFinger.new(webfinger_data).to_json) }
     let(:hcard_html) do
       DiasporaFederation::Discovery::HCard.new(
         guid: alice.guid,
@@ -53,10 +51,11 @@ module DiasporaFederation
 
     describe ".fetch_and_save" do
       it "fetches the userdata and returns a person object" do
-        stub_request(:get, "https://localhost:3000/.well-known/webfinger?resource=acct:#{account}")
-          .to_return(status: 200, body: webfinger_jrd)
-        stub_request(:get, "http://localhost:3000/hcard/users/#{alice.guid}")
-          .to_return(status: 200, body: hcard_html)
+        stub_request(:get, "https://localhost:3000/.well-known/webfinger?resource=acct:#{account}").to_return(
+          status: 200,
+          body: webfinger_jrd
+        )
+        stub_request(:get, "http://localhost:3000/hcard/users/#{alice.guid}").to_return(status: 200, body: hcard_html)
 
         expect_callback(:save_person_after_webfinger, kind_of(Entities::Person))
         person = discovery.fetch_and_save
@@ -78,10 +77,11 @@ module DiasporaFederation
       end
 
       it "fetches the userdata and saves the person object via callback" do
-        stub_request(:get, "https://localhost:3000/.well-known/webfinger?resource=acct:#{account}")
-          .to_return(status: 200, body: webfinger_jrd)
-        stub_request(:get, "http://localhost:3000/hcard/users/#{alice.guid}")
-          .to_return(status: 200, body: hcard_html)
+        stub_request(:get, "https://localhost:3000/.well-known/webfinger?resource=acct:#{account}").to_return(
+          status: 200,
+          body: webfinger_jrd
+        )
+        stub_request(:get, "http://localhost:3000/hcard/users/#{alice.guid}").to_return(status: 200, body: hcard_html)
 
         callback_person = nil
         expect(DiasporaFederation.callbacks).to receive(:trigger) do |callback, person|
@@ -96,15 +96,18 @@ module DiasporaFederation
       it "fails if the diaspora* ID does not match" do
         modified_webfinger = webfinger_jrd.gsub(account, "anonther_user@example.com")
 
-        stub_request(:get, "https://localhost:3000/.well-known/webfinger?resource=acct:#{account}")
-          .to_return(status: 200, body: modified_webfinger)
+        stub_request(:get, "https://localhost:3000/.well-known/webfinger?resource=acct:#{account}").to_return(
+          status: 200,
+          body: modified_webfinger
+        )
 
         expect { discovery.fetch_and_save }.to raise_error Discovery::DiscoveryError
       end
 
       it "fails if the diaspora* ID was not found" do
-        stub_request(:get, "https://localhost:3000/.well-known/webfinger?resource=acct:#{account}")
-          .to_return(status: 404)
+        stub_request(:get, "https://localhost:3000/.well-known/webfinger?resource=acct:#{account}").to_return(
+          status: 404
+        )
 
         expect { discovery.fetch_and_save }.to raise_error Discovery::DiscoveryError
       end
@@ -112,29 +115,31 @@ module DiasporaFederation
       context "with http fallback" do
         context "when http fallback disabled (default)" do
           it "does not fall back to http if https fails with ssl error" do
-            stub_request(:get, "https://localhost:3000/.well-known/webfinger?resource=acct:#{account}")
-              .to_raise(OpenSSL::SSL::SSLError)
+            stub_request(:get, "https://localhost:3000/.well-known/webfinger?resource=acct:#{account}").to_raise(
+              OpenSSL::SSL::SSLError
+            )
 
             expect { discovery.fetch_and_save }.to raise_error Discovery::DiscoveryError
           end
         end
 
         context "when http fallback enabled" do
-          before do
-            DiasporaFederation.webfinger_http_fallback = true
-          end
+          before { DiasporaFederation.webfinger_http_fallback = true }
 
-          after do
-            DiasporaFederation.webfinger_http_fallback = false
-          end
+          after { DiasporaFederation.webfinger_http_fallback = false }
 
           it "falls back to http if https fails with 404" do
-            stub_request(:get, "https://localhost:3000/.well-known/webfinger?resource=acct:#{account}")
-              .to_return(status: 404)
-            stub_request(:get, "http://localhost:3000/.well-known/webfinger?resource=acct:#{account}")
-              .to_return(status: 200, body: webfinger_jrd)
-            stub_request(:get, "http://localhost:3000/hcard/users/#{alice.guid}")
-              .to_return(status: 200, body: hcard_html)
+            stub_request(:get, "https://localhost:3000/.well-known/webfinger?resource=acct:#{account}").to_return(
+              status: 404
+            )
+            stub_request(:get, "http://localhost:3000/.well-known/webfinger?resource=acct:#{account}").to_return(
+              status: 200,
+              body: webfinger_jrd
+            )
+            stub_request(:get, "http://localhost:3000/hcard/users/#{alice.guid}").to_return(
+              status: 200,
+              body: hcard_html
+            )
 
             expect_callback(:save_person_after_webfinger, kind_of(Entities::Person))
             person = discovery.fetch_and_save
@@ -144,12 +149,17 @@ module DiasporaFederation
           end
 
           it "falls back to http if https fails with ssl error" do
-            stub_request(:get, "https://localhost:3000/.well-known/webfinger?resource=acct:#{account}")
-              .to_raise(OpenSSL::SSL::SSLError)
-            stub_request(:get, "http://localhost:3000/.well-known/webfinger?resource=acct:#{account}")
-              .to_return(status: 200, body: webfinger_jrd)
-            stub_request(:get, "http://localhost:3000/hcard/users/#{alice.guid}")
-              .to_return(status: 200, body: hcard_html)
+            stub_request(:get, "https://localhost:3000/.well-known/webfinger?resource=acct:#{account}").to_raise(
+              OpenSSL::SSL::SSLError
+            )
+            stub_request(:get, "http://localhost:3000/.well-known/webfinger?resource=acct:#{account}").to_return(
+              status: 200,
+              body: webfinger_jrd
+            )
+            stub_request(:get, "http://localhost:3000/hcard/users/#{alice.guid}").to_return(
+              status: 200,
+              body: hcard_html
+            )
 
             expect_callback(:save_person_after_webfinger, kind_of(Entities::Person))
             person = discovery.fetch_and_save
@@ -162,22 +172,22 @@ module DiasporaFederation
 
       context "with error handling" do
         it "re-raises DiscoveryError" do
-          expect(discovery).to receive(:validate_diaspora_id)
-            .and_raise(Discovery::DiscoveryError, "Something went wrong!")
+          expect(discovery).to receive(:validate_diaspora_id).and_raise(
+            Discovery::DiscoveryError,
+            "Something went wrong!"
+          )
 
           expect { discovery.fetch_and_save }.to raise_error Discovery::DiscoveryError, "Something went wrong!"
         end
 
         it "re-raises InvalidDocument" do
-          expect(discovery).to receive(:validate_diaspora_id)
-            .and_raise(Discovery::InvalidDocument, "Wrong document!")
+          expect(discovery).to receive(:validate_diaspora_id).and_raise(Discovery::InvalidDocument, "Wrong document!")
 
           expect { discovery.fetch_and_save }.to raise_error Discovery::InvalidDocument, "Wrong document!"
         end
 
         it "re-raises InvalidData" do
-          expect(discovery).to receive(:validate_diaspora_id)
-            .and_raise(Discovery::InvalidData, "Wrong data!")
+          expect(discovery).to receive(:validate_diaspora_id).and_raise(Discovery::InvalidData, "Wrong data!")
 
           expect { discovery.fetch_and_save }.to raise_error Discovery::InvalidData, "Wrong data!"
         end

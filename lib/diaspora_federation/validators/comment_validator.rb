@@ -8,8 +8,7 @@ module DiasporaFederation
 
       include RelayableValidator
 
-      rule :text, [:not_empty,
-                   length: { maximum: 65_535 }]
+      rule :text, [:not_empty, length: { maximum: 65_535 }]
     end
   end
 end

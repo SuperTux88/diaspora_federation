@@ -3,9 +3,7 @@
 describe Validation::Rule::Guid do
   it "will not accept parameters" do
     validator = Validation::Validator.new({})
-    expect {
-      validator.rule(:guid, guid: { param: true })
-    }.to raise_error ArgumentError
+    expect { validator.rule(:guid, guid: { param: true }) }.to raise_error ArgumentError
   end
 
   it "has an error key" do
@@ -13,9 +11,7 @@ describe Validation::Rule::Guid do
   end
 
   context "when validating" do
-    before do
-      stub_const("GuidHolder", Struct.new(:guid))
-    end
+    before { stub_const("GuidHolder", Struct.new(:guid)) }
 
     it "validates a string at least 16 chars long, consisting of [0-9a-f] (diaspora)" do
       validator = Validation::Validator.new(GuidHolder.new("abcdef0123456789"))

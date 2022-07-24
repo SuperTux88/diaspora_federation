@@ -43,23 +43,21 @@ module DiasporaFederation
           expect_callback(:fetch_related_entity, "Post", data[:root_guid]).and_return(nil, root)
           expect(Federation::Fetcher).to receive(:fetch_public).with(data[:root_author], "Post", data[:root_guid])
 
-          Entities::Reshare.from_xml(Nokogiri::XML(xml).root)
+          Entities::Reshare.from_xml(Nokogiri.XML(xml).root)
         end
 
         it "validates the author of the root post" do
           fake_root = Fabricate(:related_entity, author: alice.diaspora_id)
           expect_callback(:fetch_related_entity, "Post", data[:root_guid]).and_return(fake_root)
 
-          expect {
-            Entities::Reshare.from_xml(Nokogiri::XML(xml).root)
-          }.to raise_error Entity::ValidationError
+          expect { Entities::Reshare.from_xml(Nokogiri.XML(xml).root) }.to raise_error Entity::ValidationError
         end
 
         it "validates a reshare with no root" do
           data[:root_author] = nil
           data[:root_guid] = nil
 
-          reshare = Entities::Reshare.from_xml(Nokogiri::XML(xml).root)
+          reshare = Entities::Reshare.from_xml(Nokogiri.XML(xml).root)
           expect(reshare.root_author).to be_nil
           expect(reshare.root_guid).to be_nil
         end
@@ -67,17 +65,13 @@ module DiasporaFederation
         it "disallows root_author without root_guid" do
           data[:root_guid] = nil
 
-          expect {
-            Entities::Reshare.from_xml(Nokogiri::XML(xml).root)
-          }.to raise_error Entity::ValidationError
+          expect { Entities::Reshare.from_xml(Nokogiri.XML(xml).root) }.to raise_error Entity::ValidationError
         end
 
         it "disallows root_guid without root_author" do
           data[:root_author] = nil
 
-          expect {
-            Entities::Reshare.from_xml(Nokogiri::XML(xml).root)
-          }.to raise_error Entity::ValidationError
+          expect { Entities::Reshare.from_xml(Nokogiri.XML(xml).root) }.to raise_error Entity::ValidationError
         end
       end
     end

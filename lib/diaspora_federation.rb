@@ -25,20 +25,21 @@ require "diaspora_federation/federation"
 module DiasporaFederation
   extend Logging
 
-  @callbacks = Callbacks.new %i[
-    fetch_person_for_webfinger
-    fetch_person_for_hcard
-    save_person_after_webfinger
-    fetch_private_key
-    fetch_public_key
-    fetch_related_entity
-    queue_public_receive
-    queue_private_receive
-    receive_entity
-    fetch_public_entity
-    fetch_person_url_to
-    update_pod
-  ]
+  @callbacks =
+    Callbacks.new %i[
+                    fetch_person_for_webfinger
+                    fetch_person_for_hcard
+                    save_person_after_webfinger
+                    fetch_private_key
+                    fetch_public_key
+                    fetch_related_entity
+                    queue_public_receive
+                    queue_private_receive
+                    receive_entity
+                    fetch_public_entity
+                    fetch_person_url_to
+                    update_pod
+                  ]
 
   # defaults
   @webfinger_http_fallback = false
@@ -243,7 +244,7 @@ module DiasporaFederation
       validate_http_config
 
       unless @callbacks.definition_complete?
-        configuration_error "Missing handlers for #{@callbacks.missing_handlers.join(', ')}"
+        configuration_error "Missing handlers for #{@callbacks.missing_handlers.join(", ")}"
       end
 
       logger.info "successfully configured the federation library"

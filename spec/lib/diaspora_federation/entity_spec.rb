@@ -146,9 +146,7 @@ module DiasporaFederation
         entity = Entities::TestDefaultEntity.new(data)
         xml_children = entity.to_xml.children
         expect(xml_children).to have_exactly(4).items
-        xml_children.each do |node|
-          expect(%w[test1 test2 test3 test4]).to include(node.name)
-        end
+        xml_children.each { |node| expect(%w[test1 test2 test3 test4]).to include(node.name) }
       end
 
       context "optional properties" do
@@ -156,34 +154,28 @@ module DiasporaFederation
           entity = Entities::TestOptionalEntity.new(test1: "aa", test2: "bb")
           xml_children = entity.to_xml.children
           expect(xml_children).to have_exactly(2).items
-          xml_children.each do |node|
-            expect(%w[test1 test2]).to include(node.name)
-          end
+          xml_children.each { |node| expect(%w[test1 test2]).to include(node.name) }
         end
 
         it "contains no nodes for optional nil properties" do
           entity = Entities::TestOptionalEntity.new(test2: "bb")
           xml_children = entity.to_xml.children
           expect(xml_children).to have_exactly(1).items
-          xml_children.each do |node|
-            expect(%w[test2]).to include(node.name)
-          end
+          xml_children.each { |node| expect(%w[test2]).to include(node.name) }
         end
 
         it "contains nodes for non optional properties when nil" do
           entity = Entities::TestOptionalEntity.new(test1: "aa", test2: nil)
           xml_children = entity.to_xml.children
           expect(xml_children).to have_exactly(2).items
-          xml_children.each do |node|
-            expect(%w[test1 test2]).to include(node.name)
-          end
+          xml_children.each { |node| expect(%w[test1 test2]).to include(node.name) }
         end
       end
 
       it "replaces invalid XML characters" do
         entity = Entities::TestEntity.new(test: "asdfasdf asdf💩asdf\nasdf")
         xml = entity.to_xml.to_xml
-        parsed = Entities::TestEntity.from_xml(Nokogiri::XML(xml).root).test
+        parsed = Entities::TestEntity.from_xml(Nokogiri.XML(xml).root).test
         expect(parsed).to eq("asdf�asdf asdf💩asdf\nasdf")
       end
     end
@@ -206,12 +198,8 @@ module DiasporaFederation
       end
 
       it "calls .from_hash with the hash representation of provided XML" do
-        expect(Entities::TestDefaultEntity).to receive(:from_hash).with(
-          test1: "asdf",
-          test2: "qwer",
-          test3: true
-        )
-        Entities::TestDefaultEntity.from_xml(Nokogiri::XML(<<~XML).root)
+        expect(Entities::TestDefaultEntity).to receive(:from_hash).with(test1: "asdf", test2: "qwer", test3: true)
+        Entities::TestDefaultEntity.from_xml(Nokogiri.XML(<<~XML).root)
           <test_default_entity>
             <test1>asdf</test1>
             <test2>qwer</qwer2>
@@ -224,13 +212,14 @@ module DiasporaFederation
         arguments = [{ arg1: "value" }]
         expect_any_instance_of(DiasporaFederation::Parsers::XmlParser).to receive(:parse).and_return(arguments)
         expect(Entities::TestDefaultEntity).to receive(:from_hash).with(*arguments)
-        Entities::TestDefaultEntity.from_xml(Nokogiri::XML("<dummy/>").root)
+        Entities::TestDefaultEntity.from_xml(Nokogiri.XML("<dummy/>").root)
       end
 
       it "passes input parameter directly to .parse method of the parser" do
-        root = Nokogiri::XML("<dummy/>").root
-        expect_any_instance_of(DiasporaFederation::Parsers::XmlParser)
-          .to receive(:parse).with(root).and_return([{ test1: "2", test2: "1" }])
+        root = Nokogiri.XML("<dummy/>").root
+        expect_any_instance_of(DiasporaFederation::Parsers::XmlParser).to receive(:parse).with(root).and_return(
+          [{ test1: "2", test2: "1" }]
+        )
         Entities::TestDefaultEntity.from_xml(root)
       end
     end
@@ -264,28 +253,19 @@ module DiasporaFederation
         basic_props[:test5] = basic_props[:test5].iso8601
         expect(json_output).to include_json(
           entity_type: "test_complex_entity",
-          entity_data: basic_props.merge(
-            test6: {
-              entity_type: "test_entity",
-              entity_data: {
-                test: "000"
-              }
-            },
-            multi: [
-              {
-                entity_type: "other_entity",
+          entity_data:
+            basic_props.merge(
+              test6: {
+                entity_type: "test_entity",
                 entity_data: {
-                  asdf: "01"
+                  test: "000"
                 }
               },
-              {
-                entity_type: "other_entity",
-                entity_data: {
-                  asdf: "02"
-                }
-              }
-            ]
-          )
+              multi: [
+                { entity_type: "other_entity", entity_data: { asdf: "01" } },
+                { entity_type: "other_entity", entity_data: { asdf: "02" } }
+              ]
+            )
         )
       end
     end
@@ -353,7 +333,8 @@ module DiasporaFederation
 
       it "forms .from_hash arguments basing on parse return array" do
         class EntityWithFromHashMethod < Entity
-          def self.from_hash(_arg1, _arg2, _arg3); end
+          def self.from_hash(_arg1, _arg2, _arg3)
+          end
         end
 
         expect(EntityWithFromHashMethod).to receive(:json_parser_class).and_call_original
@@ -375,10 +356,7 @@ module DiasporaFederation
           test6: {
             test: "nested"
           },
-          multi: [
-            { asdf: "01" },
-            { asdf: "02" }
-          ]
+          multi: [{ asdf: "01" }, { asdf: "02" }]
         }
 
         entity = Entities::TestComplexEntity.from_hash(entity_data)
@@ -403,11 +381,7 @@ module DiasporaFederation
         entity1 = Entities::TestEntity.new(test: "hello")
         entity2 = Entities::OtherEntity.new(asdf: "01")
         entity3 = Entities::OtherEntity.new(asdf: "02")
-        entity_data = {
-          asdf: "value",
-          test: entity1,
-          multi: [entity2, entity3]
-        }
+        entity_data = { asdf: "value", test: entity1, multi: [entity2, entity3] }
         entity = Entities::TestNestedEntity.from_hash(entity_data)
         expect(entity.test).to eq(entity1)
         expect(entity.multi[0]).to eq(entity2)
@@ -497,9 +471,7 @@ module DiasporaFederation
         entity = Entities::TestNestedEntity.new(nested_data)
         xml = entity.to_xml
         expect(xml.children).to have_exactly(4).items
-        xml.children.each do |node|
-          expect(%w[asdf test_entity other_entity]).to include(node.name)
-        end
+        xml.children.each { |node| expect(%w[asdf test_entity other_entity]).to include(node.name) }
         expect(xml.xpath("test_entity")).to have_exactly(1).items
         expect(xml.xpath("other_entity")).to have_exactly(2).items
       end
@@ -532,7 +504,7 @@ module DiasporaFederation
           </test_nested_entity>
         XML
 
-        entity = Entities::TestNestedEntity.from_xml(Nokogiri::XML(xml).root)
+        entity = Entities::TestNestedEntity.from_xml(Nokogiri.XML(xml).root)
 
         expect(entity.asdf).to eq("FDSA")
         expect(entity.test).to be_nil

@@ -65,9 +65,13 @@ module DiasporaFederation
       entity_data = self.class.resolv_aliases(data)
       validate_missing_props(entity_data)
 
-      self.class.default_values.merge(entity_data).each do |name, value|
-        instance_variable_set("@#{name}", instantiate_nested(name, nilify(value))) if setable?(name, value)
-      end
+      self
+        .class
+        .default_values
+        .merge(entity_data)
+        .each do |name, value|
+          instance_variable_set("@#{name}", instantiate_nested(name, nilify(value))) if setable?(name, value)
+        end
 
       freeze
       validate
@@ -172,10 +176,7 @@ module DiasporaFederation
     # Renders entity to a hash representation of the entity JSON format
     # @return [Hash] Returns a hash that is equal by structure to the entity in JSON format
     def to_json(*_args)
-      {
-        entity_type: self.class.entity_name,
-        entity_data: json_data
-      }
+      { entity_type: self.class.entity_name, entity_data: json_data }
     end
 
     # Creates an instance of self, filling it with data from a provided hash of properties.
@@ -202,9 +203,10 @@ module DiasporaFederation
       missing_props = self.class.missing_props(entity_data)
       return if missing_props.empty?
 
-      obj_str = "#{self.class.class_name}#{":#{entity_data[:guid]}" if entity_data.has_key?(:guid)}" \
-                "#{" from #{entity_data[:author]}" if entity_data.has_key?(:author)}"
-      raise ValidationError, "#{obj_str}: Missing required properties: #{missing_props.join(', ')}"
+      obj_str =
+        "#{self.class.class_name}#{":#{entity_data[:guid]}" if entity_data.has_key?(:guid)}" \
+          "#{" from #{entity_data[:author]}" if entity_data.has_key?(:author)}"
+      raise ValidationError, "#{obj_str}: Missing required properties: #{missing_props.join(", ")}"
     end
 
     def setable?(name, val)
@@ -250,7 +252,7 @@ module DiasporaFederation
     end
 
     def validate
-      validator_name = "#{self.class.name.split('::').last}Validator"
+      validator_name = "#{self.class.name.split("::").last}Validator"
       return unless Validators.const_defined? validator_name
 
       validator_class = Validators.const_get validator_name
@@ -259,17 +261,16 @@ module DiasporaFederation
     end
 
     def error_message(validator)
-      errors = validator.errors.map do |prop, rule|
-        "property: #{prop}, value: #{public_send(prop).inspect}, rule: #{rule[:rule]}, with params: #{rule[:params]}"
-      end
-      "Failed validation for #{self}#{" from #{author}" if respond_to?(:author)} for properties: #{errors.join(' | ')}"
+      errors =
+        validator.errors.map do |prop, rule|
+          "property: #{prop}, value: #{public_send(prop).inspect}, rule: #{rule[:rule]}, with params: #{rule[:params]}"
+        end
+      "Failed validation for #{self}#{" from #{author}" if respond_to?(:author)} for properties: #{errors.join(" | ")}"
     end
 
     # @return [Hash] hash with all properties
     def properties
-      self.class.class_props.keys.each_with_object({}) do |prop, hash|
-        hash[prop] = public_send(prop)
-      end
+      self.class.class_props.keys.each_with_object({}) { |prop, hash| hash[prop] = public_send(prop) }
     end
 
     def normalized_properties
@@ -322,20 +323,21 @@ module DiasporaFederation
     # field of a JSON serialized object.
     # @return [Hash] object properties in JSON format
     def json_data # rubocop:disable Metrics/PerceivedComplexity
-      data = enriched_properties.map do |key, value|
-        type = self.class.class_props[key]
-        next if optional_nil_value?(key, value)
+      data =
+        enriched_properties.map do |key, value|
+          type = self.class.class_props[key]
+          next if optional_nil_value?(key, value)
 
-        if !value.nil? && type.instance_of?(Class)
-          entity_data = value.to_json
-          [key, entity_data] unless entity_data.nil?
-        elsif type.instance_of?(Array)
-          entity_data = value&.map(&:to_json)
-          [key, entity_data] unless entity_data.nil?
-        else
-          [key, value]
+          if !value.nil? && type.instance_of?(Class)
+            entity_data = value.to_json
+            [key, entity_data] unless entity_data.nil?
+          elsif type.instance_of?(Array)
+            entity_data = value&.map(&:to_json)
+            [key, entity_data] unless entity_data.nil?
+          else
+            [key, value]
+          end
         end
-      end
       data.compact.to_h
     end
 

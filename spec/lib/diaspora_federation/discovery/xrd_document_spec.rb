@@ -51,28 +51,15 @@ module DiasporaFederation
       {
         subject: "http://blog.example.com/article/id/314",
         expires: DateTime.parse("2010-01-30T09:30:00Z"),
-        aliases: %w[
-          http://blog.example.com/cool_new_thing
-          http://blog.example.com/steve/article/7
-        ],
+        aliases: %w[http://blog.example.com/cool_new_thing http://blog.example.com/steve/article/7],
         properties: {
           "http://blgx.example.net/ns/version" => "1.3",
           "http://blgx.example.net/ns/ext" => nil
         },
         links: [
-          {
-            rel: "author",
-            type: "text/html",
-            href: "http://blog.example.com/author/steve"
-          },
-          {
-            rel: "author",
-            href: "http://example.com/author/john"
-          },
-          {
-            rel: "copyright",
-            template: "http://example.com/copyright?id={uri}"
-          }
+          { rel: "author", type: "text/html", href: "http://blog.example.com/author/steve" },
+          { rel: "author", href: "http://example.com/author/john" },
+          { rel: "copyright", template: "http://example.com/copyright?id={uri}" }
         ]
       }
     end
@@ -82,17 +69,11 @@ module DiasporaFederation
         doc.expires = data[:expires]
         doc.subject = data[:subject]
 
-        data[:aliases].each do |a|
-          doc.aliases << a
-        end
+        data[:aliases].each { |a| doc.aliases << a }
 
-        data[:properties].each do |t, v|
-          doc.properties[t] = v
-        end
+        data[:properties].each { |t, v| doc.properties[t] = v }
 
-        data[:links].each do |h|
-          doc.links << h
-        end
+        data[:links].each { |h| doc.links << h }
       end
     end
 

@@ -2,13 +2,14 @@
 
 require "diaspora_federation"
 
-ca_file = if File.file?("/etc/ssl/certs/ca-certificates.crt")
-            # For Debian, Ubuntu, Archlinux, Gentoo
-            "/etc/ssl/certs/ca-certificates.crt"
-          else
-            # For CentOS, Fedora
-            "/etc/pki/tls/certs/ca-bundle.crt"
-          end
+ca_file =
+  if File.file?("/etc/ssl/certs/ca-certificates.crt")
+    # For Debian, Ubuntu, Archlinux, Gentoo
+    "/etc/ssl/certs/ca-certificates.crt"
+  else
+    # For CentOS, Fedora
+    "/etc/pki/tls/certs/ca-bundle.crt"
+  end
 
 # configure the federation engine
 DiasporaFederation.configure do |config|
@@ -99,7 +100,7 @@ DiasporaFederation.configure do |config|
     end
 
     on :fetch_person_url_to do |diaspora_id, path|
-      "http://#{diaspora_id.split('@').last}#{path}"
+      "http://#{diaspora_id.split("@").last}#{path}"
     end
 
     on :update_pod do

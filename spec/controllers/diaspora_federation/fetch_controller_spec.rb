@@ -16,7 +16,7 @@ module DiasporaFederation
 
         expect_callback(:fetch_public_key, alice.diaspora_id).and_return(alice.public_key)
 
-        magic_env_xml = Nokogiri::XML(response.body).root
+        magic_env_xml = Nokogiri.XML(response.body).root
         magic_env = Salmon::MagicEnvelope.unenvelop(magic_env_xml)
         entity = magic_env.payload
 
@@ -35,7 +35,7 @@ module DiasporaFederation
 
         expect_callback(:fetch_public_key, alice.diaspora_id).and_return(alice.public_key)
 
-        magic_env_xml = Nokogiri::XML(response.body).root
+        magic_env_xml = Nokogiri.XML(response.body).root
         magic_env = Salmon::MagicEnvelope.unenvelop(magic_env_xml)
         entity = magic_env.payload
 
@@ -49,8 +49,9 @@ module DiasporaFederation
       it "redirects when the entity is from another pod" do
         expect_callback(:fetch_public_entity, "Post", guid).and_return(post)
         expect_callback(:fetch_private_key, alice.diaspora_id).and_return(nil)
-        expect_callback(:fetch_person_url_to, alice.diaspora_id, "/fetch/post/#{guid}")
-          .and_return("http://example.org/fetch/post/#{guid}")
+        expect_callback(:fetch_person_url_to, alice.diaspora_id, "/fetch/post/#{guid}").and_return(
+          "http://example.org/fetch/post/#{guid}"
+        )
 
         get :fetch, params: { type: "post", guid: guid }
 

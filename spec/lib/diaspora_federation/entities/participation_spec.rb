@@ -52,9 +52,7 @@ module DiasporaFederation
           local_parent = Fabricate(:related_entity, local: true)
           expect_callback(:fetch_related_entity, parent.entity_type, parent.guid).and_return(local_parent)
 
-          expect {
-            Entities::Participation.from_xml(participation.to_xml)
-          }.not_to raise_error
+          expect { Entities::Participation.from_xml(participation.to_xml) }.not_to raise_error
         end
 
         it "raises ParentNotLocal when the parent is not found" do

@@ -17,7 +17,7 @@ This entity represents a private conversation between persons.
 
 ## Example
 
-~~~xml
+```xml
 <conversation>
   <author>alice@example.org</author>
   <guid>9b1376a029eb013487753131731751e9</guid>
@@ -32,7 +32,7 @@ This entity represents a private conversation between persons.
     <conversation_guid>9b1376a029eb013487753131731751e9</conversation_guid>
   </message>
 </conversation>
-~~~
+```
 
 [diaspora-id]: {{ site.baseurl }}/federation/types.html#diaspora-id
 [guid]: {{ site.baseurl }}/federation/types.html#guid

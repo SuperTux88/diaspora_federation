@@ -11,20 +11,20 @@ For example, for both, a `Like` for a `Post` and a `Like` for a `Comment`, the a
 
 Such relayable entities are:
 
-* [Comment][comment]
-* [Like][like]
-* [PollParticipation][poll_participation]
+- [Comment][comment]
+- [Like][like]
+- [PollParticipation][poll_participation]
 
 ## Common Properties
 
 All relayables have the following properties:
 
-| Property                  | Type                         | Description                                       |
-| ------------------------- | ---------------------------- | ------------------------------------------------- |
-| `author`                  | [diaspora\* ID][diaspora-id] | The diaspora\* ID of the author of the relayable. |
-| `guid`                    | [GUID][guid]                 | The GUID of the relayable.                        |
-| `parent_guid`             | [GUID][guid]                 | The GUID of the parent entity.                    |
-| `author_signature`        | [Signature][signature]       | The signature from the author of the relayable.   |
+| Property           | Type                         | Description                                       |
+| ------------------ | ---------------------------- | ------------------------------------------------- |
+| `author`           | [diaspora\* ID][diaspora-id] | The diaspora\* ID of the author of the relayable. |
+| `guid`             | [GUID][guid]                 | The GUID of the relayable.                        |
+| `parent_guid`      | [GUID][guid]                 | The GUID of the parent entity.                    |
+| `author_signature` | [Signature][signature]       | The signature from the author of the relayable.   |
 
 ## Relaying
 
@@ -55,9 +55,9 @@ and the signature.
 
 To support fetching of the relayables, the root author should save the following information:
 
-* order of the received XML
-* additional (unknown) properties
-* `author_signature`
+- order of the received XML
+- additional (unknown) properties
+- `author_signature`
 
 ## Retraction / Reject
 
@@ -69,7 +69,6 @@ must relay this retraction to all recipients of the root entity.
 
 If the root author wants to reject the entity (e.g. if they ignore the author of the relayable), they can simply send
 a [Retraction][retraction] for it back to the author.
-
 
 [diaspora-id]: {{ site.baseurl }}/federation/types.html#diaspora-id
 [guid]: {{ site.baseurl }}/federation/types.html#guid

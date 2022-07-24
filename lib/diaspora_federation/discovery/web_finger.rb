@@ -134,13 +134,11 @@ module DiasporaFederation
 
         new(
           acct_uri: data[:subject],
-
           hcard_url: parse_link(links, REL_HCARD),
           seed_url: parse_link(links, REL_SEED),
           profile_url: parse_link(links, REL_PROFILE),
           atom_url: parse_link(links, REL_ATOM),
           salmon_url: parse_link(links, REL_SALMON),
-
           subscribe_url: parse_link_template(links, REL_SUBSCRIBE)
         )
       end
@@ -158,10 +156,12 @@ module DiasporaFederation
       # @return [Hash] data JSON data
       # @raise [InvalidData] if the given JSON string is invalid or incomplete
       private_class_method def self.parse_json_and_validate(webfinger_json)
-        XrdDocument.json_data(webfinger_json).tap do |data|
-          valid = data.key?(:subject) && data.key?(:links)
-          raise InvalidData, "Webfinger JSON is incomplete" unless valid
-        end
+        XrdDocument
+          .json_data(webfinger_json)
+          .tap do |data|
+            valid = data.key?(:subject) && data.key?(:links)
+            raise InvalidData, "Webfinger JSON is incomplete" unless valid
+          end
       end
 
       def to_xrd

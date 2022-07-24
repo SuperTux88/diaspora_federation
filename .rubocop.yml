@@ -45,7 +45,7 @@ Style/SymbolArray:
 
 # Mixing the styles looks just silly.
 Style/HashSyntax:
- EnforcedStyle: ruby19_no_mixed_keys
+  EnforcedStyle: ruby19_no_mixed_keys
 
 # has_key? and has_value? are far more readable than key? and value?
 Style/PreferredHashMethods:
@@ -60,7 +60,6 @@ Style/CollectionMethods:
   PreferredMethods:
     # inject seems more common in the community.
     reduce: "inject"
-
 
 # Either allow this style or don't. Marking it as safe with parenthesis
 # is silly. Let's try to live without them for now.
@@ -127,11 +126,9 @@ Naming/BinaryOperatorParameterName:
 Lint/Debugger:
   Enabled: false
 
-
 # Reset some HoundCI changes back to Rubocop defaults
 Layout/DotPosition:
   EnforcedStyle: leading
-
 
 # diaspora_federation rules
 Metrics/CyclomaticComplexity:

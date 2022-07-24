@@ -23,7 +23,7 @@ When `blocking` is `true`, `following` and `sharing` need to be `false` (and the
 
 ## Example
 
-~~~xml
+```xml
 <contact>
   <author>alice@example.org</author>
   <recipient>bob@example.com</recipient>
@@ -31,7 +31,7 @@ When `blocking` is `true`, `following` and `sharing` need to be `false` (and the
   <sharing>true</sharing>
   <blocking>false</blocking>
 </contact>
-~~~
+```
 
 [diaspora-id]: {{ site.baseurl }}/federation/types.html#diaspora-id
 [boolean]: {{ site.baseurl }}/federation/types.html#boolean

@@ -12,7 +12,7 @@ module DiasporaFederation
 
     describe ".public" do
       let(:xml) { "<xml>post</xml>" }
-      let(:urls) { ["https://example.org/receive/public", "https://example.com/receive/public"] }
+      let(:urls) { %w[https://example.org/receive/public https://example.com/receive/public] }
 
       before do
         expect(hydra_wrapper).to receive(:insert_magic_env_request).with(urls.at(0), xml)
@@ -42,9 +42,7 @@ module DiasporaFederation
       end
 
       before do
-        targets.each do |url, json|
-          expect(hydra_wrapper).to receive(:insert_enc_magic_env_request).with(url, json)
-        end
+        targets.each { |url, json| expect(hydra_wrapper).to receive(:insert_enc_magic_env_request).with(url, json) }
       end
 
       it "returns empty array if send was successful" do
@@ -56,10 +54,9 @@ module DiasporaFederation
       it "returns failing urls array if send was not successful" do
         expect(hydra_wrapper).to receive(:send).and_return(["https://example.com/receive/user/guid"])
 
-        expect(Federation::Sender.private(sender_id, obj_str, targets))
-          .to eq(
-            "https://example.com/receive/user/guid" => "{\"aes_key\": \"key2\", \"encrypted_magic_envelope\": \"...\"}"
-          )
+        expect(Federation::Sender.private(sender_id, obj_str, targets)).to eq(
+          "https://example.com/receive/user/guid" => "{\"aes_key\": \"key2\", \"encrypted_magic_envelope\": \"...\"}"
+        )
       end
     end
   end

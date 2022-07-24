@@ -14,7 +14,7 @@ This entity represents a poll, it is nested in a [StatusMessage][status_message]
 
 ## Example
 
-~~~xml
+```xml
 <poll>
   <guid>2a22d6c029e9013487753131731751e9</guid>
   <question>Select an answer</question>
@@ -31,7 +31,7 @@ This entity represents a poll, it is nested in a [StatusMessage][status_message]
     <answer>Maybe</answer>
   </poll_answer>
 </poll>
-~~~
+```
 
 [guid]: {{ site.baseurl }}/federation/types.html#guid
 [string]: {{ site.baseurl }}/federation/types.html#string

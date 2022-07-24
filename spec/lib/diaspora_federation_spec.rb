@@ -19,9 +19,7 @@ module DiasporaFederation
       end
 
       context "certificate_authorities", rails: true do
-        before do
-          @certificate_authorities = DiasporaFederation.certificate_authorities
-        end
+        before { @certificate_authorities = DiasporaFederation.certificate_authorities }
 
         it "allows certificate_authorities to be missing in test environment" do
           ::Rails.env = "test"

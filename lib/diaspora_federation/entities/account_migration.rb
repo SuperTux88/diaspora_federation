@@ -82,9 +82,7 @@ module DiasporaFederation
       end
 
       def enriched_properties
-        super.tap do |hash|
-          hash[:signature] = signature || sign_with_respective_key
-        end
+        super.tap { |hash| hash[:signature] = signature || sign_with_respective_key }
       end
 
       # Sign with the key of the #signer_id identity

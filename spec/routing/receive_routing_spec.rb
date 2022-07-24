@@ -5,10 +5,7 @@ module DiasporaFederation
     routes { DiasporaFederation::Engine.routes }
 
     it "routes POST public" do
-      expect(post: "/receive/public").to route_to(
-        controller: "diaspora_federation/receive",
-        action: "public"
-      )
+      expect(post: "/receive/public").to route_to(controller: "diaspora_federation/receive", action: "public")
     end
 
     it "routes POST private" do

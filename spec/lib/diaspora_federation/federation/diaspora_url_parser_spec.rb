@@ -13,8 +13,9 @@ module DiasporaFederation
         expect_callback(:fetch_related_entity, "Post", guid2).and_return(double)
         expect_callback(:fetch_related_entity, "Post", guid3).and_return(double)
 
-        text = "This is a [link to a post with markdown](diaspora://#{author}/post/#{guid}) and one without " \
-               "diaspora://#{author}/post/#{guid2} and finally a last one diaspora://#{author}/post/#{guid3}."
+        text =
+          "This is a [link to a post with markdown](diaspora://#{author}/post/#{guid}) and one without " \
+            "diaspora://#{author}/post/#{guid2} and finally a last one diaspora://#{author}/post/#{guid3}."
 
         Federation::DiasporaUrlParser.fetch_linked_entities(text)
       end
@@ -22,8 +23,9 @@ module DiasporaFederation
       it "ignores invalid diaspora:// urls" do
         expect(DiasporaFederation.callbacks).not_to receive(:trigger)
 
-        text = "This is an invalid link diaspora://#{author}/Post/#{guid} and another one " \
-               "diaspora://#{author}/post/abcd and last one: diaspora://example.org/post/#{guid}."
+        text =
+          "This is an invalid link diaspora://#{author}/Post/#{guid} and another one " \
+            "diaspora://#{author}/post/abcd and last one: diaspora://example.org/post/#{guid}."
 
         Federation::DiasporaUrlParser.fetch_linked_entities(text)
       end
@@ -63,15 +65,14 @@ module DiasporaFederation
 
       it "handles fetch errors gracefully" do
         expect_callback(:fetch_related_entity, "Post", guid).and_return(nil)
-        expect(Federation::Fetcher).to receive(:fetch_public).with(
-          author, "post", guid
-        ).and_raise(Federation::Fetcher::NotFetchable, "Something went wrong!")
+        expect(Federation::Fetcher).to receive(:fetch_public).with(author, "post", guid).and_raise(
+          Federation::Fetcher::NotFetchable,
+          "Something went wrong!"
+        )
 
         text = "This is a link to a post: diaspora://#{author}/post/#{guid}."
 
-        expect {
-          Federation::DiasporaUrlParser.fetch_linked_entities(text)
-        }.not_to raise_error
+        expect { Federation::DiasporaUrlParser.fetch_linked_entities(text) }.not_to raise_error
       end
     end
 

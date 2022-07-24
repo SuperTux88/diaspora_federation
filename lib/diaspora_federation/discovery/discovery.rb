@@ -38,8 +38,9 @@ module DiasporaFederation
         # Validates if the diaspora* ID matches the diaspora* ID in the webfinger response
         return if diaspora_id == clean_diaspora_id(webfinger.acct_uri)
 
-        raise DiscoveryError, "diaspora* ID does not match: Wanted #{diaspora_id} but got " \
-                              "#{clean_diaspora_id(webfinger.acct_uri)}"
+        raise DiscoveryError,
+              "diaspora* ID does not match: Wanted #{diaspora_id} but got " \
+                "#{clean_diaspora_id(webfinger.acct_uri)}"
       end
 
       def clean_diaspora_id(diaspora_id)
@@ -70,8 +71,12 @@ module DiasporaFederation
       def webfinger
         # This tries the WebFinger URL with https first, then falls back to http if webfinger_http_fallback is enabled.
         @webfinger ||=
-          WebFinger.from_json(get("https://#{domain}/.well-known/webfinger?resource=#{acct_parameter}",
-                                  http_fallback: DiasporaFederation.webfinger_http_fallback))
+          WebFinger.from_json(
+            get(
+              "https://#{domain}/.well-known/webfinger?resource=#{acct_parameter}",
+              http_fallback: DiasporaFederation.webfinger_http_fallback
+            )
+          )
       end
 
       def hcard
@@ -79,13 +84,14 @@ module DiasporaFederation
       end
 
       def person
-        @person ||= Entities::Person.new(
-          guid: hcard.guid,
-          diaspora_id: diaspora_id,
-          url: webfinger.seed_url,
-          exported_key: hcard.public_key,
-          profile: profile
-        )
+        @person ||=
+          Entities::Person.new(
+            guid: hcard.guid,
+            diaspora_id: diaspora_id,
+            url: webfinger.seed_url,
+            exported_key: hcard.public_key,
+            profile: profile
+          )
       end
 
       def profile

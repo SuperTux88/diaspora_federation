@@ -1,4 +1,5 @@
-# diaspora* federation library
+# diaspora\* federation library
+
 ### A library that provides functionalities needed for the diaspora\* federation protocol
 
 **master:** [![Build Status master](https://travis-ci.org/diaspora/diaspora_federation.svg?branch=master)](https://travis-ci.org/diaspora/diaspora_federation) |
@@ -15,24 +16,24 @@
 
 This repository contains two gems:
 
-* `diaspora_federation` provides the functionality for de-/serialization and de-/encryption of Entities in the protocols used for communication among the various installations of diaspora\*.
-* `diaspora_federation-rails` is a rails engine that adds the diaspora\* federation protocol to a rails app.
+- `diaspora_federation` provides the functionality for de-/serialization and de-/encryption of Entities in the protocols used for communication among the various installations of diaspora\*.
+- `diaspora_federation-rails` is a rails engine that adds the diaspora\* federation protocol to a rails app.
 
 ## Usage
 
-Add the gem to your ```Gemfile```:
+Add the gem to your `Gemfile`:
 
 ```ruby
 gem "diaspora_federation-rails"
 ```
 
-Mount the routes in your ```config/routes.rb```:
+Mount the routes in your `config/routes.rb`:
 
 ```ruby
 mount DiasporaFederation::Engine => "/"
 ```
 
-Configure the engine in ```config/initializers/diaspora_federation.rb```:
+Configure the engine in `config/initializers/diaspora_federation.rb`:
 
 ```ruby
 DiasporaFederation.configure do |config|

@@ -18,8 +18,6 @@ module DiasporaFederation
       end
     end
 
-    Fabrication.configure do |config|
-      config.generators << EntityGenerator
-    end
+    Fabrication.configure { |config| config.generators << EntityGenerator }
   end
 end

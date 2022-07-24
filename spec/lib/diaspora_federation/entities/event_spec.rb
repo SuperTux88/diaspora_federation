@@ -3,9 +3,7 @@
 module DiasporaFederation
   describe Entities::Event do
     let(:location) { Fabricate(:location_entity) }
-    let(:data) do
-      Fabricate.attributes_for(:event_entity).merge(author: alice.diaspora_id, location: location)
-    end
+    let(:data) { Fabricate.attributes_for(:event_entity).merge(author: alice.diaspora_id, location: location) }
 
     let(:xml) { <<~XML }
       <event>
@@ -43,7 +41,7 @@ module DiasporaFederation
           </event>
         XML
 
-        parsed_xml = Nokogiri::XML(minimal_xml).root
+        parsed_xml = Nokogiri.XML(minimal_xml).root
         parsed_instance = Entity.entity_class(parsed_xml.name).from_xml(parsed_xml)
         expect(parsed_instance.end).to be_nil
         expect(parsed_instance.all_day).to be_falsey

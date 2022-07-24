@@ -22,29 +22,35 @@ module DiasporaFederation
 
     describe "POST #private" do
       context "encrypted magic envelope" do
-        before do
-          @request.env["CONTENT_TYPE"] = "application/json"
-        end
+        before { @request.env["CONTENT_TYPE"] = "application/json" }
 
         it "return a 404 if not queued successfully (unknown user guid)" do
           expect_callback(
-            :queue_private_receive, "any-guid", "{\"aes_key\": \"key\", \"encrypted_magic_envelope\": \"env\"}"
+            :queue_private_receive,
+            "any-guid",
+            "{\"aes_key\": \"key\", \"encrypted_magic_envelope\": \"env\"}"
           ).and_return(false)
 
           post :private,
                body: +"{\"aes_key\": \"key\", \"encrypted_magic_envelope\": \"env\"}",
-               params: { guid: "any-guid" }
+               params: {
+                 guid: "any-guid"
+               }
           expect(response.code).to eq("404")
         end
 
         it "returns a 202 if the callback returned true" do
           expect_callback(
-            :queue_private_receive, "any-guid", "{\"aes_key\": \"key\", \"encrypted_magic_envelope\": \"env\"}"
+            :queue_private_receive,
+            "any-guid",
+            "{\"aes_key\": \"key\", \"encrypted_magic_envelope\": \"env\"}"
           ).and_return(true)
 
           post :private,
                body: +"{\"aes_key\": \"key\", \"encrypted_magic_envelope\": \"env\"}",
-               params: { guid: "any-guid" }
+               params: {
+                 guid: "any-guid"
+               }
           expect(response.code).to eq("202")
         end
       end

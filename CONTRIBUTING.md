@@ -18,7 +18,7 @@ Feel free to open a pull request right away if you would like to improve the inl
 
 ## Changing implementations or altering fields
 
-If you want to change implementations of existing functions or you would like to suggest a change in the federation protocol, please open an issue *before doing anything else*. Try to describe your idea and why you think the implementation or the protocol should change as close as possible. Most changes will have to get discussed in a larger group before implementing them, so it's important to start those discussions before writing any code.
+If you want to change implementations of existing functions or you would like to suggest a change in the federation protocol, please open an issue _before doing anything else_. Try to describe your idea and why you think the implementation or the protocol should change as close as possible. Most changes will have to get discussed in a larger group before implementing them, so it's important to start those discussions before writing any code.
 
 [code-of-conduct]: https://github.com/diaspora/diaspora/blob/develop/CODE_OF_CONDUCT.md
 [how-we-communicate]: https://wiki.diasporafoundation.org/How_we_communicate

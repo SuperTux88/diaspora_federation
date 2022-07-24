@@ -7,7 +7,7 @@ This entity represents a photo. It can be standalone or nested in a [StatusMessa
 ## Properties
 
 | Property            | Type (Length)                | Editable | Description                                                      |
-| ------------------- | ---------------------------- |:--------:| ---------------------------------------------------------------- |
+| ------------------- | ---------------------------- | :------: | ---------------------------------------------------------------- |
 | `author`            | [diaspora\* ID][diaspora-id] |    ✘     | The diaspora\* ID of the author of the photo.                    |
 | `guid`              | [GUID][guid]                 |    ✘     | The GUID of the photo.                                           |
 | `public`            | [Boolean][boolean]           |    ✘     | `true` if the photo is public.                                   |
@@ -18,7 +18,7 @@ This entity represents a photo. It can be standalone or nested in a [StatusMessa
 ## Optional Properties
 
 | Property              | Type (Length)            | Editable | Description                                                                     |
-| --------------------- | ------------------------ |:--------:| ------------------------------------------------------------------------------- |
+| --------------------- | ------------------------ | :------: | ------------------------------------------------------------------------------- |
 | `edited_at`           | [Timestamp][timestamp]   |    ✔     | The timestamp when the photo was edited.                                        |
 | `text`                | [String][string] (65535) |    ✔     | Description text for the photo.                                                 |
 | `status_message_guid` | [GUID][guid]             |    ✘     | The GUID of the [StatusMessage][status_message] to which the photo is attached. |
@@ -27,7 +27,7 @@ This entity represents a photo. It can be standalone or nested in a [StatusMessa
 
 ## Example
 
-~~~xml
+```xml
 <photo>
   <guid>0ae691e029ea013487753131731751e9</guid>
   <author>alice@example.org</author>
@@ -39,7 +39,7 @@ This entity represents a photo. It can be standalone or nested in a [StatusMessa
   <height>480</height>
   <width>800</width>
 </photo>
-~~~
+```
 
 [diaspora-id]: {{ site.baseurl }}/federation/types.html#diaspora-id
 [guid]: {{ site.baseurl }}/federation/types.html#guid

@@ -20,9 +20,7 @@ module DiasporaFederation
           include Entities::Signable
         end
 
-        expect {
-          TestEntity.new({}).signature_data
-        }.to raise_error(NotImplementedError)
+        expect { TestEntity.new({}).signature_data }.to raise_error(NotImplementedError)
       end
     end
 

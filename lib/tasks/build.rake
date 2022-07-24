@@ -3,9 +3,7 @@
 desc "Build gem into the pkg directory"
 task build: :test do
   FileUtils.rm_rf("pkg")
-  Dir["*.gemspec"].each do |gemspec|
-    system "gem build #{gemspec}"
-  end
+  Dir["*.gemspec"].each { |gemspec| system "gem build #{gemspec}" }
   FileUtils.mkdir_p("pkg")
   FileUtils.mv(Dir["*.gem"], "pkg")
 

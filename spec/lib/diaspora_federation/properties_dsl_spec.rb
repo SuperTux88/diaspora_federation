@@ -14,25 +14,19 @@ module DiasporaFederation
 
       it "will not accept other types for names" do
         ["test", 1234, true, {}].each do |val|
-          expect {
-            dsl.property val, :string
-          }.to raise_error PropertiesDSL::InvalidName
+          expect { dsl.property val, :string }.to raise_error PropertiesDSL::InvalidName
         end
       end
 
       it "will not accept other types for type" do
         ["test", 1234, true, {}].each do |val|
-          expect {
-            dsl.property :fail, val
-          }.to raise_error PropertiesDSL::InvalidType
+          expect { dsl.property :fail, val }.to raise_error PropertiesDSL::InvalidType
         end
       end
 
       it "accepts only supported types" do
         %i[text number foobar].each do |val|
-          expect {
-            dsl.property :fail, val
-          }.to raise_error PropertiesDSL::InvalidType
+          expect { dsl.property :fail, val }.to raise_error PropertiesDSL::InvalidType
         end
       end
 
@@ -68,19 +62,11 @@ module DiasporaFederation
       end
 
       it "must be an entity subclass" do
-        [1234, true, {}].each do |val|
-          expect {
-            dsl.entity :fail, val
-          }.to raise_error PropertiesDSL::InvalidType
-        end
+        [1234, true, {}].each { |val| expect { dsl.entity :fail, val }.to raise_error PropertiesDSL::InvalidType }
       end
 
       it "must be an entity subclass for array" do
-        [1234, true, {}].each do |val|
-          expect {
-            dsl.entity :fail, [val]
-          }.to raise_error PropertiesDSL::InvalidType
-        end
+        [1234, true, {}].each { |val| expect { dsl.entity :fail, [val] }.to raise_error PropertiesDSL::InvalidType }
       end
     end
 

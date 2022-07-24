@@ -126,9 +126,7 @@ module DiasporaFederation
           private_post = Fabricate(:status_message_entity, public: false)
           magic_env = Salmon::MagicEnvelope.new(private_post, private_post.author)
 
-          expect {
-            described_class.new(magic_env).receive
-          }.to raise_error Federation::Receiver::NotPublic
+          expect { described_class.new(magic_env).receive }.to raise_error Federation::Receiver::NotPublic
         end
 
         it "allows entities without public flag" do
@@ -153,16 +151,12 @@ module DiasporaFederation
           profile = Fabricate(:profile_entity, public: false)
           magic_env = Salmon::MagicEnvelope.new(profile, profile.author)
 
-          expect {
-            described_class.new(magic_env).receive
-          }.to raise_error Federation::Receiver::NotPublic
+          expect { described_class.new(magic_env).receive }.to raise_error Federation::Receiver::NotPublic
         end
       end
 
       context "with text" do
-        before do
-          expect(DiasporaFederation.callbacks).to receive(:trigger)
-        end
+        before { expect(DiasporaFederation.callbacks).to receive(:trigger) }
 
         it "fetches linked entities when the received entity has a text property" do
           expect(Federation::DiasporaUrlParser).to receive(:fetch_linked_entities).with(post.text)

@@ -28,7 +28,7 @@ parent entity. The same entity-type can be nested multiple times (e.g. `poll_ans
 
 ## Example
 
-~~~xml
+```xml
 <status_message>
   <author>alice@example.org</author>
   <guid>17418fb029e6013487743131731751e9</guid>
@@ -37,7 +37,7 @@ parent entity. The same entity-type can be nested multiple times (e.g. `poll_ans
   <text>I am a very interesting status update</text>
   <public>true</public>
 </status_message>
-~~~
+```
 
 [entities]: {{ site.baseurl }}/entities/
 [magicsig]: {{ site.baseurl }}/federation/magicsig.html

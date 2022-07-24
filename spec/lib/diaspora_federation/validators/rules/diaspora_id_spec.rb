@@ -3,9 +3,7 @@
 describe Validation::Rule::DiasporaId do
   it "will not accept parameters" do
     validator = Validation::Validator.new({})
-    expect {
-      validator.rule(:diaspora_id, diaspora_id: { param: true })
-    }.to raise_error ArgumentError
+    expect { validator.rule(:diaspora_id, diaspora_id: { param: true }) }.to raise_error ArgumentError
   end
 
   it "has an error key" do
@@ -13,9 +11,7 @@ describe Validation::Rule::DiasporaId do
   end
 
   context "when validating" do
-    before do
-      stub_const("DiasporaIdHolder", Struct.new(:diaspora_id))
-    end
+    before { stub_const("DiasporaIdHolder", Struct.new(:diaspora_id)) }
 
     it "validates a normal diaspora* ID" do
       validator = Validation::Validator.new(DiasporaIdHolder.new("some_user@example.com"))
@@ -106,7 +102,7 @@ describe Validation::Rule::DiasporaId do
     end
 
     it "fails if the diaspora* ID is longer than 255 characters" do
-      validator = Validation::Validator.new(DiasporaIdHolder.new("#{'a' * 244}@example.com"))
+      validator = Validation::Validator.new(DiasporaIdHolder.new("#{"a" * 244}@example.com"))
       validator.rule(:diaspora_id, :diaspora_id)
 
       expect(validator).not_to be_valid

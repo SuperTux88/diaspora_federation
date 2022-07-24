@@ -27,9 +27,7 @@ module DiasporaFederation
           { following: true, sharing: false, blocking: false },
           { following: false, sharing: true, blocking: false }
         ]
-        combinations.each do |combination|
-          expect { Entities::Contact.new(data.merge(combination)) }.not_to raise_error
-        end
+        combinations.each { |combination| expect { Entities::Contact.new(data.merge(combination)) }.not_to raise_error }
       end
 
       it "allows 'blocking' to be true" do

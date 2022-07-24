@@ -24,9 +24,7 @@ module DiasporaFederation
       end
 
       it "validates the recipient" do
-        expect {
-          described_class.new(magic_env).receive
-        }.to raise_error Federation::Receiver::RecipientRequired
+        expect { described_class.new(magic_env).receive }.to raise_error Federation::Receiver::RecipientRequired
       end
 
       context "with relayable" do
@@ -118,9 +116,7 @@ module DiasporaFederation
       end
 
       context "with text" do
-        before do
-          expect(DiasporaFederation.callbacks).to receive(:trigger)
-        end
+        before { expect(DiasporaFederation.callbacks).to receive(:trigger) }
 
         it "fetches linked entities when the received entity has a text property" do
           expect(Federation::DiasporaUrlParser).to receive(:fetch_linked_entities).with(post.text)

@@ -32,9 +32,7 @@ module DiasporaFederation
 
       it "raises an error when the data is missing or the wrong type" do
         [nil, 1234, true, :symbol].each do |val|
-          expect {
-            Salmon::AES.encrypt(val, key_and_iv[:key], key_and_iv[:iv])
-          }.to raise_error ArgumentError
+          expect { Salmon::AES.encrypt(val, key_and_iv[:key], key_and_iv[:iv]) }.to raise_error ArgumentError
         end
       end
     end
@@ -51,9 +49,7 @@ module DiasporaFederation
 
       it "raises an error when the params are missing or the wrong type" do
         [nil, 1234, true, :symbol].each do |val|
-          expect {
-            Salmon::AES.decrypt(val, val, val)
-          }.to raise_error ArgumentError
+          expect { Salmon::AES.decrypt(val, val, val) }.to raise_error ArgumentError
         end
       end
     end

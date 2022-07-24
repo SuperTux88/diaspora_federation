@@ -56,7 +56,7 @@ module DiasporaFederation
         key = encoded_key.transform_values { |v| Base64.decode64(v) }
 
         xml = AES.decrypt(encrypted_json["encrypted_magic_envelope"], key["key"], key["iv"])
-        Nokogiri::XML(xml).root
+        Nokogiri.XML(xml).root
       end
     end
   end

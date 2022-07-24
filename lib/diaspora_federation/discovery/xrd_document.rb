@@ -65,17 +65,18 @@ module DiasporaFederation
       # Generates an XML document from the current instance and returns it as string
       # @return [String] XML document
       def to_xml
-        builder = Nokogiri::XML::Builder.new(encoding: "UTF-8") do |xml|
-          xml.XRD("xmlns" => XMLNS) do
-            xml.Expires(expires.strftime(DATETIME_FORMAT)) if expires.instance_of?(DateTime)
+        builder =
+          Nokogiri::XML::Builder.new(encoding: "UTF-8") do |xml|
+            xml.XRD("xmlns" => XMLNS) do
+              xml.Expires(expires.strftime(DATETIME_FORMAT)) if expires.instance_of?(DateTime)
 
-            xml.Subject(subject) if !subject.nil? && !subject.empty?
+              xml.Subject(subject) if !subject.nil? && !subject.empty?
 
-            add_aliases_to(xml)
-            add_properties_to(xml)
-            add_links_to(xml)
+              add_aliases_to(xml)
+              add_properties_to(xml)
+              add_links_to(xml)
+            end
           end
-        end
         builder.to_xml
       end
 
@@ -150,17 +151,13 @@ module DiasporaFederation
       end
 
       def add_properties_to(xml)
-        properties.each do |type, val|
-          xml.Property(val.to_s, type: type)
-        end
+        properties.each { |type, val| xml.Property(val.to_s, type: type) }
       end
 
       def add_links_to(xml)
         links.each do |l|
           attrs = {}
-          LINK_ATTRS.each do |attr|
-            attrs[attr.to_s] = l[attr] if l.key?(attr)
-          end
+          LINK_ATTRS.each { |attr| attrs[attr.to_s] = l[attr] if l.key?(attr) }
           xml.Link(attrs)
         end
       end
@@ -168,7 +165,7 @@ module DiasporaFederation
       private_class_method def self.parse_xrd_document(xrd_doc)
         raise ArgumentError unless xrd_doc.instance_of?(String)
 
-        doc = Nokogiri::XML(xrd_doc)
+        doc = Nokogiri.XML(xrd_doc)
         raise InvalidDocument, "Not an XRD document" if !doc.root || doc.root.name != "XRD"
 
         doc
@@ -176,17 +173,15 @@ module DiasporaFederation
 
       private_class_method def self.parse_aliases_from_xml_doc(doc, data)
         aliases = []
-        doc.xpath("xrd:XRD/xrd:Alias", NS).each do |node|
-          aliases << node.content
-        end
+        doc.xpath("xrd:XRD/xrd:Alias", NS).each { |node| aliases << node.content }
         data[:aliases] = aliases unless aliases.empty?
       end
 
       private_class_method def self.parse_properties_from_xml_doc(doc, data)
         properties = {}
-        doc.xpath("xrd:XRD/xrd:Property", NS).each do |node|
-          properties[node[:type]] = node.children.empty? ? nil : node.content
-        end
+        doc
+          .xpath("xrd:XRD/xrd:Property", NS)
+          .each { |node| properties[node[:type]] = node.children.empty? ? nil : node.content }
         data[:properties] = properties unless properties.empty?
       end
 

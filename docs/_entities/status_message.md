@@ -7,7 +7,7 @@ This entity represents a reshare of a status message. It inherits from [Post][po
 ## Properties
 
 | Property     | Type (Length)                | Editable | Description                                            |
-| ------------ | ---------------------------- |:--------:| ------------------------------------------------------ |
+| ------------ | ---------------------------- | :------: | ------------------------------------------------------ |
 | `author`     | [diaspora\* ID][diaspora-id] |    ✘     | The diaspora\* ID of the author of the status message. |
 | `guid`       | [GUID][guid]                 |    ✘     | The GUID of the status message.                        |
 | `created_at` | [Timestamp][timestamp]       |    ✘     | The create timestamp of the status message.            |
@@ -17,7 +17,7 @@ This entity represents a reshare of a status message. It inherits from [Post][po
 ## Optional Properties
 
 | Property                | Type (Length)          | Editable | Description                                                                                                             |
-| ----------------------- | ---------------------- |:--------:| ----------------------------------------------------------------------------------------------------------------------- |
+| ----------------------- | ---------------------- | :------: | ----------------------------------------------------------------------------------------------------------------------- |
 | `edited_at`             | [Timestamp][timestamp] |    ✔     | The timestamp when the status message was edited.                                                                       |
 | `provider_display_name` | [String][string] (255) |    ✘     | The means by which the author has posted the status message.                                                            |
 | `location`              | [Location][location]   |    ✔     | The Location information of the status message.                                                                         |
@@ -30,7 +30,7 @@ This entity represents a reshare of a status message. It inherits from [Post][po
 
 ### Minimal
 
-~~~xml
+```xml
 <status_message>
   <author>alice@example.org</author>
   <guid>17418fb029e6013487743131731751e9</guid>
@@ -38,11 +38,11 @@ This entity represents a reshare of a status message. It inherits from [Post][po
   <text>I am a very interesting status update</text>
   <public>true</public>
 </status_message>
-~~~
+```
 
 ### With [Location][location]
 
-~~~xml
+```xml
 <status_message>
   <author>alice@example.org</author>
   <guid>c3893bf029e7013487753131731751e9</guid>
@@ -55,11 +55,11 @@ This entity represents a reshare of a status message. It inherits from [Post][po
     <lng>16.373819</lng>
   </location>
 </status_message>
-~~~
+```
 
 ### With [Photo][photo]s
 
-~~~xml
+```xml
 <status_message>
   <author>alice@example.org</author>
   <guid>e05828d029e7013487753131731751e9</guid>
@@ -90,11 +90,11 @@ This entity represents a reshare of a status message. It inherits from [Post][po
   </photo>
 </status_message>
 
-~~~
+```
 
 ### With [Poll][poll]
 
-~~~xml
+```xml
 <status_message>
   <author>alice@example.org</author>
   <guid>378473f029e9013487753131731751e9</guid>
@@ -118,11 +118,11 @@ This entity represents a reshare of a status message. It inherits from [Post][po
     </poll_answer>
   </poll>
 </status_message>
-~~~
+```
 
 ### With [Embed][embed]
 
-~~~xml
+```xml
 <status_message>
   <author>alice@example.org</author>
   <guid>378473f029e9013487753131731751e9</guid>
@@ -136,11 +136,11 @@ This entity represents a reshare of a status message. It inherits from [Post][po
     <image>https://example.org/example.png</image>
   </embed>
 </status_message>
-~~~
+```
 
 ### With all
 
-~~~xml
+```xml
 <status_message>
   <author>alice@example.org</author>
   <guid>74139da029e9013487753131731751e9</guid>
@@ -198,7 +198,7 @@ This entity represents a reshare of a status message. It inherits from [Post][po
     <image>https://example.org/example.png</image>
   </embed>
 </status_message>
-~~~
+```
 
 [diaspora-id]: {{ site.baseurl }}/federation/types.html#diaspora-id
 [guid]: {{ site.baseurl }}/federation/types.html#guid

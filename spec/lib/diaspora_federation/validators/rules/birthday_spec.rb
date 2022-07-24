@@ -3,9 +3,7 @@
 describe Validation::Rule::Birthday do
   it "will not accept parameters" do
     validator = Validation::Validator.new({})
-    expect {
-      validator.rule(:birthday, birthday: { param: true })
-    }.to raise_error ArgumentError
+    expect { validator.rule(:birthday, birthday: { param: true }) }.to raise_error ArgumentError
   end
 
   it "has an error key" do
@@ -13,9 +11,7 @@ describe Validation::Rule::Birthday do
   end
 
   context "when validating" do
-    before do
-      stub_const("BirthdayHolder", Struct.new(:birthday))
-    end
+    before { stub_const("BirthdayHolder", Struct.new(:birthday)) }
 
     it "validates a date object" do
       validator = Validation::Validator.new(BirthdayHolder.new(Date.new))

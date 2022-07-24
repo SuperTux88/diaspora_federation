@@ -12,10 +12,10 @@ Use the URL provided in the [WebFinger][webfinger] response with rel `http://mic
 
 #### Example
 
-~~~
+```
 GET /hcard/users/7dba7ca01d64013485eb3131731751e9
 Host: example.org
-~~~
+```
 
 ### Response
 
@@ -40,11 +40,12 @@ The hCard response must contain the following properties:
 
 #### Example
 
-~~~
+```
 Status: 200 OK
 Content-Type: text/html; charset=utf-8
-~~~
-~~~html
+```
+
+```html
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -129,13 +130,14 @@ OFxcL+/diwyswWkVbeaNCrrdfz8LTDQcWv8GA6olBOx7RlgVb7k3HonHaQjaI+xv
     </div>
   </body>
 </html>
-~~~
+```
 
 ## Additional information and specifications
 
-* [hCard 1.0][hcard]
+- [hCard 1.0][hcard]
 
 [hcard]: http://microformats.org/wiki/hCard
+
 [webfinger]: {{ site.baseurl }}/discovery/webfinger.html
 [guid]: {{ site.baseurl }}/federation/types.html#guid
 [name]: {{ site.baseurl }}/federation/types.html#name

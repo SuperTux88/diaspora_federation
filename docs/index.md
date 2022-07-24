@@ -14,11 +14,12 @@ release 0.7.0.0 this protocol is fully supported.
 
 ## Implementations
 
-An implementation of this protocol is available as a Ruby Gem under the AGPL [on Github][github]. This is the library used by the diaspora* project.
+An implementation of this protocol is available as a Ruby Gem under the AGPL [on Github][github]. This is the library used by the diaspora\* project.
 
 The [Friendica][friendica] project also has [its implementation in PHP][phpimplementation].
 
 [communication]: https://wiki.diasporafoundation.org/How_we_communicate
+
 [entities]: {{ site.baseurl }}/entities/
 [github]: https://github.com/diaspora/diaspora_federation
 [friendica]: https://github.com/friendica/friendica

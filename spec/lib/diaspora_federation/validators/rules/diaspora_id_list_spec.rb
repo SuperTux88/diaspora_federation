@@ -5,16 +5,12 @@ describe Validation::Rule::DiasporaIdList do
 
   it "does not require a parameter" do
     validator = Validation::Validator.new({})
-    expect {
-      validator.rule(:ids, :diaspora_id_list)
-    }.not_to raise_error
+    expect { validator.rule(:ids, :diaspora_id_list) }.not_to raise_error
   end
 
   it "allows a :maximum parameter" do
     validator = Validation::Validator.new({})
-    expect {
-      validator.rule(:ids, diaspora_id_list: { maximum: 20 })
-    }.not_to raise_error
+    expect { validator.rule(:ids, diaspora_id_list: { maximum: 20 }) }.not_to raise_error
   end
 
   it "requires a integer as :maximum" do
@@ -42,9 +38,7 @@ describe Validation::Rule::DiasporaIdList do
   end
 
   context "when validating" do
-    before do
-      stub_const("DiasporaIdsHolder", Struct.new(:ids))
-    end
+    before { stub_const("DiasporaIdsHolder", Struct.new(:ids)) }
 
     it "validates less ids" do
       validator = Validation::Validator.new(DiasporaIdsHolder.new(id_str))

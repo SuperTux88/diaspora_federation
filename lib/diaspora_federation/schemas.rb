@@ -11,9 +11,7 @@ module DiasporaFederation
 
     # Parsed federation_entities schema
     def self.federation_entities
-      @federation_entities ||= JSON.parse(
-        Pathname.new(__dir__).join("schemas", "federation_entities.json").read
-      )
+      @federation_entities ||= JSON.parse(Pathname.new(__dir__).join("schemas", "federation_entities.json").read)
     end
   end
 end

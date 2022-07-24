@@ -5,13 +5,15 @@ module DiasporaFederation
     let(:parent) { Fabricate(:post, author: bob) }
     let(:parent_entity) { Fabricate(:related_entity, author: bob.diaspora_id) }
     let(:data) do
-      Fabricate.attributes_for(
-        :like_entity,
-        author: alice.diaspora_id,
-        parent_guid: parent.guid,
-        parent_type: parent.entity_type,
-        parent: parent_entity
-      ).tap { |hash| add_signatures(hash) }
+      Fabricate
+        .attributes_for(
+          :like_entity,
+          author: alice.diaspora_id,
+          parent_guid: parent.guid,
+          parent_type: parent.entity_type,
+          parent: parent_entity
+        )
+        .tap { |hash| add_signatures(hash) }
     end
 
     let(:xml) { <<~XML }
@@ -67,7 +69,7 @@ module DiasporaFederation
         XML
 
         expect {
-          DiasporaFederation::Entities::Like.from_xml(Nokogiri::XML(broken_xml).root)
+          DiasporaFederation::Entities::Like.from_xml(Nokogiri.XML(broken_xml).root)
         }.to raise_error Entity::ValidationError, "Invalid Like! Missing 'parent_type'."
       end
 
@@ -79,7 +81,7 @@ module DiasporaFederation
         XML
 
         expect {
-          DiasporaFederation::Entities::Like.from_xml(Nokogiri::XML(broken_xml).root)
+          DiasporaFederation::Entities::Like.from_xml(Nokogiri.XML(broken_xml).root)
         }.to raise_error Entity::ValidationError, "Invalid Like! Missing 'parent_guid'."
       end
     end

@@ -183,8 +183,11 @@ module DiasporaFederation
         poll_answers { Array.new(3) { Fabricate(:poll_answer_entity) } }
       end
 
-      Fabricator(:poll_participation_entity,
-                 class_name: DiasporaFederation::Entities::PollParticipation, from: :relayable_entity) do
+      Fabricator(
+        :poll_participation_entity,
+        class_name: DiasporaFederation::Entities::PollParticipation,
+        from: :relayable_entity
+      ) do
         author { Fabricate.sequence(:diaspora_id) }
         guid { Fabricate.sequence(:guid) }
         poll_answer_guid { Fabricate.sequence(:guid) }
@@ -202,8 +205,11 @@ module DiasporaFederation
         timezone "Europe/Berlin"
       end
 
-      Fabricator(:event_participation_entity,
-                 class_name: DiasporaFederation::Entities::EventParticipation, from: :relayable_entity) do
+      Fabricator(
+        :event_participation_entity,
+        class_name: DiasporaFederation::Entities::EventParticipation,
+        from: :relayable_entity
+      ) do
         author { Fabricate.sequence(:diaspora_id) }
         guid { Fabricate.sequence(:guid) }
         status "accepted"

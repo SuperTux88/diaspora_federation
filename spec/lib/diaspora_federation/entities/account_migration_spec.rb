@@ -180,12 +180,7 @@ module DiasporaFederation
       let(:signer_id) { old_diaspora_id }
       let(:signer_pkey) { old_user.private_key }
 
-      let(:hash) do
-        {
-          author: new_diaspora_id,
-          profile: Fabricate(:profile_entity, author: new_diaspora_id)
-        }
-      end
+      let(:hash) { { author: new_diaspora_id, profile: Fabricate(:profile_entity, author: new_diaspora_id) } }
 
       let(:xml) { <<~XML }
         <account_migration>
@@ -211,26 +206,19 @@ module DiasporaFederation
       XML
 
       it "fails validation on construction" do
-        expect {
-          described_class.new(hash)
-        }.to raise_error Entity::ValidationError
+        expect { described_class.new(hash) }.to raise_error Entity::ValidationError
       end
 
       it "fails validation on parsing" do
         expect {
-          parsed_xml = Nokogiri::XML(xml).root
+          parsed_xml = Nokogiri.XML(xml).root
           Entity.entity_class(parsed_xml.name).from_xml(parsed_xml)
         }.to raise_error Entity::ValidationError
       end
     end
 
     context "optional values" do
-      let(:hash) do
-        {
-          author: old_diaspora_id,
-          profile: Entities::Profile.new(author: new_diaspora_id)
-        }
-      end
+      let(:hash) { { author: old_diaspora_id, profile: Entities::Profile.new(author: new_diaspora_id) } }
 
       it "uses default values when parsing" do
         minimal_xml = <<~XML
@@ -243,7 +231,7 @@ module DiasporaFederation
           </account_migration>
         XML
 
-        parsed_xml = Nokogiri::XML(minimal_xml).root
+        parsed_xml = Nokogiri.XML(minimal_xml).root
         parsed_instance = Entity.entity_class(parsed_xml.name).from_xml(parsed_xml)
         expect(parsed_instance.old_identity).to eq(data[:author])
         expect(parsed_instance.remote_photo_path).to be_nil

@@ -15,8 +15,12 @@ module DiasporaFederation
         if magic_env
           render xml: magic_env, content_type: "application/magic-envelope+xml"
         else
-          redirect_url = DiasporaFederation.callbacks.trigger(:fetch_person_url_to,
-                                                              entity.author, "/fetch/#{params[:type]}/#{params[:guid]}")
+          redirect_url =
+            DiasporaFederation.callbacks.trigger(
+              :fetch_person_url_to,
+              entity.author,
+              "/fetch/#{params[:type]}/#{params[:guid]}"
+            )
           redirect_to redirect_url, allow_other_host: true
         end
       else

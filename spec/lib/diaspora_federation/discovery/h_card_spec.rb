@@ -221,10 +221,7 @@ module DiasporaFederation
       end
 
       it "searchable is false, if it is empty in html" do
-        changed_html = html.sub(
-          "class=\"searchable\">#{person.searchable}<",
-          "class=\"searchable\"><"
-        )
+        changed_html = html.sub("class=\"searchable\">#{person.searchable}<", "class=\"searchable\"><")
 
         hcard = Discovery::HCard.from_html(changed_html)
 
@@ -232,16 +229,11 @@ module DiasporaFederation
       end
 
       it "name is nil if empty" do
-        changed_html = html.sub(
-          "class=\"fn\">#{person.full_name}<",
-          "class=\"fn\"><"
-        ).sub(
-          "class=\"given_name\">#{person.first_name}<",
-          "class=\"given_name\"><"
-        ).sub(
-          "class=\"family_name\">#{person.last_name}<",
-          "class=\"family_name\"><"
-        )
+        changed_html =
+          html
+            .sub("class=\"fn\">#{person.full_name}<", "class=\"fn\"><")
+            .sub("class=\"given_name\">#{person.first_name}<", "class=\"given_name\"><")
+            .sub("class=\"family_name\">#{person.last_name}<", "class=\"family_name\"><")
 
         hcard = Discovery::HCard.from_html(changed_html)
 

@@ -6,12 +6,8 @@ module DiasporaFederation
     let(:parent_entity) { Fabricate(:related_entity, author: bob.diaspora_id) }
     let(:data) do
       Fabricate
-        .attributes_for(
-          :comment_entity,
-          author: alice.diaspora_id,
-          parent_guid: parent.guid,
-          parent: parent_entity
-        ).tap { |hash| add_signatures(hash) }
+        .attributes_for(:comment_entity, author: alice.diaspora_id, parent_guid: parent.guid, parent: parent_entity)
+        .tap { |hash| add_signatures(hash) }
     end
 
     let(:xml) { <<~XML }

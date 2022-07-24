@@ -14,15 +14,19 @@ module DiasporaFederation
       def parse(root_node)
         from_xml_sanity_validation(root_node)
 
-        hash = root_node.element_children.uniq(&:name).to_h do |child|
-          property, type = find_property_for(child.name)
-          if property
-            value = parse_element_from_node(child.name, type, root_node)
-            [property, value]
-          else
-            [child.name, child.text]
-          end
-        end
+        hash =
+          root_node
+            .element_children
+            .uniq(&:name)
+            .to_h do |child|
+              property, type = find_property_for(child.name)
+              if property
+                value = parse_element_from_node(child.name, type, root_node)
+                [property, value]
+              else
+                [child.name, child.text]
+              end
+            end
 
         [hash]
       end

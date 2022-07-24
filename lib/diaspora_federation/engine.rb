@@ -5,12 +5,8 @@ module DiasporaFederation
   class Engine < ::Rails::Engine
     isolate_namespace DiasporaFederation
 
-    config.generators do |g|
-      g.test_framework :rspec
-    end
+    config.generators { |g| g.test_framework :rspec }
 
-    config.after_initialize do
-      DiasporaFederation.validate_config
-    end
+    config.after_initialize { DiasporaFederation.validate_config }
   end
 end

@@ -19,23 +19,20 @@ module DiasporaFederation
     def encrypt_magic_env(magic_env)
       DiasporaFederation::Salmon::AES.generate_key_and_iv.tap do |key|
         magic_env.instance_variable_set(
-          "@payload_data", DiasporaFederation::Salmon::AES.encrypt(magic_env.send(:payload_data), key[:key], key[:iv])
+          "@payload_data",
+          DiasporaFederation::Salmon::AES.encrypt(magic_env.send(:payload_data), key[:key], key[:iv])
         )
       end
     end
 
     context "sanity" do
       it "constructs an instance" do
-        expect {
-          Salmon::MagicEnvelope.new(payload, sender)
-        }.not_to raise_error
+        expect { Salmon::MagicEnvelope.new(payload, sender) }.not_to raise_error
       end
 
       it "raises an error if the param types are wrong" do
         ["asdf", 1234, :test, false].each do |val|
-          expect {
-            Salmon::MagicEnvelope.new(val, val)
-          }.to raise_error ArgumentError
+          expect { Salmon::MagicEnvelope.new(val, val) }.to raise_error ArgumentError
         end
       end
     end
@@ -44,9 +41,7 @@ module DiasporaFederation
       context "sanity" do
         it "raises an error if the param types are wrong" do
           ["asdf", 1234, :test, false].each do |val|
-            expect {
-              envelope.envelop(val)
-            }.to raise_error ArgumentError
+            expect { envelope.envelop(val) }.to raise_error ArgumentError
           end
         end
       end
@@ -95,28 +90,24 @@ module DiasporaFederation
 
       context "sanity" do
         before do
-          allow(DiasporaFederation.callbacks).to receive(:trigger).with(
-            :fetch_public_key, sender
-          ).and_return(privkey.public_key)
+          allow(DiasporaFederation.callbacks).to receive(:trigger).with(:fetch_public_key, sender).and_return(
+            privkey.public_key
+          )
         end
 
         it "works with sane input" do
-          expect {
-            Salmon::MagicEnvelope.unenvelop(envelope_root, sender)
-          }.not_to raise_error
+          expect { Salmon::MagicEnvelope.unenvelop(envelope_root, sender) }.not_to raise_error
         end
 
         it "raises an error if the param types are wrong" do
           ["asdf", 1234, :test, false].each do |val|
-            expect {
-              Salmon::MagicEnvelope.unenvelop(val, val)
-            }.to raise_error ArgumentError
+            expect { Salmon::MagicEnvelope.unenvelop(val, val) }.to raise_error ArgumentError
           end
         end
 
         it "verifies the envelope structure" do
           expect {
-            Salmon::MagicEnvelope.unenvelop(Nokogiri::XML("<asdf/>").root, sender)
+            Salmon::MagicEnvelope.unenvelop(Nokogiri.XML("<asdf/>").root, sender)
           }.to raise_error Salmon::InvalidEnvelope
         end
 
@@ -224,17 +215,13 @@ module DiasporaFederation
         it "raises if the magic envelope has no key_id" do
           envelope_root.at_xpath("me:sig").attributes["key_id"].remove
 
-          expect {
-            Salmon::MagicEnvelope.unenvelop(envelope_root)
-          }.to raise_error Salmon::InvalidEnvelope
+          expect { Salmon::MagicEnvelope.unenvelop(envelope_root) }.to raise_error Salmon::InvalidEnvelope
         end
 
         it "raises if the sender key is not found" do
           expect_callback(:fetch_public_key, sender).and_return(nil)
 
-          expect {
-            Salmon::MagicEnvelope.unenvelop(envelope_root)
-          }.to raise_error Salmon::SenderKeyNotFound
+          expect { Salmon::MagicEnvelope.unenvelop(envelope_root) }.to raise_error Salmon::SenderKeyNotFound
         end
       end
     end

@@ -5,8 +5,16 @@ module DiasporaFederation
     def entity_stub(additional_data = {})
       allow_any_instance_of(Entities::TestComplexEntity).to receive(:freeze)
       allow_any_instance_of(Entities::TestComplexEntity).to receive(:validate)
-      entity_data =
-        { test1: "abc", test2: true, test3: nil, test4: nil, test5: nil, test6: nil, test7: "abc", multi: [] }
+      entity_data = {
+        test1: "abc",
+        test2: true,
+        test3: nil,
+        test4: nil,
+        test5: nil,
+        test6: nil,
+        test7: "abc",
+        multi: []
+      }
       Entities::TestComplexEntity.new(entity_data.merge(additional_data))
     end
 

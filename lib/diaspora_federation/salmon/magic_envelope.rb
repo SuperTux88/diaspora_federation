@@ -114,7 +114,7 @@ module DiasporaFederation
 
         logger.debug "unenvelop message from #{sender}:\n#{data}"
 
-        xml = Nokogiri::XML(data).root
+        xml = Nokogiri.XML(data).root
         new(Entity.entity_class(xml.name).from_xml(xml), sender)
       end
 
@@ -123,9 +123,7 @@ module DiasporaFederation
       # The payload data as string
       # @return [String] payload data
       def payload_data
-        @payload_data ||= payload.to_xml.to_xml.strip.tap do |data|
-          logger.debug "send payload:\n#{data}"
-        end
+        @payload_data ||= payload.to_xml.to_xml.strip.tap { |data| logger.debug "send payload:\n#{data}" }
       end
 
       def key_id
@@ -172,10 +170,15 @@ module DiasporaFederation
       # @param [String] sender diaspora* ID of the sender or nil
       # @return [Boolean]
       private_class_method def self.signature_valid?(env, sender)
-        subject = sig_subject([Base64.urlsafe_decode64(env.at_xpath("me:data").content),
-                               env.at_xpath("me:data")["type"],
-                               env.at_xpath("me:encoding").content,
-                               env.at_xpath("me:alg").content])
+        subject =
+          sig_subject(
+            [
+              Base64.urlsafe_decode64(env.at_xpath("me:data").content),
+              env.at_xpath("me:data")["type"],
+              env.at_xpath("me:encoding").content,
+              env.at_xpath("me:alg").content
+            ]
+          )
 
         sender_key = DiasporaFederation.callbacks.trigger(:fetch_public_key, sender)
         raise SenderKeyNotFound unless sender_key

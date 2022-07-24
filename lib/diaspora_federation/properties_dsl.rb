@@ -57,9 +57,10 @@ module DiasporaFederation
     # resolved on each call
     # @return [Hash] default values
     def default_values
-      optional_props.to_h { |name| [name, nil] }.merge(default_props).transform_values do |prop|
-        prop.respond_to?(:call) ? prop.call : prop
-      end
+      optional_props
+        .to_h { |name| [name, nil] }
+        .merge(default_props)
+        .transform_values { |prop| prop.respond_to?(:call) ? prop.call : prop }
     end
 
     # @param [Hash] data entity data
@@ -106,9 +107,7 @@ module DiasporaFederation
     # @param [Class] type the type to check
     # @return [Boolean]
     def entity_type_valid?(type)
-      [type].flatten.all? do |type|
-        type.respond_to?(:ancestors) && type.ancestors.include?(Entity)
-      end
+      [type].flatten.all? { |type| type.respond_to?(:ancestors) && type.ancestors.include?(Entity) }
     end
 
     def default_props

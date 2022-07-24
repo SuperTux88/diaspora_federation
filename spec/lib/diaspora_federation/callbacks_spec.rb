@@ -7,17 +7,13 @@ module DiasporaFederation
 
     context "callbacks" do
       it "defines a callback and calls it" do
-        callbacks.on(:some_event) do
-          "result"
-        end
+        callbacks.on(:some_event) { "result" }
 
         expect(callbacks.trigger(:some_event)).to eq("result")
       end
 
       it "defines a callback with params and calls it" do
-        callbacks.on(:some_event) do |arg1, arg2|
-          "result: #{arg1}, #{arg2}"
-        end
+        callbacks.on(:some_event) { |arg1, arg2| "result: #{arg1}, #{arg2}" }
 
         expect(callbacks.trigger(:some_event, "foo", "bar")).to eq("result: foo, bar")
       end

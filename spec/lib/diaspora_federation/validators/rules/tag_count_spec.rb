@@ -3,9 +3,7 @@
 describe Validation::Rule::TagCount do
   it "requires a parameter" do
     validator = Validation::Validator.new({})
-    expect {
-      validator.rule(:tags, :tag_count)
-    }.to raise_error ArgumentError
+    expect { validator.rule(:tags, :tag_count) }.to raise_error ArgumentError
   end
 
   it "requires a integer as parameter" do
@@ -25,9 +23,7 @@ describe Validation::Rule::TagCount do
   context "when validating" do
     let(:tag_str) { "#i #love #tags" }
 
-    before do
-      stub_const("TagsHolder", Struct.new(:tags))
-    end
+    before { stub_const("TagsHolder", Struct.new(:tags)) }
 
     it "validates less tags" do
       validator = Validation::Validator.new(TagsHolder.new(tag_str))

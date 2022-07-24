@@ -3,9 +3,7 @@
 describe Validation::Rule::Boolean do
   it "will not accept parameters" do
     validator = Validation::Validator.new({})
-    expect {
-      validator.rule(:boolean, boolean: { param: true })
-    }.to raise_error ArgumentError
+    expect { validator.rule(:boolean, boolean: { param: true }) }.to raise_error ArgumentError
   end
 
   it "has an error key" do
@@ -13,9 +11,7 @@ describe Validation::Rule::Boolean do
   end
 
   context "when validating" do
-    before do
-      stub_const("BooleanHolder", Struct.new(:boolean))
-    end
+    before { stub_const("BooleanHolder", Struct.new(:boolean)) }
 
     context "strings" do
       it "validates boolean-esque strings" do

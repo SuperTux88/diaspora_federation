@@ -6,8 +6,7 @@ module DiasporaFederation
     class OptionalAwareValidator < Validation::Validator
       def rules
         super.reject do |field, rules|
-          @obj.public_send(field).nil? &&
-            !rules.map(&:class).include?(Validation::Rule::NotNil) &&
+          @obj.public_send(field).nil? && !rules.map(&:class).include?(Validation::Rule::NotNil) &&
             optional_props.include?(field)
         end
       end

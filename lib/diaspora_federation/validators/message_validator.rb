@@ -10,8 +10,7 @@ module DiasporaFederation
       rule :guid, :guid
       rule :conversation_guid, :guid
 
-      rule :text, [:not_empty,
-                   length: { maximum: 65_535 }]
+      rule :text, [:not_empty, length: { maximum: 65_535 }]
     end
   end
 end

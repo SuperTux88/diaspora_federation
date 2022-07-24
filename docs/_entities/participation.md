@@ -17,14 +17,14 @@ The `parent_type` can only be a [Post][post] (if it's a [StatusMessage][status_m
 
 ## Example
 
-~~~xml
+```xml
 <participation>
   <author>alice@example.org</author>
   <guid>0840a9b029f6013487753131731751e9</guid>
   <parent_type>Post</parent_type>
   <parent_guid>c3893bf029e7013487753131731751e9</parent_guid>
 </participation>
-~~~
+```
 
 [diaspora-id]: {{ site.baseurl }}/federation/types.html#diaspora-id
 [guid]: {{ site.baseurl }}/federation/types.html#guid

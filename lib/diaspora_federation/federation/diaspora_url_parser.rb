@@ -7,7 +7,8 @@ module DiasporaFederation
       include Logging
 
       # Regex to find diaspora:// URLs
-      DIASPORA_URL_REGEX = %r{
+      DIASPORA_URL_REGEX =
+        %r{
         (?:web\+)?diaspora://
         (#{Validation::Rule::DiasporaId::DIASPORA_ID_REGEX})/
         (#{Entity::ENTITY_NAME_REGEX})/
@@ -19,9 +20,7 @@ module DiasporaFederation
       # @param [String] sender the diaspora* ID of the sender of the entity
       # @param [String] text text with diaspora:// URLs to fetch
       def self.fetch_linked_entities(text)
-        text.scan(DIASPORA_URL_REGEX).each do |author, type, guid|
-          fetch_entity(author, type, guid)
-        end
+        text.scan(DIASPORA_URL_REGEX).each { |author, type, guid| fetch_entity(author, type, guid) }
       end
 
       private_class_method def self.fetch_entity(author, type, guid)

@@ -5,20 +5,14 @@ module DiasporaFederation
     let(:parent) { Fabricate(:conversation, author: bob) }
     let(:parent_entity) { Fabricate(:related_entity, author: bob.diaspora_id) }
     let(:signed_msg1) do
-      Fabricate.attributes_for(
-        :message_entity,
-        author: bob.diaspora_id,
-        parent_guid: parent.guid,
-        parent: parent_entity
-      ).tap { |hash| add_signatures(hash, Entities::Message) }
+      Fabricate
+        .attributes_for(:message_entity, author: bob.diaspora_id, parent_guid: parent.guid, parent: parent_entity)
+        .tap { |hash| add_signatures(hash, Entities::Message) }
     end
     let(:signed_msg2) do
-      Fabricate.attributes_for(
-        :message_entity,
-        author: bob.diaspora_id,
-        parent_guid: parent.guid,
-        parent: parent_entity
-      ).tap { |hash| add_signatures(hash, Entities::Message) }
+      Fabricate
+        .attributes_for(:message_entity, author: bob.diaspora_id, parent_guid: parent.guid, parent: parent_entity)
+        .tap { |hash| add_signatures(hash, Entities::Message) }
     end
     let(:data) do
       Fabricate.attributes_for(:conversation_entity).merge!(
@@ -58,7 +52,7 @@ module DiasporaFederation
           </conversation>
         XML
 
-        parsed_xml = Nokogiri::XML(minimal_xml).root
+        parsed_xml = Nokogiri.XML(minimal_xml).root
         parsed_instance = Entity.entity_class(parsed_xml.name).from_xml(parsed_xml)
         expect(parsed_instance.messages).to eq([])
       end
@@ -67,9 +61,7 @@ module DiasporaFederation
     context "nested entities" do
       it "validates that nested messages have the same author" do
         invalid_data = data.merge(author: alice.diaspora_id)
-        expect {
-          Entities::Conversation.new(invalid_data)
-        }.to raise_error Entity::ValidationError
+        expect { Entities::Conversation.new(invalid_data) }.to raise_error Entity::ValidationError
       end
     end
   end

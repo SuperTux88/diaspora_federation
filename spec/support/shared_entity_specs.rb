@@ -75,9 +75,11 @@ shared_examples "an XML Entity" do |ignored_props = []|
   end
 
   def check_entity(entity, parsed_entity, ignored_props)
-    entity.class.class_props.reject { |name| ignored_props.include?(name) }.each do |name, type|
-      validate_values(entity.send(name), parsed_entity.send(name), type, ignored_props)
-    end
+    entity
+      .class
+      .class_props
+      .reject { |name| ignored_props.include?(name) }
+      .each { |name, type| validate_values(entity.send(name), parsed_entity.send(name), type, ignored_props) }
   end
 
   def validate_values(value, parsed_value, type, ignored_props)
@@ -143,12 +145,7 @@ shared_examples "a JSON Entity" do
       nested_elements.each do |key, value|
         type = described_class.class_props[key]
         if value.is_a?(Array)
-          data = value.map do |element|
-            {
-              entity_type: type.first.entity_name,
-              entity_data: element
-            }
-          end
+          data = value.map { |element| { entity_type: type.first.entity_name, entity_data: element } }
           expect(to_json_output).to include_json(entity_data: { key => data })
         else
           expect(to_json_output).to include_json(

@@ -19,12 +19,12 @@ end
 
 group :development do
   # code style
-  gem "prettier",       "3.2.0",   require: false
-  gem "pronto",         "0.11.0",  require: false
-  gem "pronto-rubocop", "0.11.2",  require: false
-  gem "rubocop",        "1.32.0",  require: false
-  gem "rubocop-rails",  "2.15.2",  require: false
-  gem "rubocop-rake",   "0.6.0",   require: false
+  gem "prettier", "3.2.0", require: false
+  gem "pronto", "0.11.0", require: false
+  gem "pronto-rubocop", "0.11.2", require: false
+  gem "rubocop", "1.32.0", require: false
+  gem "rubocop-rails", "2.15.2", require: false
+  gem "rubocop-rake", "0.6.0", require: false
 
   # debugging
   gem "pry"
@@ -39,18 +39,18 @@ end
 
 group :test do
   # rspec formatter
-  gem "fuubar", "2.5.1",    require: false
+  gem "fuubar", "2.5.1", require: false
   gem "nyan-cat-formatter", require: false
 
   # test coverage
-  gem "simplecov",                 "0.21.2",   require: false
-  gem "simplecov-rcov",            "0.3.1",    require: false
+  gem "simplecov", "0.21.2", require: false
+  gem "simplecov-rcov", "0.3.1", require: false
 
   # test helpers
-  gem "json-schema",               "~> 3.0"
+  gem "json-schema", "~> 3.0"
   gem "rspec-collection_matchers", "~> 1.2.0"
-  gem "rspec-json_expectations",   "~> 2.1"
-  gem "webmock",                   "~> 3.0"
+  gem "rspec-json_expectations", "~> 2.1"
+  gem "webmock", "~> 3.0"
 end
 
 group :development, :test do

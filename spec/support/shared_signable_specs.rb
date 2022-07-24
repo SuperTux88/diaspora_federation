@@ -16,9 +16,7 @@ shared_examples "a signable" do
       expect_callback(:fetch_public_key, "id@example.tld").and_return(private_key.public_key)
 
       expect {
-        test_class
-          .new(my_signature: test_signature)
-          .verify_signature("id@example.tld", :my_signature)
+        test_class.new(my_signature: test_signature).verify_signature("id@example.tld", :my_signature)
       }.not_to raise_error
     end
 
@@ -26,27 +24,23 @@ shared_examples "a signable" do
       expect_callback(:fetch_public_key, "id@example.tld").and_return(nil)
 
       expect {
-        test_class
-          .new(my_signature: test_signature)
-          .verify_signature("id@example.tld", :my_signature)
+        test_class.new(my_signature: test_signature).verify_signature("id@example.tld", :my_signature)
       }.to raise_error(DiasporaFederation::Entities::Signable::PublicKeyNotFound)
     end
 
     it "raises SignatureVerificationFailed when signature isn't provided" do
       expect_callback(:fetch_public_key, "id@example.tld").and_return(private_key.public_key)
 
-      expect {
-        test_class.new({}).verify_signature("id@example.tld", :my_signature)
-      }.to raise_error(DiasporaFederation::Entities::Signable::SignatureVerificationFailed)
+      expect { test_class.new({}).verify_signature("id@example.tld", :my_signature) }.to raise_error(
+        DiasporaFederation::Entities::Signable::SignatureVerificationFailed
+      )
     end
 
     it "raises SignatureVerificationFailed when signature is wrong" do
       expect_callback(:fetch_public_key, "id@example.tld").and_return(private_key.public_key)
 
       expect {
-        test_class
-          .new(my_signature: "faked signature")
-          .verify_signature("id@example.tld", :my_signature)
+        test_class.new(my_signature: "faked signature").verify_signature("id@example.tld", :my_signature)
       }.to raise_error(DiasporaFederation::Entities::Signable::SignatureVerificationFailed)
     end
   end

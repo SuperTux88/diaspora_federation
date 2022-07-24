@@ -12,10 +12,10 @@ This entity is sent when a person closed the account.
 
 ## Example
 
-~~~xml
+```xml
 <account_deletion>
   <author>alice@example.org</author>
 </account_deletion>
-~~~
+```
 
 [diaspora-id]: {{ site.baseurl }}/federation/types.html#diaspora-id

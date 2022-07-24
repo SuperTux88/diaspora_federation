@@ -14,13 +14,13 @@ This entity represents the location data, it is nested in a [StatusMessage][stat
 
 ## Example
 
-~~~xml
+```xml
 <location>
   <address>Vienna, Austria</address>
   <lat>48.208174</lat>
   <lng>16.373819</lng>
 </location>
-~~~
+```
 
 [string]: {{ site.baseurl }}/federation/types.html#string
 [float]: {{ site.baseurl }}/federation/types.html#float

@@ -15,8 +15,7 @@ kramdown:
   toc_levels: 2..2
 
 defaults:
-  -
-    scope:
+  - scope:
       path: ""
     values:
       layout: "default"

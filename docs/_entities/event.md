@@ -9,7 +9,7 @@ See also: [EventParticipation][event_participation]
 ## Properties
 
 | Property  | Type (Length)                | Editable | Description                                   |
-| --------- | ---------------------------- |:--------:| --------------------------------------------- |
+| --------- | ---------------------------- | :------: | --------------------------------------------- |
 | `author`  | [diaspora\* ID][diaspora-id] |    ✘     | The diaspora\* ID of the author of the event. |
 | `guid`    | [GUID][guid]                 |    ✘     | The GUID of the event.                        |
 | `summary` | [String][string] (255)       |    ✔     | The summary of the event.                     |
@@ -18,7 +18,7 @@ See also: [EventParticipation][event_participation]
 ## Optional Properties
 
 | Property      | Type (Length)                | Editable | Description                                                                                                                                                                                                                                     |
-| ------------- | ---------------------------- |:--------:| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ------------- | ---------------------------- | :------: | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `end`         | [Timestamp][timestamp]       |    ✔     | The end time of the event (in UTC). If missing it is an open-end or a single `all_day` event.                                                                                                                                                   |
 | `all_day`     | [Boolean][boolean]           |    ✔     | `true` if it is an all day event. Time/timezone is ignored. `false` by default.                                                                                                                                                                 |
 | `timezone`    | [Timezone][timezone]         |    ✔     | If the event is fixed to a specific timezone, this can be set. The `start`/`end` timestamps are then displayed in this timezone. This is useful for local events. If missing or empty the timestamps are displayed in the timezone of the user. |
@@ -30,7 +30,7 @@ See also: [EventParticipation][event_participation]
 
 ### With start, end and timezone
 
-~~~xml
+```xml
 <event>
   <author>alice@example.org</author>
   <guid>bb8371f0b1c901342ebd55853a9b5d75</guid>
@@ -46,11 +46,11 @@ See also: [EventParticipation][event_participation]
     <lng>16.373819</lng>
   </location>
 </event>
-~~~
+```
 
 ### All day event
 
-~~~xml
+```xml
 <event>
   <author>alice@example.org</author>
   <guid>bb8371f0b1c901342ebd55853a9b5d75</guid>
@@ -66,7 +66,7 @@ See also: [EventParticipation][event_participation]
     <lng>16.373819</lng>
   </location>
 </event>
-~~~
+```
 
 [event_participation]: {{ site.baseurl }}/entities/event_participation.html
 [diaspora-id]: {{ site.baseurl }}/federation/types.html#diaspora-id

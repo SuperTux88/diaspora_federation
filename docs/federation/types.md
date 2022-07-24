@@ -5,19 +5,19 @@ title: Value types and formats
 This page describes which types are used for values of the [federation entities][entities], and in which format they
 need to be.
 
-* TOC
+- TOC
 {:toc}
 
 ## diaspora\* ID
 
 A network-wide identifier of a person. The diaspora\* ID has the following parts:
 
-* `username`: This is the username of the person on the server. A username can contain:
-  * Letters: `a-z`
-  * Numbers: `0-9`
-  * Special chars: `-`, `_` and `.`
-* `hostname`: The hostname of the server. It can be any valid hostname.
-* `port`: If the server doesn't listen on the default port of https (443) or http (80), the diaspora\* ID also contains the port number.
+- `username`: This is the username of the person on the server. A username can contain:
+  - Letters: `a-z`
+  - Numbers: `0-9`
+  - Special chars: `-`, `_` and `.`
+- `hostname`: The hostname of the server. It can be any valid hostname.
+- `port`: If the server doesn't listen on the default port of https (443) or http (80), the diaspora\* ID also contains the port number.
 
 The diaspora\* ID is at most 255 chars long and it must be lowercase.
 
@@ -27,11 +27,11 @@ Examples: `alice@example.org`, `bob@example.com:3000`
 
 A network-wide, unique identifier. A random string of at least 16 and at most 255 chars. It contains only:
 
-* Letters: `a-z` and `A-Z`
-* Numbers: `0-9`
-* Special chars: `-`, `_`, `@`, `.` and `:`
+- Letters: `a-z` and `A-Z`
+- Numbers: `0-9`
+- Special chars: `-`, `_`, `@`, `.` and `:`
 
- Special chars aren't allowed at the end.
+Special chars aren't allowed at the end.
 
 Example: `298962a0b8dc0133e40d406c8f31e210`
 

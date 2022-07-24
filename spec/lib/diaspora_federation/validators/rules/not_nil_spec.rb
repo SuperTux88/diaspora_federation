@@ -3,9 +3,7 @@
 describe Validation::Rule::NotNil do
   it "will not accept parameters" do
     validator = Validation::Validator.new({})
-    expect {
-      validator.rule(:not_nil, not_nil: { param: true })
-    }.to raise_error ArgumentError
+    expect { validator.rule(:not_nil, not_nil: { param: true }) }.to raise_error ArgumentError
   end
 
   it "has an error key" do
@@ -13,9 +11,7 @@ describe Validation::Rule::NotNil do
   end
 
   context "when validating" do
-    before do
-      stub_const("ValueHolder", Struct.new(:value))
-    end
+    before { stub_const("ValueHolder", Struct.new(:value)) }
 
     it "validates a string" do
       validator = Validation::Validator.new(ValueHolder.new("abcd"))

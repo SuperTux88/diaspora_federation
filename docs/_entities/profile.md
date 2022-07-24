@@ -4,7 +4,7 @@ title: Profile
 
 This entity contains all the profile data of a person.
 
-The profile consists of two parts. The first is the base profile with the name, 
+The profile consists of two parts. The first is the base profile with the name,
 the avatar and the tags of the person. This part is always public and visible to
 everyone. The boolean flags (`searchable`, `public` and `nsfw`) are metadata and
 public too.
@@ -22,13 +22,13 @@ only contain the base profile.
 ## Properties
 
 | Property | Type                         | Editable | Description                      |
-| -------- | ---------------------------- |:--------:| -------------------------------- |
+| -------- | ---------------------------- | :------: | -------------------------------- |
 | `author` | [diaspora\* ID][diaspora-id] |    ✘     | The diaspora\* ID of the person. |
 
 ## Optional Properties
 
 | Property           | Type (Length)                | Editable | Description                                                                                              |
-| ------------------ | ---------------------------- |:--------:| -------------------------------------------------------------------------------------------------------- |
+| ------------------ | ---------------------------- | :------: | -------------------------------------------------------------------------------------------------------- |
 | `edited_at`        | [Timestamp][timestamp]       |    ✔     | The timestamp when the profile was edited.                                                               |
 | `full_name`        | [Name][name] (70)            |    ✔     | The full name of the person.                                                                             |
 | `first_name`       | [Name][name] (32)            |    ✔     | The first name of the person.                                                                            |
@@ -47,7 +47,7 @@ only contain the base profile.
 
 ## Example
 
-~~~xml
+```xml
 <profile>
   <author>alice@example.org</author>
   <edited_at>2018-01-23T01:19:56Z</edited_at>
@@ -66,7 +66,7 @@ only contain the base profile.
   <nsfw>false</nsfw>
   <tag_string>#i #love #tags</tag_string>
 </profile>
-~~~
+```
 
 [diaspora-id]: {{ site.baseurl }}/federation/types.html#diaspora-id
 [timestamp]: {{ site.baseurl }}/federation/types.html#timestamp

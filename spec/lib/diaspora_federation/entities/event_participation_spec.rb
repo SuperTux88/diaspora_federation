@@ -5,12 +5,14 @@ module DiasporaFederation
     let(:parent) { Fabricate(:event, author: bob) }
     let(:parent_entity) { Fabricate(:related_entity, author: bob.diaspora_id) }
     let(:data) do
-      Fabricate.attributes_for(
-        :event_participation_entity,
-        author: alice.diaspora_id,
-        parent_guid: parent.guid,
-        parent: parent_entity
-      ).tap { |hash| add_signatures(hash) }
+      Fabricate
+        .attributes_for(
+          :event_participation_entity,
+          author: alice.diaspora_id,
+          parent_guid: parent.guid,
+          parent: parent_entity
+        )
+        .tap { |hash| add_signatures(hash) }
     end
 
     let(:xml) { <<~XML }

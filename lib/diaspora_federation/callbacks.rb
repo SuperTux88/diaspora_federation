@@ -14,7 +14,7 @@ module DiasporaFederation
     #
     # @param [Hash] events event keys
     def initialize(events)
-      @events   = events
+      @events = events
       @handlers = {}
     end
 

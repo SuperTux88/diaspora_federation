@@ -128,9 +128,7 @@ module DiasporaFederation
         add_simple_property(content, :full_name, "fn", @full_name)
         add_simple_property(content, :searchable, "searchable", @searchable)
 
-        add_property(content, :key) do |html|
-          html.pre(@public_key.to_s, class: "key")
-        end
+        add_property(content, :key) { |html| html.pre(@public_key.to_s, class: "key") }
 
         # TODO: remove me!  ###################
         add_simple_property(content, :first_name, "given_name", @first_name)
@@ -158,7 +156,6 @@ module DiasporaFederation
           photo_small_url: photo_from_doc(doc, :photo_small),
           searchable: (content_from_doc(doc, :searchable) == "true"),
           public_key: content_from_doc(doc, :key),
-
           # TODO: remove first_name and last_name!
           first_name: content_from_doc(doc, :given_name),
           last_name: content_from_doc(doc, :family_name)
@@ -180,9 +177,7 @@ module DiasporaFederation
             html.body do
               html.div(id: "content") do
                 html.h1(@full_name)
-                html.div(id: "content_inner", class: "entity_profile vcard author") do
-                  html.h2("User profile")
-                end
+                html.div(id: "content_inner", class: "entity_profile vcard author") { html.h2("User profile") }
               end
             end
           end
@@ -201,9 +196,7 @@ module DiasporaFederation
         Nokogiri::HTML::Builder.with(container) do |html|
           html.dl(class: "entity_#{name}") do
             html.dt(name.to_s.capitalize)
-            html.dd do
-              yield html
-            end
+            html.dd { yield html }
           end
         end
       end
@@ -215,9 +208,7 @@ module DiasporaFederation
       # @param value [#to_s] property value
       # @see HCard#add_property
       def add_simple_property(container, name, class_name, value)
-        add_property(container, name) do |html|
-          html.span(value.to_s, class: class_name)
-        end
+        add_property(container, name) { |html| html.span(value.to_s, class: class_name) }
       end
 
       # Calls {HCard#add_property} to add the photos
