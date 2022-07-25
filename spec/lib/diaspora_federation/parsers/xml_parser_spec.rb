@@ -7,9 +7,7 @@ module DiasporaFederation
       let(:xml_parser) { Parsers::XmlParser.new(entity_class) }
 
       it "expects an Nokogiri::XML::Element as param" do
-        expect {
-          Entities::TestEntity.from_xml(Entities::TestEntity.new(test: "asdf").to_xml)
-        }.not_to raise_error
+        expect { Entities::TestEntity.from_xml(Entities::TestEntity.new(test: "asdf").to_xml) }.not_to raise_error
       end
 
       it "raises an error when the entity class doesn't match the root node" do
@@ -19,7 +17,7 @@ module DiasporaFederation
           </unknown_entity>
         XML
 
-        expect { xml_parser.parse(Nokogiri::XML(xml).root) }.to raise_error(
+        expect { xml_parser.parse(Nokogiri.XML(xml).root) }.to raise_error(
           Parsers::BaseParser::InvalidRootNode,
           "'unknown_entity' can't be parsed by DiasporaFederation::Entities::TestComplexEntity"
         )
@@ -27,10 +25,7 @@ module DiasporaFederation
 
       it "raises an error when the param is not an Nokogiri::XML::Element" do
         ["asdf", 1234, true, :test].each do |val|
-          expect { xml_parser.parse(val) }.to raise_error(
-            ArgumentError,
-            "only Nokogiri::XML::Element allowed"
-          )
+          expect { xml_parser.parse(val) }.to raise_error(ArgumentError, "only Nokogiri::XML::Element allowed")
         end
       end
 
@@ -43,7 +38,7 @@ module DiasporaFederation
           </test_default_entity>
         XML
 
-        parsed = Parsers::XmlParser.new(Entities::TestDefaultEntity).parse(Nokogiri::XML(xml).root)
+        parsed = Parsers::XmlParser.new(Entities::TestDefaultEntity).parse(Nokogiri.XML(xml).root)
 
         expect(parsed[0][:test1]).to eq("asdf")
         expect(parsed[0][:test2]).to eq("qwer")
@@ -57,7 +52,7 @@ module DiasporaFederation
           </test_entity_with_boolean>
         XML
 
-        parsed = Parsers::XmlParser.new(Entities::TestEntityWithBoolean).parse(Nokogiri::XML(xml).root)
+        parsed = Parsers::XmlParser.new(Entities::TestEntityWithBoolean).parse(Nokogiri.XML(xml).root)
         expect(parsed[0][:test]).to eq(false)
       end
 
@@ -69,9 +64,7 @@ module DiasporaFederation
             </test_entity_with_boolean>
           XML
 
-          parsed = Parsers::XmlParser.new(Entities::TestEntityWithBoolean).parse(
-            Nokogiri::XML(xml).root
-          )
+          parsed = Parsers::XmlParser.new(Entities::TestEntityWithBoolean).parse(Nokogiri.XML(xml).root)
           expect(parsed[0][:test]).to be_nil
         end
       end
@@ -84,9 +77,7 @@ module DiasporaFederation
             </test_entity_with_integer>
           XML
 
-          parsed = Parsers::XmlParser.new(Entities::TestEntityWithInteger).parse(
-            Nokogiri::XML(xml).root
-          )
+          parsed = Parsers::XmlParser.new(Entities::TestEntityWithInteger).parse(Nokogiri.XML(xml).root)
           expect(parsed[0][:test]).to be_nil
         end
       end
@@ -99,9 +90,7 @@ module DiasporaFederation
             </test_entity_with_timestamp>
           XML
 
-          parsed = Parsers::XmlParser.new(Entities::TestEntityWithTimestamp).parse(
-            Nokogiri::XML(xml).root
-          )
+          parsed = Parsers::XmlParser.new(Entities::TestEntityWithTimestamp).parse(Nokogiri.XML(xml).root)
           expect(parsed[0][:test]).to be_nil
         end
       end
@@ -110,9 +99,7 @@ module DiasporaFederation
         let(:child_entity1) { Entities::TestEntity.new(test: "bla") }
         let(:child_entity2) { Entities::OtherEntity.new(asdf: "blabla") }
         let(:nested_entity) do
-          Entities::TestNestedEntity.new(asdf: "QWERT",
-                                         test: child_entity1,
-                                         multi: [child_entity2, child_entity2])
+          Entities::TestNestedEntity.new(asdf: "QWERT", test: child_entity1, multi: [child_entity2, child_entity2])
         end
         let(:nested_payload) { nested_entity.to_xml }
 
@@ -144,7 +131,7 @@ module DiasporaFederation
           </test_default_entity>
         XML
 
-        parsed = Parsers::XmlParser.new(Entities::TestDefaultEntity).parse(Nokogiri::XML(xml).root)
+        parsed = Parsers::XmlParser.new(Entities::TestDefaultEntity).parse(Nokogiri.XML(xml).root)
         expect(parsed[0]["test_new"]).to eq("new_value")
       end
     end

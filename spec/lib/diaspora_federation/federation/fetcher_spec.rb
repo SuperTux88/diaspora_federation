@@ -7,17 +7,15 @@ module DiasporaFederation
 
     describe ".fetch_public" do
       it "fetches a public post with symbol as type param" do
-        stub_request(:get, "https://example.org/fetch/post/#{post.guid}")
-          .to_return(status: 200, body: post_magic_env)
+        stub_request(:get, "https://example.org/fetch/post/#{post.guid}").to_return(status: 200, body: post_magic_env)
 
-        expect_callback(:fetch_person_url_to, post.author, "/fetch/post/#{post.guid}")
-          .and_return("https://example.org/fetch/post/#{post.guid}")
+        expect_callback(:fetch_person_url_to, post.author, "/fetch/post/#{post.guid}").and_return(
+          "https://example.org/fetch/post/#{post.guid}"
+        )
         expect_callback(:fetch_public_key, post.author).and_return(alice.public_key)
 
         receiver = double
-        expect(Federation::Receiver::Public).to receive(:new).with(
-          kind_of(Salmon::MagicEnvelope)
-        ) do |magic_env|
+        expect(Federation::Receiver::Public).to receive(:new).with(kind_of(Salmon::MagicEnvelope)) do |magic_env|
           expect(magic_env.payload.guid).to eq(post.guid)
           expect(magic_env.payload.author).to eq(post.author)
           expect(magic_env.payload.text).to eq(post.text)
@@ -30,17 +28,15 @@ module DiasporaFederation
       end
 
       it "fetches a public post with class name as type param" do
-        stub_request(:get, "https://example.org/fetch/post/#{post.guid}")
-          .to_return(status: 200, body: post_magic_env)
+        stub_request(:get, "https://example.org/fetch/post/#{post.guid}").to_return(status: 200, body: post_magic_env)
 
-        expect_callback(:fetch_person_url_to, post.author, "/fetch/post/#{post.guid}")
-          .and_return("https://example.org/fetch/post/#{post.guid}")
+        expect_callback(:fetch_person_url_to, post.author, "/fetch/post/#{post.guid}").and_return(
+          "https://example.org/fetch/post/#{post.guid}"
+        )
         expect_callback(:fetch_public_key, post.author).and_return(alice.public_key)
 
         receiver = double
-        expect(Federation::Receiver::Public).to receive(:new).with(
-          kind_of(Salmon::MagicEnvelope)
-        ) do |magic_env|
+        expect(Federation::Receiver::Public).to receive(:new).with(kind_of(Salmon::MagicEnvelope)) do |magic_env|
           expect(magic_env.payload.guid).to eq(post.guid)
           expect(magic_env.payload.author).to eq(post.author)
           expect(magic_env.payload.text).to eq(post.text)
@@ -53,30 +49,32 @@ module DiasporaFederation
       end
 
       it "follows redirects" do
-        stub_request(:get, "https://example.org/fetch/post/#{post.guid}")
-          .to_return(status: 302, headers: { "Location" => "https://example.com/fetch/post/#{post.guid}" })
-        stub_request(:get, "https://example.com/fetch/post/#{post.guid}")
-          .to_return(status: 200, body: post_magic_env)
+        stub_request(:get, "https://example.org/fetch/post/#{post.guid}").to_return(
+          status: 302,
+          headers: {
+            "Location" => "https://example.com/fetch/post/#{post.guid}"
+          }
+        )
+        stub_request(:get, "https://example.com/fetch/post/#{post.guid}").to_return(status: 200, body: post_magic_env)
 
-        expect_callback(:fetch_person_url_to, post.author, "/fetch/post/#{post.guid}")
-          .and_return("https://example.org/fetch/post/#{post.guid}")
+        expect_callback(:fetch_person_url_to, post.author, "/fetch/post/#{post.guid}").and_return(
+          "https://example.org/fetch/post/#{post.guid}"
+        )
         expect_callback(:fetch_public_key, post.author).and_return(alice.public_key)
 
         receiver = double
-        expect(Federation::Receiver::Public).to receive(:new).with(
-          kind_of(Salmon::MagicEnvelope)
-        ).and_return(receiver)
+        expect(Federation::Receiver::Public).to receive(:new).with(kind_of(Salmon::MagicEnvelope)).and_return(receiver)
         expect(receiver).to receive(:receive)
 
         Federation::Fetcher.fetch_public(post.author, :post, post.guid)
       end
 
       it "raises NotFetchable if post not found (private)" do
-        stub_request(:get, "https://example.org/fetch/post/#{post.guid}")
-          .to_return(status: 404)
+        stub_request(:get, "https://example.org/fetch/post/#{post.guid}").to_return(status: 404)
 
-        expect_callback(:fetch_person_url_to, post.author, "/fetch/post/#{post.guid}")
-          .and_return("https://example.org/fetch/post/#{post.guid}")
+        expect_callback(:fetch_person_url_to, post.author, "/fetch/post/#{post.guid}").and_return(
+          "https://example.org/fetch/post/#{post.guid}"
+        )
 
         expect {
           Federation::Fetcher.fetch_public(post.author, :post, post.guid)
@@ -84,12 +82,14 @@ module DiasporaFederation
       end
 
       it "raises NotFetchable if connection refused" do
-        expect(HttpClient).to receive(:get).with(
-          "https://example.org/fetch/post/#{post.guid}"
-        ).and_raise(Faraday::ConnectionFailed, "Couldn't connect to server")
+        expect(HttpClient).to receive(:get).with("https://example.org/fetch/post/#{post.guid}").and_raise(
+          Faraday::ConnectionFailed,
+          "Couldn't connect to server"
+        )
 
-        expect_callback(:fetch_person_url_to, post.author, "/fetch/post/#{post.guid}")
-          .and_return("https://example.org/fetch/post/#{post.guid}")
+        expect_callback(:fetch_person_url_to, post.author, "/fetch/post/#{post.guid}").and_return(
+          "https://example.org/fetch/post/#{post.guid}"
+        )
 
         expect {
           Federation::Fetcher.fetch_public(post.author, :post, post.guid)
@@ -107,11 +107,11 @@ module DiasporaFederation
         [post1, post2].each do |post|
           post_magic_env = Salmon::MagicEnvelope.new(post, post.author).envelop(alice.private_key).to_xml
 
-          stub_request(:get, "https://example.org/fetch/post/#{post.guid}")
-            .to_return(status: 200, body: post_magic_env)
+          stub_request(:get, "https://example.org/fetch/post/#{post.guid}").to_return(status: 200, body: post_magic_env)
 
-          expect_callback(:fetch_person_url_to, post.author, "/fetch/post/#{post.guid}")
-            .and_return("https://example.org/fetch/post/#{post.guid}")
+          expect_callback(:fetch_person_url_to, post.author, "/fetch/post/#{post.guid}").and_return(
+            "https://example.org/fetch/post/#{post.guid}"
+          )
           expect_callback(:fetch_related_entity, "Post", post.guid).and_return(nil)
           expect_callback(:receive_entity, kind_of(DiasporaFederation::Entities::StatusMessage), post.author, nil)
         end
@@ -122,20 +122,22 @@ module DiasporaFederation
       end
 
       it "allows to fetch the same entity in two different threads" do
-        stub_request(:get, "https://example.org/fetch/post/#{post.guid}")
-          .to_return(status: 200, body: lambda { |_|
-            sleep 0.1
-            post_magic_env
-          })
+        stub_request(:get, "https://example.org/fetch/post/#{post.guid}").to_return(
+          status: 200,
+          body:
+            lambda do |_|
+              sleep 0.1
+              post_magic_env
+            end
+        )
 
-        expect_callback(:fetch_person_url_to, post.author, "/fetch/post/#{post.guid}")
-          .twice.and_return("https://example.org/fetch/post/#{post.guid}")
+        expect_callback(:fetch_person_url_to, post.author, "/fetch/post/#{post.guid}").twice.and_return(
+          "https://example.org/fetch/post/#{post.guid}"
+        )
         expect_callback(:fetch_public_key, post.author).twice.and_return(alice.public_key)
         expect_callback(:receive_entity, kind_of(DiasporaFederation::Entities::StatusMessage), post.author, nil).twice
 
-        threads = Array.new(2).map do
-          Thread.new { Federation::Fetcher.fetch_public(post.author, :post, post.guid) }
-        end
+        threads = Array.new(2).map { Thread.new { Federation::Fetcher.fetch_public(post.author, :post, post.guid) } }
         threads.each(&:join)
       end
     end

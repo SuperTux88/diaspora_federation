@@ -19,19 +19,28 @@ module DiasporaFederation
 
     describe "#initialize" do
       it "filters signatures from order" do
-        signature_order =
-          [:author, :guid, :parent_guid, :property, "new_property", :author_signature, "parent_author_signature"]
+        signature_order = [
+          :author,
+          :guid,
+          :parent_guid,
+          :property,
+          "new_property",
+          :author_signature,
+          "parent_author_signature"
+        ]
 
-        expect(Entities::SomeRelayable.new(hash, signature_order).signature_order)
-          .to eq([:author, :guid, :parent_guid, :property, "new_property"])
+        expect(Entities::SomeRelayable.new(hash, signature_order).signature_order).to eq(
+          [:author, :guid, :parent_guid, :property, "new_property"]
+        )
       end
 
       it "filters signatures from additional_data" do
         signature_order = [:author, :guid, :parent_guid, :property, "new_property"]
         additional_data = { "new_property" => "foobar", "parent_author_signature" => "bb" }
 
-        expect(Entities::SomeRelayable.new(hash, signature_order, additional_data).additional_data)
-          .to eq("new_property" => "foobar")
+        expect(Entities::SomeRelayable.new(hash, signature_order, additional_data).additional_data).to eq(
+          "new_property" => "foobar"
+        )
       end
     end
 
@@ -81,9 +90,7 @@ module DiasporaFederation
         hash[:author_signature] = nil
         hash[:parent] = Fabricate(:related_entity, author: author, local: false)
 
-        expect {
-          Entities::SomeRelayable.new(hash, signature_order).verify_signature
-        }.not_to raise_error
+        expect { Entities::SomeRelayable.new(hash, signature_order).verify_signature }.not_to raise_error
       end
 
       it "doesn't raise when no author signature was passed, but the author is also the author of the root entity" do
@@ -91,9 +98,7 @@ module DiasporaFederation
         root = Fabricate(:related_entity, author: author, local: false)
         hash[:parent] = Fabricate(:related_entity, author: Fabricate.sequence(:diaspora_id), local: false, parent: root)
 
-        expect {
-          Entities::SomeRelayable.new(hash, signature_order).verify_signature
-        }.not_to raise_error
+        expect { Entities::SomeRelayable.new(hash, signature_order).verify_signature }.not_to raise_error
       end
 
       it "raises when bad author signature was passed" do
@@ -121,18 +126,16 @@ module DiasporaFederation
 
       it "adds new unknown xml elements to the xml again" do
         signature_order = [:author, :guid, :parent_guid, :property, "new_property"]
-        xml = Entities::SomeRelayable.new(
-          hash_with_fake_signatures, signature_order, "new_property" => new_property
-        ).to_xml
+        xml =
+          Entities::SomeRelayable.new(hash_with_fake_signatures, signature_order, "new_property" => new_property).to_xml
 
         expect(xml.to_s.strip).to eq(expected_xml.strip)
       end
 
       it "accepts string names of known properties in signature_order" do
         signature_order = %w[author guid parent_guid property new_property]
-        xml = Entities::SomeRelayable.new(
-          hash_with_fake_signatures, signature_order, "new_property" => new_property
-        ).to_xml
+        xml =
+          Entities::SomeRelayable.new(hash_with_fake_signatures, signature_order, "new_property" => new_property).to_xml
 
         expect(xml.to_s.strip).to eq(expected_xml.strip)
       end
@@ -158,9 +161,12 @@ module DiasporaFederation
         XML
 
         signature_order = [:author, :guid, :parent_guid, :property, "new_property"]
-        xml = Entities::SomeRelayable.new(
-          hash_with_fake_signatures.merge(property: nil), signature_order, "new_property" => new_property
-        ).to_xml
+        xml =
+          Entities::SomeRelayable.new(
+            hash_with_fake_signatures.merge(property: nil),
+            signature_order,
+            "new_property" => new_property
+          ).to_xml
 
         expect(xml.to_s.strip).to eq(expected_xml.strip)
       end
@@ -232,9 +238,7 @@ module DiasporaFederation
       it "raises when author_signature not set and key isn't supplied" do
         expect_callback(:fetch_private_key, author).and_return(nil)
 
-        expect {
-          Entities::SomeRelayable.new(hash).to_xml
-        }.to raise_error Entities::Relayable::AuthorPrivateKeyNotFound
+        expect { Entities::SomeRelayable.new(hash).to_xml }.to raise_error Entities::Relayable::AuthorPrivateKeyNotFound
       end
 
       it "does not add author_signature when author is also the root author" do
@@ -289,17 +293,15 @@ module DiasporaFederation
         XML
 
         it "doesn't drop unknown properties" do
-          entity = Entities::SomeRelayable.from_xml(Nokogiri::XML(new_xml).root)
+          entity = Entities::SomeRelayable.from_xml(Nokogiri.XML(new_xml).root)
 
           expect(entity).to be_an_instance_of Entities::SomeRelayable
           expect(entity.property).to eq(property)
-          expect(entity.additional_data).to eq(
-            "new_property" => new_property
-          )
+          expect(entity.additional_data).to eq("new_property" => new_property)
         end
 
         it "hand over the order in the xml to the instance without signatures" do
-          entity = Entities::SomeRelayable.from_xml(Nokogiri::XML(new_xml).root)
+          entity = Entities::SomeRelayable.from_xml(Nokogiri.XML(new_xml).root)
 
           expect(entity.signature_order).to eq([:author, :guid, :parent_guid, "new_property", :property])
         end
@@ -325,7 +327,7 @@ module DiasporaFederation
           XML
 
           expect {
-            Entities::SomeRelayable.from_xml(Nokogiri::XML(broken_xml).root)
+            Entities::SomeRelayable.from_xml(Nokogiri.XML(broken_xml).root)
           }.to raise_error Entity::ValidationError, "Invalid SomeRelayable! Missing 'parent_guid'."
         end
 
@@ -337,7 +339,7 @@ module DiasporaFederation
           XML
 
           expect {
-            Entities::SomeRelayable.from_xml(Nokogiri::XML(broken_xml).root)
+            Entities::SomeRelayable.from_xml(Nokogiri.XML(broken_xml).root)
           }.to raise_error Entity::ValidationError, "Invalid SomeRelayable:#{guid}! Missing 'parent_guid'."
         end
 
@@ -349,7 +351,7 @@ module DiasporaFederation
           XML
 
           expect {
-            Entities::SomeRelayable.from_xml(Nokogiri::XML(broken_xml).root)
+            Entities::SomeRelayable.from_xml(Nokogiri.XML(broken_xml).root)
           }.to raise_error Entity::ValidationError, "Invalid SomeRelayable from #{author}! Missing 'parent_guid'."
         end
       end
@@ -367,19 +369,24 @@ module DiasporaFederation
 
       it "uses property order for filling property_order when no signature_order supplied" do
         entity = entity_class.new(hash_with_fake_signatures)
-        expect(
-          entity.to_json.to_json
-        ).to include_json(property_order: %w[author guid parent_guid property])
+        expect(entity.to_json.to_json).to include_json(property_order: %w[author guid parent_guid property])
       end
 
       it "adds new unknown elements to the json again" do
         property_order = [:author, :guid, :parent_guid, :property, "new_property"]
-        json = Entities::SomeRelayable.new(hash_with_fake_signatures, property_order, "new_property" => new_property)
-                                      .to_json.to_json
+        json =
+          Entities::SomeRelayable
+            .new(hash_with_fake_signatures, property_order, "new_property" => new_property)
+            .to_json
+            .to_json
 
         expect(json).to include_json(
-          entity_data: { new_property: new_property },
-          property_order: { 4 => "new_property" }
+          entity_data: {
+            new_property: new_property
+          },
+          property_order: {
+            4 => "new_property"
+          }
         )
       end
 
@@ -387,10 +394,7 @@ module DiasporaFederation
         property_order = [:author, :guid, :parent_guid, :property, "new_property"]
         json = Entities::SomeRelayable.new(hash_with_fake_signatures, property_order).to_json.to_json
 
-        expect(json).to include_json(
-          entity_data: { new_property: nil },
-          property_order: { 4 => "new_property" }
-        )
+        expect(json).to include_json(entity_data: { new_property: nil }, property_order: { 4 => "new_property" })
       end
 
       it "computes correct author_signature for the entity with new unknown elements" do
@@ -524,11 +528,7 @@ module DiasporaFederation
         end
 
         let(:entity) { Entities::SomeRelayable.new(hash) }
-        let(:data) do
-          entity.to_h.tap do |hash|
-            hash.delete(:parent)
-          end
-        end
+        let(:data) { entity.to_h.tap { |hash| hash.delete(:parent) } }
 
         it "fetches the parent from the backend" do
           expect_callback(:fetch_related_entity, "Parent", parent_guid).and_return(remote_parent)

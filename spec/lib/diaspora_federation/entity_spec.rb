@@ -319,12 +319,7 @@ module DiasporaFederation
       end
 
       it "calls .from_hash with the entity_data of json hash" do
-        json = {
-          "entity_type" => "test_entity",
-          "entity_data" => {
-            "test" => "value"
-          }
-        }
+        json = { "entity_type" => "test_entity", "entity_data" => { "test" => "value" } }
         expect(Entities::TestEntity).to receive(:json_parser_class).and_call_original
         expect_any_instance_of(Parsers::JsonParser).to receive(:parse).with(json).and_call_original
         expect(Entities::TestEntity).to receive(:from_hash).with(test: "value")

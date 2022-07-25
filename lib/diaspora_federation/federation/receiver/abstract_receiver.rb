@@ -40,11 +40,7 @@ module DiasporaFederation
         end
 
         def sender_valid?
-          if entity.respond_to?(:sender_valid?)
-            entity.sender_valid?(sender)
-          else
-            sender == entity.author
-          end
+          entity.respond_to?(:sender_valid?) ? entity.sender_valid?(sender) : sender == entity.author
         end
 
         def fetch_linked_entities_from_text

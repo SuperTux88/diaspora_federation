@@ -12,9 +12,7 @@ module DiasporaFederation
     let(:hydra) { Typhoeus::Hydra.new }
     let(:hydra_wrapper) { Federation::Sender::HydraWrapper.new(sender_id, obj_str) }
 
-    before do
-      allow(Typhoeus::Hydra).to receive(:new).and_return(hydra)
-    end
+    before { allow(Typhoeus::Hydra).to receive(:new).and_return(hydra) }
 
     describe "#insert_magic_env_request" do
       it "queues a request to hydra" do
@@ -22,7 +20,8 @@ module DiasporaFederation
         expect(Typhoeus::Request).to receive(:new).with(
           url,
           Federation::Sender::HydraWrapper.hydra_opts.merge(
-            body: xml, headers: Federation::Sender::HydraWrapper.xml_headers
+            body: xml,
+            headers: Federation::Sender::HydraWrapper.xml_headers
           )
         ).and_call_original
 
@@ -43,7 +42,8 @@ module DiasporaFederation
         expect(Typhoeus::Request).to receive(:new).with(
           url,
           Federation::Sender::HydraWrapper.hydra_opts.merge(
-            body: json, headers: Federation::Sender::HydraWrapper.json_headers
+            body: json,
+            headers: Federation::Sender::HydraWrapper.json_headers
           )
         ).and_call_original
 
@@ -69,13 +69,7 @@ module DiasporaFederation
         )
       end
       let(:error_response) do
-        Typhoeus::Response.new(
-          code: 0,
-          body: "",
-          time: 0.2,
-          effective_url: url2,
-          return_code: :couldnt_resolve_host
-        )
+        Typhoeus::Response.new(code: 0, body: "", time: 0.2, effective_url: url2, return_code: :couldnt_resolve_host)
       end
 
       before do
@@ -107,13 +101,8 @@ module DiasporaFederation
         expect_callback(:update_pod, "http://example.net/", 404)
         allow(DiasporaFederation.callbacks).to receive(:trigger)
 
-        not_found = Typhoeus::Response.new(
-          code: 404,
-          body: "",
-          time: 0.2,
-          effective_url: "http://example.net/",
-          return_code: :ok
-        )
+        not_found =
+          Typhoeus::Response.new(code: 404, body: "", time: 0.2, effective_url: "http://example.net/", return_code: :ok)
         Typhoeus.stub("http://example.net/receive/not_found").and_return(not_found)
         hydra_wrapper.insert_magic_env_request("http://example.net/receive/not_found", xml)
 

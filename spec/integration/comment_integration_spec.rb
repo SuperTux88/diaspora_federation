@@ -36,7 +36,12 @@ module DiasporaFederation
     let(:parent) { Fabricate(:related_entity, author: bob.diaspora_id) }
     let(:comment) do
       Entities::Comment.new(
-        author: author, guid: guid, parent_guid: parent_guid, text: text, parent: parent, new_data: new_data
+        author: author,
+        guid: guid,
+        parent_guid: parent_guid,
+        text: text,
+        parent: parent,
+        new_data: new_data
       )
     end
 
@@ -101,7 +106,7 @@ module DiasporaFederation
         expect_callback(:fetch_public_key, author).and_return(author_key.public_key)
         expect_callback(:fetch_related_entity, "Post", parent_guid).and_return(parent)
 
-        xml = Nokogiri::XML(comment_xml_alice_with_new_data).root
+        xml = Nokogiri.XML(comment_xml_alice_with_new_data).root
         Entity.entity_class(xml.name).from_xml(xml).to_xml
       end
     end
@@ -113,13 +118,13 @@ module DiasporaFederation
       end
 
       it "relays new order" do
-        xml = Nokogiri::XML(comment_xml_alice).root
+        xml = Nokogiri.XML(comment_xml_alice).root
         entity = Entity.entity_class(xml.name).from_xml(xml)
         expect(entity.to_xml.to_xml).to eq(comment_xml_bob.strip)
       end
 
       it "relays new data" do
-        xml = Nokogiri::XML(comment_xml_alice_with_new_data).root
+        xml = Nokogiri.XML(comment_xml_alice_with_new_data).root
         entity = Entity.entity_class(xml.name).from_xml(xml)
         expect(entity.to_xml.to_xml).to eq(comment_xml_bob_with_new_data.strip)
       end
@@ -134,7 +139,7 @@ module DiasporaFederation
       end
 
       it "parses legacy order with new xml format" do
-        xml = Nokogiri::XML(comment_xml_bob_legacy_order).root
+        xml = Nokogiri.XML(comment_xml_bob_legacy_order).root
         entity = Entity.entity_class(xml.name).from_xml(xml)
 
         expect(entity.author).to eq(author)
@@ -142,7 +147,7 @@ module DiasporaFederation
       end
 
       it "parses new xml format" do
-        xml = Nokogiri::XML(comment_xml_bob).root
+        xml = Nokogiri.XML(comment_xml_bob).root
         entity = Entity.entity_class(xml.name).from_xml(xml)
 
         expect(entity.author).to eq(author)
@@ -150,7 +155,7 @@ module DiasporaFederation
       end
 
       it "parses new data with new xml format" do
-        xml = Nokogiri::XML(comment_xml_bob_with_new_data).root
+        xml = Nokogiri.XML(comment_xml_bob_with_new_data).root
         entity = Entity.entity_class(xml.name).from_xml(xml)
 
         expect(entity.author).to eq(author)

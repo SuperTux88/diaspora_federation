@@ -40,9 +40,7 @@ module DiasporaFederation
     describe "#envelop" do
       context "sanity" do
         it "raises an error if the param types are wrong" do
-          ["asdf", 1234, :test, false].each do |val|
-            expect { envelope.envelop(val) }.to raise_error ArgumentError
-          end
+          ["asdf", 1234, :test, false].each { |val| expect { envelope.envelop(val) }.to raise_error ArgumentError }
         end
       end
 
