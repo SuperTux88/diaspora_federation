@@ -6,6 +6,7 @@ This page describes which types are used for values of the [federation entities]
 need to be.
 
 <!-- prettier-ignore-start -->
+
 - TOC
 {:toc}
 <!-- prettier-ignore-end -->

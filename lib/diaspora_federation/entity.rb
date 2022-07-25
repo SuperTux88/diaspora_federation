@@ -103,11 +103,9 @@ module DiasporaFederation
     # prettier-ignore
     def to_xml
       doc = Nokogiri::XML::Document.new
-      Nokogiri::XML::Element.new(self.class.entity_name, doc).tap do |root_element|
-        xml_elements.each do |name, value|
-          add_property_to_xml(doc, root_element, name, value)
-        end
-      end
+      Nokogiri::XML::Element
+        .new(self.class.entity_name, doc)
+        .tap { |root_element| xml_elements.each { |name, value| add_property_to_xml(doc, root_element, name, value) } }
     end
 
     # Construct a new instance of the given Entity and populate the properties
@@ -317,9 +315,7 @@ module DiasporaFederation
     # prettier-ignore
     def simple_node(doc, name, value)
       # prettier-ignore-start
-      Nokogiri::XML::Element.new(name.to_s, doc).tap do |node|
-        node.content = value unless value.empty?
-      end
+      Nokogiri::XML::Element.new(name.to_s, doc).tap { |node| node.content = value unless value.empty? }
       # prettier-ignore-end
     end
 

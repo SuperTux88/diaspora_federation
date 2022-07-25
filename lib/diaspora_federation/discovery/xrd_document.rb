@@ -193,9 +193,7 @@ module DiasporaFederation
           .each do |node|
             link = {}
             # prettier-ignore-start
-            LINK_ATTRS.each do |attr|
-              link[attr] = node[attr.to_s] if node.key?(attr.to_s)
-            end
+            LINK_ATTRS.each { |attr| link[attr] = node[attr.to_s] if node.key?(attr.to_s) }
             # prettier-ignore-end
             links << link
           end
@@ -206,11 +204,7 @@ module DiasporaFederation
       # prettier-ignore
       private_class_method def self.symbolize_keys_for_links(links)
         # prettier-ignore-start
-        links&.map do |link|
-          LINK_ATTRS.filter_map { |attr|
-            [attr, link[attr.to_s]] if link.key?(attr.to_s)
-          }.to_h
-        end
+        links&.map { |link| LINK_ATTRS.filter_map { |attr| [attr, link[attr.to_s]] if link.key?(attr.to_s) }.to_h }
         # prettier-ignore-end
       end
     end

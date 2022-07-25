@@ -226,27 +226,9 @@ module DiasporaFederation
 
     describe "#to_json" do
       # prettier-ignore-start
-      let(:basic_props) do
-        {
-          test1: "123",
-          test2: false,
-          test3: "456",
-          test4: 789,
-          test5: Time.now.utc
-        }
-      end
+      let(:basic_props) { { test1: "123", test2: false, test3: "456", test4: 789, test5: Time.now.utc } }
 
-      let(:hash) do
-        basic_props.merge(
-          test6: {
-            test: "000"
-          },
-          multi: [
-            { asdf: "01" },
-            { asdf: "02" }
-          ]
-        )
-      end
+      let(:hash) { basic_props.merge(test6: { test: "000" }, multi: [{ asdf: "01" }, { asdf: "02" }]) }
       # prettier-ignore-end
       let(:entity_class) { Entities::TestComplexEntity }
 
@@ -453,11 +435,7 @@ module DiasporaFederation
 
       # prettier-ignore-start
       let(:nested_hash) do
-        {
-          asdf: nested_data[:asdf],
-          test: nested_data[:test].to_h,
-          multi: nested_data[:multi].map(&:to_h)
-        }
+        { asdf: nested_data[:asdf], test: nested_data[:test].to_h, multi: nested_data[:multi].map(&:to_h) }
       end
       # prettier-ignore-end
 
