@@ -45,6 +45,7 @@ Status: 200 OK
 Content-Type: text/html; charset=utf-8
 ```
 
+<!-- prettier-ignore-start -->
 ```html
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -131,6 +132,7 @@ OFxcL+/diwyswWkVbeaNCrrdfz8LTDQcWv8GA6olBOx7RlgVb7k3HonHaQjaI+xv
   </body>
 </html>
 ```
+<!-- prettier-ignore-end -->
 
 ## Additional information and specifications
 

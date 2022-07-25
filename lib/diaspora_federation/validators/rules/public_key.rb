@@ -16,13 +16,18 @@ module Validation
       end
 
       # Determines if value is a valid public key
+      # prettier-ignore
       def valid_value?(value)
-        !value.nil? && (
+        return false if value.nil?
+
+        # prettier-ignore-start
+        (
           (value.strip.start_with?("-----BEGIN PUBLIC KEY-----") &&
            value.strip.end_with?("-----END PUBLIC KEY-----")) ||
           (value.strip.start_with?("-----BEGIN RSA PUBLIC KEY-----") &&
             value.strip.end_with?("-----END RSA PUBLIC KEY-----"))
         )
+        # prettier-ignore-end
       end
 
       # This rule has no params.

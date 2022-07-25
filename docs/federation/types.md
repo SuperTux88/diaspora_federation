@@ -5,8 +5,10 @@ title: Value types and formats
 This page describes which types are used for values of the [federation entities][entities], and in which format they
 need to be.
 
+<!-- prettier-ignore-start -->
 - TOC
 {:toc}
+<!-- prettier-ignore-end -->
 
 ## diaspora\* ID
 

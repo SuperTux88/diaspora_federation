@@ -225,6 +225,7 @@ module DiasporaFederation
     end
 
     describe "#to_json" do
+      # prettier-ignore-start
       let(:basic_props) do
         {
           test1: "123",
@@ -246,6 +247,7 @@ module DiasporaFederation
           ]
         )
       end
+      # prettier-ignore-end
       let(:entity_class) { Entities::TestComplexEntity }
 
       it "generates expected JSON data" do
@@ -448,6 +450,8 @@ module DiasporaFederation
           multi: [Entities::OtherEntity.new(asdf: "asdf"), Entities::OtherEntity.new(asdf: "asdf")]
         }
       end
+
+      # prettier-ignore-start
       let(:nested_hash) do
         {
           asdf: nested_data[:asdf],
@@ -455,6 +459,7 @@ module DiasporaFederation
           multi: nested_data[:multi].map(&:to_h)
         }
       end
+      # prettier-ignore-end
 
       it "gets returned as Hash by #to_h" do
         entity = Entities::TestNestedEntity.new(nested_data)

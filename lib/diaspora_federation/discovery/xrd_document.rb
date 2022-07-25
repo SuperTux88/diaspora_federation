@@ -185,27 +185,33 @@ module DiasporaFederation
         data[:properties] = properties unless properties.empty?
       end
 
+      # prettier-ignore
       private_class_method def self.parse_links_from_xml_doc(doc, data)
         links = []
-        doc.xpath("xrd:XRD/xrd:Link", NS).each do |node|
-          link = {}
-          LINK_ATTRS.each do |attr|
-            link[attr] = node[attr.to_s] if node.key?(attr.to_s)
+        doc
+          .xpath("xrd:XRD/xrd:Link", NS)
+          .each do |node|
+            link = {}
+            # prettier-ignore-start
+            LINK_ATTRS.each do |attr|
+              link[attr] = node[attr.to_s] if node.key?(attr.to_s)
+            end
+            # prettier-ignore-end
+            links << link
           end
-          links << link
-        end
         data[:links] = links unless links.empty?
       end
 
       # symbolize link keys from JSON hash, but only convert known keys
+      # prettier-ignore
       private_class_method def self.symbolize_keys_for_links(links)
+        # prettier-ignore-start
         links&.map do |link|
-          {}.tap do |hash|
-            LINK_ATTRS.each do |attr|
-              hash[attr] = link[attr.to_s] if link.key?(attr.to_s)
-            end
-          end
+          LINK_ATTRS.filter_map { |attr|
+            [attr, link[attr.to_s]] if link.key?(attr.to_s)
+          }.to_h
         end
+        # prettier-ignore-end
       end
     end
   end

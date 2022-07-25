@@ -100,6 +100,7 @@ module DiasporaFederation
     # @see Nokogiri::XML::Node.to_xml
     #
     # @return [Nokogiri::XML::Element] root element containing properties as child elements
+    # prettier-ignore
     def to_xml
       doc = Nokogiri::XML::Document.new
       Nokogiri::XML::Element.new(self.class.entity_name, doc).tap do |root_element|
@@ -313,10 +314,13 @@ module DiasporaFederation
     end
 
     # Create simple node, fill it with text and append to root
+    # prettier-ignore
     def simple_node(doc, name, value)
+      # prettier-ignore-start
       Nokogiri::XML::Element.new(name.to_s, doc).tap do |node|
         node.content = value unless value.empty?
       end
+      # prettier-ignore-end
     end
 
     # Generates a hash with entity properties which is put to the "entity_data"
