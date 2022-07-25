@@ -24,12 +24,7 @@ module DiasporaFederation
       it_behaves_like "a property with a value validation/restriction" do
         let(:property) { :poll_answers }
         let(:wrong_values) { [nil, [Fabricate.attributes_for(:poll_answer_entity)]] }
-        let(:correct_values) do
-          [
-            Array.new(2) { Fabricate(:poll_answer_entity) },
-            Array.new(5) { Fabricate(:poll_answer_entity) }
-          ]
-        end
+        let(:correct_values) { [2, 5].map { |n| Array.new(n) { Fabricate(:poll_answer_entity) } } }
       end
     end
   end
