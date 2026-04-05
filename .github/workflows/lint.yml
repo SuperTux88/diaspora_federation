@@ -52,6 +52,7 @@ jobs:
           git restore -s ${{ github.base_ref }} -- bin/bundle
           git restore -s ${{ github.base_ref }} -- Gemfile
           git restore -s ${{ github.base_ref }} -- Gemfile.lock
+          git restore -s ${{ github.base_ref }} -- "*.gemspec"
       - name: Run Pronto
         run: bin/bundle exec pronto run -f github_status github_pr_review -c ${{ github.base_ref }}
         env:
