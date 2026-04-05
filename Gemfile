@@ -58,14 +58,19 @@ group :development, :test do
   gem "rake"
 
   # unit tests
-  gem "rspec", "~> 3.12.0"
+  gem "rspec", "~> 3.13.0"
 
   unless ENV["RAILS_VERSION"] == "none"
-    gem "rspec-rails", "~> 5.1.2"
+    # rspec-rails 7.x requires Rails >= 7.0; use 6.x for Rails 6.1
+    if ENV["RAILS_VERSION"]&.start_with?("6.")
+      gem "rspec-rails", "~> 6.1"
+    else
+      gem "rspec-rails", "~> 7.1"
+    end
 
     # The default rails version needs to be kept up to date also in:
     # - test/dummy/config/application.rb (config.load_defaults)
     # - .github/workflows/ci.yml ('Delete Gemfile.lock' step)
-    gem "actionpack", "~> #{ENV['RAILS_VERSION'] || '7.0'}.0"
+    gem "actionpack", "~> #{ENV['RAILS_VERSION'] || '8.1'}.0"
   end
 end

@@ -20,18 +20,32 @@ jobs:
           - "3.0"
           - "2.7"
         rails:
+          - "8.1"
+          - "8.0"
+          - "7.2"
+          - "7.1"
           - "7.0"
           - "6.1"
-          - "6.0"
-          - "5.2"
           - "none"
         exclude:
-          - ruby: "3.2"
-            rails: "5.2"
-          - ruby: "3.1"
-            rails: "5.2"
+          # Rails 7.2+ requires Ruby >= 3.1
+          - ruby: "2.7"
+            rails: "7.2"
           - ruby: "3.0"
-            rails: "5.2"
+            rails: "7.2"
+          # Rails 8.0+ requires Ruby >= 3.2
+          - ruby: "2.7"
+            rails: "8.0"
+          - ruby: "3.0"
+            rails: "8.0"
+          - ruby: "3.1"
+            rails: "8.0"
+          - ruby: "2.7"
+            rails: "8.1"
+          - ruby: "3.0"
+            rails: "8.1"
+          - ruby: "3.1"
+            rails: "8.1"
     env:
       RAILS_VERSION: ${{ matrix.rails }}
       BUNDLE_WITHOUT: development
@@ -41,7 +55,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Delete Gemfile.lock
         run: rm Gemfile.lock
-        if: matrix.rails != '7.0' # Gemfile.lock is only generated for latest rails version
+        if: matrix.rails != '8.1' # Gemfile.lock is only generated for latest rails version
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}

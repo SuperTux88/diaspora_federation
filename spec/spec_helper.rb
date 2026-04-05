@@ -16,6 +16,11 @@ end
 
 dummy_app_path = File.join(File.dirname(__FILE__), "..", "test", "dummy")
 
+# Rails 6.1 with concurrent-ruby >= 1.3 no longer loads
+# logger as a side effect; require it explicitly so that
+# ActiveSupport::LoggerThreadSafeLevel can reference Logger.
+require "logger"
+
 begin
   require "rails" # try to load rails
 rescue LoadError

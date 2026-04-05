@@ -44,7 +44,8 @@ module DiasporaFederation
       it "raises when the resource parameter is missing" do
         expect {
           get :webfinger, format: :json
-        }.to raise_error ActionController::ParameterMissing, /param is missing or the value is empty: resource/
+        }.to raise_error ActionController::ParameterMissing,
+                         /param is missing or the value is empty( or invalid)?: resource/
       end
 
       it "calls the fetch_person_for_webfinger callback" do

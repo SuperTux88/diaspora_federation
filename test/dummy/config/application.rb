@@ -24,7 +24,7 @@ require "diaspora_federation/rails"
 module Dummy
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults(ENV["RAILS_VERSION"] || "7.0")
+    config.load_defaults(ENV["RAILS_VERSION"] || "8.1")
 
     # Configuration for the application, engines, and railties goes here.
     #
