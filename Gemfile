@@ -45,7 +45,7 @@ group :test do
 
   # test coverage
   gem "simplecov",                 "0.22.0",   require: false
-  gem "simplecov-rcov",            "0.3.1",    require: false
+  gem "simplecov-rcov",            "0.3.7",    require: false
 
   # test helpers
   gem "json-schema",               "~> 6.0"
