@@ -6,13 +6,18 @@ rescue LoadError
   puts "You must `gem install bundler` and `bundle install` to run rake tasks"
 end
 
-require "rdoc/task"
-
-RDoc::Task.new(:rdoc) do |rdoc|
-  rdoc.rdoc_dir = "rdoc"
-  rdoc.title    = "DiasporaFederation"
-  rdoc.options << "--line-numbers"
-  rdoc.rdoc_files.include("lib/**/*.rb")
+begin
+  require "rdoc/task"
+  RDoc::Task.new(:rdoc) do |rdoc|
+    rdoc.rdoc_dir = "rdoc"
+    rdoc.title    = "DiasporaFederation"
+    rdoc.options << "--line-numbers"
+    rdoc.rdoc_files.include("lib/**/*.rb")
+  end
+rescue LoadError
+  # rdoc is not part of the default gems since Ruby 4.0 and is only
+  # installed in the :development bundle group; gracefully skip the
+  # task in CI where BUNDLE_WITHOUT=development is set.
 end
 
 if defined?(Rails)

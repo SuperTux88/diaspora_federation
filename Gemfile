@@ -32,7 +32,8 @@ group :development do
   gem "pry-byebug"
 
   # documentation
-  gem "yard", require: false
+  gem "rdoc",  require: false
+  gem "yard",  require: false
 
   # rails needs this for development
   gem "listen"

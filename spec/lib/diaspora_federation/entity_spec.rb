@@ -80,7 +80,7 @@ module DiasporaFederation
         it "contains the params of the failed rule" do
           expect {
             Entities::TestDefaultEntity.new(invalid_data)
-          }.to raise_error Entity::ValidationError, /rule: regular_expression, with params: \{:regex=>.*\}/
+          }.to raise_error Entity::ValidationError, /rule: regular_expression, with params: \{(:regex=>|regex:).*\}/
         end
 
         it "adds the guid to the error message if available" do

@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     diaspora_federation (1.1.0)
+      base64
       faraday (>= 1.0, < 3)
       faraday-follow_redirects (~> 0.3)
       nokogiri (~> 1.6, >= 1.6.8)
@@ -310,6 +311,7 @@ DEPENDENCIES
   pry
   pry-byebug
   rake
+  rdoc
   rspec (~> 3.13.0)
   rspec-collection_matchers (~> 1.2.0)
   rspec-json_expectations (~> 2.1)

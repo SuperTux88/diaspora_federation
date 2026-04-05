@@ -22,5 +22,5 @@ Gem::Specification.new do |s|
 
   s.files = Dir["lib/diaspora_federation/schemas.rb", "lib/diaspora_federation/schemas/*.json"]
 
-  s.required_ruby_version = ">= 2.7"
+  s.required_ruby_version = ">= 3.0"
 end

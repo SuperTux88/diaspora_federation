@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
 
   s.files = Dir["lib/diaspora_federation/test.rb", "lib/diaspora_federation/test/*"]
 
-  s.required_ruby_version = ">= 2.7"
+  s.required_ruby_version = ">= 3.0"
 
   s.add_dependency "diaspora_federation", DiasporaFederation::VERSION
   s.add_dependency "fabrication", "~> 2.29"
