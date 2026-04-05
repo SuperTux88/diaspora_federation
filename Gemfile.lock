@@ -102,8 +102,9 @@ GEM
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
     json (2.19.3)
-    json-schema (4.0.0)
-      addressable (>= 2.8)
+    json-schema (6.2.0)
+      addressable (~> 2.8)
+      bigdecimal (>= 3.1, < 5)
     language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
     listen (3.8.0)
@@ -298,7 +299,7 @@ DEPENDENCIES
   diaspora_federation-rails!
   diaspora_federation-test!
   fuubar (= 2.5.1)
-  json-schema (~> 4.0)
+  json-schema (~> 6.0)
   listen
   nyan-cat-formatter
   pronto (= 0.11.5)
