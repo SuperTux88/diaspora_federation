@@ -134,11 +134,11 @@ module DiasporaFederation
               "Not a JRD document: #{e.class}: #{e.message[0..255].encode(Encoding.default_external, undef: :replace)}"
       end
 
+      NS = {xrd: XMLNS}.freeze
+
       private
 
       attr_reader :expires, :subject
-
-      NS = {xrd: XMLNS}.freeze
 
       def add_aliases_to(xml)
         aliases.each do |a|
@@ -174,10 +174,7 @@ module DiasporaFederation
       end
 
       private_class_method def self.parse_aliases_from_xml_doc(doc, data)
-        aliases = []
-        doc.xpath("xrd:XRD/xrd:Alias", NS).each do |node|
-          aliases << node.content
-        end
+        aliases = doc.xpath("xrd:XRD/xrd:Alias", NS).map(&:content)
         data[:aliases] = aliases unless aliases.empty?
       end
 

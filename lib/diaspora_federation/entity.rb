@@ -227,8 +227,10 @@ module DiasporaFederation
     end
 
     def setable_multi?(type, val)
+      # rubocop:disable Style/PredicateWithKind -- instance_of? is intentionally stricter than is_a?
       type.instance_of?(Array) && val.instance_of?(Array) &&
         (val.all? {|v| v.instance_of?(type.first) } || val.all? {|v| v.instance_of?(Hash) })
+      # rubocop:enable Style/PredicateWithKind
     end
 
     def nilify(value)
@@ -267,9 +269,7 @@ module DiasporaFederation
 
     # @return [Hash] hash with all properties
     def properties
-      self.class.class_props.keys.each_with_object({}) do |prop, hash|
-        hash[prop] = public_send(prop)
-      end
+      self.class.class_props.keys.to_h {|prop| [prop, public_send(prop)] }
     end
 
     def normalized_properties

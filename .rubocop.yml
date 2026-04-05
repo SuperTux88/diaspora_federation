@@ -1,10 +1,11 @@
-require:
+plugins:
   - rubocop-rails
   - rubocop-rake
 
 AllCops:
   TargetRubyVersion: 2.7
   NewCops: enable
+  SuggestExtensions: false
   Exclude:
     - "bin/**/*"
     - "test/dummy/bin/**/*"
@@ -225,3 +226,23 @@ Style/DateTime:
   Exclude:
     - "lib/diaspora_federation/discovery/xrd_document.rb"
     - "spec/lib/diaspora_federation/discovery/xrd_document_spec.rb"
+
+# validators.rb intentionally opens two top-level modules (Validation::Rule and DiasporaFederation::Validators)
+Style/OneClassPerFile:
+  Exclude:
+    - "lib/diaspora_federation/validators.rb"
+
+# memoization with find_by is intentional in test helpers
+Rails/FindByOrAssignmentMemoization:
+  Exclude:
+    - "spec/support/**/*"
+
+# searchable is an attribute name (not a predicate method) used throughout the codebase
+Naming/PredicateMethod:
+  Exclude:
+    - "test/dummy/app/models/*"
+
+# puts in the test dummy initializer is intentional for debugging
+Rails/Output:
+  Exclude:
+    - "test/dummy/config/**/*"

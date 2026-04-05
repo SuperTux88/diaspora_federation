@@ -19,7 +19,7 @@ class Entity
     end
 
     def database
-      @database ||= Hash.new({})
+      @database ||= Hash.new {|h, k| h[k] = {} }
     end
 
     def reset_database
